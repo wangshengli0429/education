@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="student">
+    
+    <resultMap type="com.education.framework.model.student.Student" id="queryStudentResult">
+    	<result property="id" column="id"/>
+    	<result property="userId" column="user_id"/>
+    	<result property="student" column="student"/>
+    	<result property="gender" column="gender"/>
+    	<result property="age" column="age"/>
+    	<result property="nativePlace" column="native_place"/>
+    	<result property="province" column="province"/>
+    	<result property="city" column="city"/>
+    	<result property="district" column="district"/>
+    	<result property="address" column="address"/>
+    	<result property="idCard" column="id_card"/>
+    	<result property="selfDescr" column="self_descr"/>
+    	<result property="photo" column="photo"/>
+    	<result property="remark" column="remark"/>
+    </resultMap>
+    
+    <select id="queryStudentById" parameterType="com.education.framework.model.student.Student" resultType="student">
+    	select id,user_id,student,gender,age,native_place,province,city,district,address,id_card,self_descr,photo,remark
+    	
+<!--     时间格式化	 date_format(created_at,'%Y-%m-%d %H:%i:%s') as created_at, -->
+    	from t_student 
+    	
+    	<where>
+	    	 <if test="id!=null and id!=''"> AND id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND user_id = #{userId}</if>
+	    	 <if test="student!=null and student!=''"> AND student = #{student}</if>
+    	</where> 
+    </select>
+    
+    <select id="findAllStudent" parameterType="java.util.Map" resultType="student">
+        select
+        id,user_id,student,gender,age,native_place,province,city,district,address,id_card,self_descr,photo,remark
+        from t_student t
+		<where>
+	    	 <if test="id!=null and id!=''"> AND id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND user_id = #{userId}</if>
+	    	 <if test="student!=null and student!=''"> AND student = #{student}</if>
+    	</where> 
+        order by t.id asc
+        <if test="rowStart != null and pageSize != null">
+         limit ${rowStart}, ${pageSize}
+        </if>
+    </select>
+    
+     <select id="findStudentCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(t.id)
+        from t_student t
+       <where>
+	    	 <if test="id!=null and id!=''"> AND id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND user_id = #{userId}</if>
+	    	 <if test="student!=null and student!=''"> AND student = #{student}</if>
+    	</where> 
+    </select>
+    
+    <update id="updateStrudentById" parameterType="com.education.framework.model.student.Student">
+    	update t_student 
+    	<set>
+    		 <if test="student!= null and student!=''" >  
+		       	 student = #{student,jdbcType=VARCHAR},  
+		     </if>  
+		     <if test="gender!= null and gender!=''" >  
+		       	 gender = #{gender,jdbcType=VARCHAR},  
+		     </if>
+		     <if test="age" >  
+		       	age = #{age,jdbcType=int},  
+		     </if>
+		     <if test="native_place!=null and native_place!=''" >  
+		       	native_place!= = #{nativePlace,jdbcType=VARCHAR},  
+		     </if>
+		     <if test="province!=null and province!=''" >  
+		         province = #{province,jdbcType=VARCHAR},  
+		     </if>
+		     <if test="city!=null and city!=''">
+		      	city = #{city,jdbcType=VARCHAR},  
+		     </if>
+		     <if test="district!=null and district!=''">
+		      	district = #{district,jdbcType=VARCHAR},  
+		     </if>
+		     <if test="address!=null and address!=''">
+		      	address = #{address,jdbcType=VARCHAR},  
+		     </if>
+		     <if test="idCard!=null and idCard!=''">
+		      	id_card = #{idCard,jdbcType=VARCHAR},  
+		     </if>
+		     <if test="selfDescr!=null and selfDescr!=''">
+		      	self_descr = #{selfDescr,jdbcType=VARCHAR},  
+		     </if>
+		     <if test="photo!=null and photo!=''">
+		      	photo = #{photo,jdbcType=VARCHAR},  
+		     </if>
+		     <if test="remark!=null and remark!=''">
+		      	remark = #{remark,jdbcType=VARCHAR},  
+		     </if>
+		      
+    	</set>
+    	where id=#{id}
+    </update>
+    
+    <insert id="insertStudent" parameterType="com.education.framework.model.student.Student">
+    	insert into t_student
+    	(id
+    	<if test="userId">,user_id</if>
+    	<if test="student">,student</if>
+    	<if test="gender">,gender</if>
+    	<if test="age">,age</if>
+    	<if test="nativePlace">,native_place</if>
+    	<if test="province">,province</if>
+    	<if test="city">,city</if>
+    	<if test="district">,district</if>
+    	<if test="idCard">,id_card</if>
+    	<if test="selfDescr">,self_descr</if>
+    	<if test="photo">,photo</if>
+    	<if test="remark">,remark</if>
+    	)
+    	values(#{id}
+		<if test="userId">,user_id</if>
+    	<if test="student">,student</if>
+    	<if test="gender">,gender</if>
+    	<if test="age">,age</if>
+    	<if test="nativePlace">,native_place</if>
+    	<if test="province">,province</if>
+    	<if test="city">,city</if>
+    	<if test="district">,district</if>
+    	<if test="idCard">,id_card</if>
+    	<if test="selfDescr">,self_descr</if>
+    	<if test="photo">,photo</if>
+    	<if test="remark">,remark</if>
+    	)
+    </insert>
+    
+    <delete id="deleteStudentById" parameterType="java.lang.String">
+    
+    	delete t_student where id=#{id}
+    </delete>
+</mapper>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+            http://www.springframework.org/schema/beans/spring-beans-4.3.xsd 
+            http://www.springframework.org/schema/mvc 
+            http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd 
+            http://www.springframework.org/schema/context 
+            http://www.springframework.org/schema/context/spring-context-4.3.xsd 
+            http://www.springframework.org/schema/aop 
+            http://www.springframework.org/schema/aop/spring-aop-4.3.xsd 
+            http://www.springframework.org/schema/tx 
+            http://www.springframework.org/schema/tx/spring-tx-4.3.xsd ">
+    <!-- 部署时文件自定义，选用时可以将下面的去掉 -->
+    <!-- <context:property-placeholder order="1"
+                                  location="file:/home/work/business/message_zh_CN.properties,
+                                  file:/home/work/business/config/config.properties"
+                                  ignore-unresolvable="true"
+                                  ignore-resource-not-found="true"/> -->
+    <!-- 配置文件 -->
+    <context:property-placeholder order="2"
+                                  location="classpath:properties/i18n/message_zh_CN.properties,classpath:config/config.properties"
+                                  ignore-unresolvable="true"
+                                  ignore-resource-not-found="true"/>
+    <!-- 初始化自定义常量 -->
+<!--     <bean class="org.education.framework.common.util.Const" init-method="init" lazy-init="false"/> -->
+            
+    <!-- 扫描service、dao组件 ,不扫描controller组件 -->
+    <context:component-scan base-package="com.education.framework" >
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+
+	 
+    <!-- 数据源 -->
+    <import resource="spring-db.xml"/>
+ <!-- 引入同文件夹下的redis属性配置文件 -->
+<!--     <import resource="redis-context.xml"/> -->
+</beans> 
