@@ -16,14 +16,15 @@
 <script type="text/javascript" src="<%=path %>/static/jquery-easyui-1.5.3/jquery.min.js"></script>
 <script type="text/javascript" src="<%=path %>/static/jquery-easyui-1.5.3/jquery.easyui.min.js"></script>
 </head>
-<body>
+<body style="margin: 0px;padding: 0px;">
 	 
-	<div style="margin:20px 0;"></div>
-	<div class="easyui-layout" style="width:700px;height:350px;">
-		<div data-options="region:'north'" style="height:50px"></div>
-		<div data-options="region:'south',split:true" style="height:50px;"></div>
-		<div data-options="region:'east',split:true" title="East" style="width:100px;"></div>
-		<div data-options="region:'west',split:true" title="West" style="width:100px;"></div>
+	<div class="easyui-layout" style="width:1360px;height:620px;fit:true;">
+		<div data-options="region:'north'" style="height:80px;width:1350px;fix:true;">top</div>
+		
+		<div data-options="region:'south',split:true" style="height:50px;">底部</div>
+		
+<!-- 		<div data-options="region:'east',split:true" title="East" style="width:100px;"></div> -->
+		<div data-options="region:'west',split:true" title="West" style="width:200px;">22</div>
 		<div data-options="region:'center',title:'Main Title',iconCls:'icon-ok'">
 			<table class="easyui-datagrid"
 					data-options="url:'datagrid_data1.json',method:'get',border:false,singleSelect:true,fit:true,fitColumns:true">
