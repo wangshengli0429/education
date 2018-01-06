@@ -192,12 +192,19 @@
 	            <artifactId>commons-dbcp</artifactId>  
 	            <version>1.2.2</version>  
 	        </dependency>  
-	        <!-- JSTL标签�?-->  
+	        <!-- JSTL标签 -->  
 	        <dependency>  
 	            <groupId>jstl</groupId>  
 	            <artifactId>jstl</artifactId>  
 	            <version>1.2</version>  
 	        </dependency>  
+	        <!-- https://mvnrepository.com/artifact/taglibs/standard -->
+			<dependency>
+			    <groupId>taglibs</groupId>
+			    <artifactId>standard</artifactId>
+			    <version>1.1.2</version>
+			</dependency>
+				        
 	        <!-- fast json -->  
 	        <dependency>  
 	            <groupId>com.alibaba</groupId>  
@@ -304,7 +311,13 @@
 	            <artifactId>javax.servlet-api</artifactId>  
 	            <version>3.1.0</version>  
 	            <scope>provided</scope>  
-	        </dependency>  
+	        </dependency> 
+	        <dependency>
+				<groupId>javax.servlet.jsp</groupId>
+				<artifactId>jsp-api</artifactId>
+				<version>2.1</version>
+				<scope>provided</scope>
+			</dependency> 
 	   		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
 			<dependency>
 			    <groupId>org.apache.httpcomponents</groupId>

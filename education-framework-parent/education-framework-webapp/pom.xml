@@ -171,7 +171,11 @@
         <dependency>  
             <groupId>jstl</groupId>  
             <artifactId>jstl</artifactId>  
-        </dependency>  
+        </dependency> 
+        <dependency>
+		    <groupId>taglibs</groupId>
+		    <artifactId>standard</artifactId>
+		</dependency> 
         <!-- fast json -->  
         <dependency>  
             <groupId>com.alibaba</groupId>  
@@ -235,7 +239,11 @@
             <artifactId>javax.servlet-api</artifactId>  
             <scope>provided</scope>  
         </dependency>  
-        
+         <dependency>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>jsp-api</artifactId>
+			<scope>provided</scope>
+		</dependency> 
 	   <dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-web</artifactId>
