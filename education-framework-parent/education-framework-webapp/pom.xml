@@ -271,7 +271,17 @@
 					<skip>true</skip>
 				</configuration>
 			</plugin>
-			
+			<plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <configuration>
+                    <url>http://localhost:8080/education-framework-webapp/</url>
+                    <server>tomcat</server>
+                    <username>tomcat</username>
+                    <password>tomcat</password>
+                    <path>education-framework-webapp</path>
+                </configuration>
+            </plugin>
 		 
 		</plugins>
 		<resources>  
