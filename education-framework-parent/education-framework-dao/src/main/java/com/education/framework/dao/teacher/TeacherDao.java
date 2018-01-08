@@ -16,20 +16,12 @@ import com.education.framework.model.teacher.Teacher;
  * <p>修改者姓名 修改内容说明</p>
  */
 public interface TeacherDao {
-	/**
-	 * 查询所有学生
-	 * @param map
-	 * @return
-	 */
+	
 	List<Teacher> findAllTeacher(Map<String, Object> map);
 	int findTeacherCount(Map<String, Object> map);
-	/**
-	 * 删除学生
-	 * @param id
-	 * @return
-	 */
+	 
 	int deleteTeacherById(String id);
 	int insertTeacher(Teacher teacher);
-	int updateStrudentById(Teacher teacher);
+	int updateTeacherById(Teacher teacher);
 	Teacher queryTeacherById(Map<String, Object> map);
 }

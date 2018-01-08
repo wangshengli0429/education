@@ -59,7 +59,7 @@
     	</where> 
     </select>
     
-    <update id="updateStrudentById" parameterType="com.education.framework.model.teacher.Teacher">
+    <update id="updateTeacherById" parameterType="com.education.framework.model.teacher.Teacher">
     	update t_teacher 
     	<set>
     		 <if test="teacherName!= null and teacherName!=''" >  
