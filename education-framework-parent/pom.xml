@@ -16,6 +16,7 @@
     <module>education-framework-service-api</module>
     <module>education-framework-student</module>
     <module>education-framework-authority</module>
+    <module>education-framework-teacher</module>
   </modules>
   
   
