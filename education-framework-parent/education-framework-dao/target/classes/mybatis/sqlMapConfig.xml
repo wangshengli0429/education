@@ -9,6 +9,12 @@
         <typeAlias type="com.education.framework.model.user.User" alias="operater"/>
        
         <typeAlias type="com.education.framework.model.student.Student" alias="student"/>
+		<!-- 教师 -->
+        <typeAlias type="com.education.framework.model.teacher.Teacher" alias="teacher"/>
+        <typeAlias type="com.education.framework.model.teacher.TeacherCertificate" alias="teacherCertificate"/>
+        <typeAlias type="com.education.framework.model.teacher.TeacherCourse" alias="teacherCourse"/>
+        <typeAlias type="com.education.framework.model.teacher.TeacherTime" alias="teacherTime"/>
+
     </typeAliases>
     <!-- 这里不需要再注册mybatis的SQL映射文件 ，因为在Spring的配置文件中配置sqlSessionFactory时注册了mapper的路径-->
 </configuration>  
