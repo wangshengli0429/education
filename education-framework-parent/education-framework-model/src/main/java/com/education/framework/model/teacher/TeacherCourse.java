@@ -21,7 +21,13 @@ public class TeacherCourse  implements Serializable{
 	
 	private String id;
 	private String userId;
+	/**
+	 * 年级
+	 */
 	private String grade;
+	/**
+	 * 课程
+	 */
 	private String course;
 	public String getId() {
 		return id;

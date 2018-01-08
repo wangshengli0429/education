@@ -1,6 +1,7 @@
 package com.education.framework.model.teacher;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.alibaba.fastjson.JSON;
 
@@ -30,7 +31,7 @@ public class TeacherCertificate implements Serializable{
 	/**
 	 * 证书图片
 	 */
-	private String certificateRegDate;
+	private Date certificateRegDate;
 	/**
 	 * 描述
 	 */
@@ -53,10 +54,12 @@ public class TeacherCertificate implements Serializable{
 	public void setCertificateType(String certificateType) {
 		this.certificateType = certificateType;
 	}
-	public String getCertificateRegDate() {
+	 
+	
+	public Date getCertificateRegDate() {
 		return certificateRegDate;
 	}
-	public void setCertificateRegDate(String certificateRegDate) {
+	public void setCertificateRegDate(Date certificateRegDate) {
 		this.certificateRegDate = certificateRegDate;
 	}
 	public String getDescr() {

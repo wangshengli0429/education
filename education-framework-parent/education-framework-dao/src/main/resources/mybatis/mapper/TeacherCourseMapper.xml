@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="teacherCourse">
+    
+    <resultMap type="com.education.framework.model.teacher.TeacherCourse" id="queryTeacherCourseResult">
+    	<result property="id" column="id"/>
+    	<result property="userId" column="user_id"/>
+    	<result property="grade" column="grade"/>
+    	<result property="course" column="course"/>
+    	
+    </resultMap>
+    
+    <select id="queryTeacherCourseById" parameterType="com.education.framework.model.teacher.TeacherCourse" resultType="teacherCourse">
+    	select id,user_id,grade,course
+    	
+<!--     时间格式化	 date_format(created_at,'%Y-%m-%d %H:%i:%s') as created_at, -->
+    	from t_course 
+    	
+    	<where>
+	    	 <if test="id!=null and id!=''"> AND id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND user_id = #{userId}</if>
+	    	 <if test="grade!=null and grade!=''"> AND grade = #{grade}</if>
+	    	 <if test="course!=null and course!=''"> AND course = #{course}</if>
+    	</where> 
+    </select>
+    
+    <select id="findAllTeacherCourse" parameterType="java.util.Map" resultType="teacherCourse">
+        select
+        id,user_id,grade,course
+        from t_course t
+		<where>
+	    	 <if test="id!=null and id!=''"> AND id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND user_id = #{userId}</if>
+	    	 <if test="grade!=null and grade!=''"> AND grade = #{grade}</if>
+	    	 <if test="course!=null and course!=''"> AND course = #{course}</if>
+    	</where> 
+        order by t.id asc
+        <if test="rowStart != null and pageSize != null">
+         limit ${rowStart}, ${pageSize}
+        </if>
+    </select>
+    
+     <select id="findTeacherCourseCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(t.id)
+        from t_course t
+       <where>
+	    	 <if test="id!=null and id!=''"> AND id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND user_id = #{userId}</if>
+	    	 <if test="grade!=null and grade!=''"> AND grade = #{grade}</if>
+	    	 <if test="course!=null and course!=''"> AND course = #{course}</if>
+    	</where> 
+    </select>
+    
+    <update id="updateTeacherCourseById" parameterType="com.education.framework.model.teacher.TeacherCourse">
+    	update t_course 
+    	<set>
+	    	 <if test="grade!=null and grade!=''">
+		      	grade = #{grade,jdbcType=VARCHAR},  
+		     </if>
+	    	 <if test="course!=null and course!=''"> 
+		      	course = #{course,jdbcType=VARCHAR},  
+	    	 </if>
+    	</set>
+    	where id=#{id}
+    </update>
+    
+    <insert id="insertTeacherCourse" parameterType="com.education.framework.model.teacher.TeacherCourse">
+    	insert into t_course
+    	(id
+    	<if test="userId">,user_id</if>
+    	<if test="gender">,grade</if>
+    	<if test="age">,course</if>
+    	)
+    	values(#{id}
+		<if test="userId">,#{useId}</if>
+    	<if test="gender">,#{grade}</if>
+    	<if test="age">,#{course}</if>
+    	)
+    </insert>
+    
+    <delete id="deleteTeacherCourseById" parameterType="java.lang.String">
+    	delete t_course where id=#{id}
+    </delete>
+</mapper>

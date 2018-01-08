@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="teacherCertificate">
+    
+    <resultMap type="com.education.framework.model.teacher.TeacherCertificate" id="queryTeacherCertificateResult">
+    	<result property="id" column="id"/>
+    	<result property="userId" column="user_id"/>
+    	<result property="certificateType" column="certificate_type"/>
+    	<result property="certificateRegDate" column="certificate_reg_date"/>
+    	<result property="descr" column="descr"/>
+    	
+    </resultMap>
+    
+    <select id="queryTeacherCertificateById" parameterType="com.education.framework.model.teacher.TeacherCertificate" resultType="teacherCertificate">
+    	select id,user_id,certificate_type,
+    		   date_format(certificate_reg_date,'%Y-%m-%d %H:%i:%s') as certificateRegDate,
+    		   descr
+    	from t_teacher_certificate 
+    	
+    	<where>
+	    	 <if test="id!=null and id!=''"> AND id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND user_id = #{userId}</if>
+	    	 <if test="certificateType!=null and certificateType!=''"> AND certificate_type = #{certificateType}</if>
+	    	 <if test="certificateRegDate!=null and certificateRegDate!=''"> AND certificate_reg_date = date_format(#{certificateRegDate},'%Y-%m-%d %H:%i:%s')</if>
+	    	 <if test="descr!=null and descr!=''"> AND descr = #{descr}</if>
+    	</where> 
+    </select>
+    
+    <select id="findAllTeacherCertificate" parameterType="java.util.Map" resultType="teacherCertificate">
+        select
+        	   id,user_id,certificate_type,
+    		   date_format(certificate_reg_date,'%Y-%m-%d %H:%i:%s') as certificateRegDate,
+    		   descr
+        from t_teacher_certificate t
+		<where>
+	    	 <if test="id!=null and id!=''"> AND id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND user_id = #{userId}</if>
+	    	  <if test="certificateType!=null and certificateType!=''"> AND certificate_type = #{certificateType}</if>
+	    	 <if test="certificateRegDate!=null and certificateRegDate!=''"> AND certificate_reg_date = date_format(#{certificateRegDate},'%Y-%m-%d %H:%i:%s')</if>
+	    	 <if test="descr!=null and descr!=''"> AND descr = #{descr}</if>
+    	</where> 
+        order by t.id asc
+        <if test="rowStart != null and pageSize != null">
+         limit ${rowStart}, ${pageSize}
+        </if>
+    </select>
+    
+     <select id="findTeacherCertificateCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(t.id)
+        from t_teacher_certificate t
+       <where>
+	    	 <if test="id!=null and id!=''"> AND id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND user_id = #{userId}</if>
+	    	 <if test="certificateType!=null and certificateType!=''"> AND certificate_type = #{certificateType}</if>
+	    	 <if test="certificateRegDate!=null and certificateRegDate!=''"> AND certificate_reg_date = date_format(#{certificateRegDate},'%Y-%m-%d %H:%i:%s')</if>
+	    	 <if test="descr!=null and descr!=''"> AND descr = #{descr}</if>
+    	</where> 
+    </select>
+    
+    <update id="updateTeacherCertificateById" parameterType="com.education.framework.model.teacher.TeacherCertificate">
+    	update t_teacher_certificate 
+    	<set>
+	    	 <if test="certificateType!=null and certificateType!=''">
+		      	certificate_type = #{certificateType,jdbcType=VARCHAR},  
+		     </if>
+	    	 <if test="certificateRegDate!=null and certificateRegDate!=''"> 
+		      	certificate_reg_date = #{certificateRegDate,jdbcType=VARCHAR},  
+	    	 </if>
+	    	 <if test="descr!=null and descr!=''"> 
+		      	descr = #{descr,jdbcType=VARCHAR},  
+	    	 </if>
+    	</set>
+    	where id=#{id}
+    </update>
+    
+    <insert id="insertTeacherCertificate" parameterType="com.education.framework.model.teacher.TeacherCertificate">
+    	insert into t_teacher_certificate
+    	(id
+    	<if test="userId">,user_id</if>
+    	<if test="certificateType">,certificate_type</if>
+    	<if test="certificateRegDate">,certificate_reg_date</if>
+    	<if test="descr">,descr</if>
+    	)
+    	values(#{id}
+		<if test="userId">,#{userId}</if>
+    	<if test="certificateType">,#{certificateType}</if>
+    	<if test="certificateRegDate">,#{certificateType}</if>
+    	<if test="descr">,#{descr}</if>
+    	)
+    </insert>
+    
+    <delete id="deleteTeacherCertificateById" parameterType="java.lang.String">
+    	delete t_teacher_certificate where id=#{id}
+    </delete>
+</mapper>

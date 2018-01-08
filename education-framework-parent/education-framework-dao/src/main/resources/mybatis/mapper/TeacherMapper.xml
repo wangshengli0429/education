@@ -120,18 +120,18 @@
     	<if test="remark">,remark</if>
     	)
     	values(#{id}
-		<if test="userId">,user_id</if>
-    	<if test="teacherName">,teacher_name</if>
-    	<if test="gender">,gender</if>
-    	<if test="age">,age</if>
-    	<if test="nativePlace">,native_place</if>
-    	<if test="province">,province</if>
-    	<if test="city">,city</if>
-    	<if test="district">,district</if>
-    	<if test="idCard">,id_card</if>
-    	<if test="selfDescr">,self_descr</if>
-    	<if test="photo">,photo</if>
-    	<if test="remark">,remark</if>
+		<if test="userId">,#{userId}</if>
+    	<if test="teacherName">,#{teacherName}</if>
+    	<if test="gender">,#{gender}</if>
+    	<if test="age">,#{age}</if>
+    	<if test="nativePlace">,#{nativePlace}</if>
+    	<if test="province">,#{province}</if>
+    	<if test="city">,#{city}</if>
+    	<if test="district">,#{district}</if>
+    	<if test="idCard">,#{idCard}</if>
+    	<if test="selfDescr">,#{selfDescr}</if>
+    	<if test="photo">,#{photo}</if>
+    	<if test="remark">,#{remark}</if>
     	)
     </insert>
     

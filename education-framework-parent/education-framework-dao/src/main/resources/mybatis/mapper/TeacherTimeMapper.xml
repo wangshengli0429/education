@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="teacherTime">
+    
+    <resultMap type="com.education.framework.model.teacher.TeacherTimeTime" id="queryTeacherTimeResult">
+    	<result property="id" column="id"/>
+    	<result property="userId" column="user_id"/>
+    	<result property="grade" column="grade"/>
+    	<result property="course" column="course"/>
+    	<result property="beginTime" column="begin_time"/>
+    	<result property="endTime" column="end_time"/>
+    	
+    </resultMap>
+    
+    <select id="queryTeacherTimeById" parameterType="com.education.framework.model.teacher.TeacherTime" resultType="teacherTime">
+    	select id,user_id,grade,course,
+    	 date_format(begin_time,'%Y-%m-%d %H:%i:%s') as beginTime,
+    	 date_format(end_time,'%Y-%m-%d %H:%i:%s') as endTime
+    	from t_teach_time 
+    	
+    	<where>
+	    	 <if test="id!=null and id!=''"> AND id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND user_id = #{userId}</if>
+	    	 <if test="grade!=null and grade!=''"> AND grade = #{grade}</if>	
+	    	 <if test="course!=null and course!=''"> AND course = #{course}</if>
+	    	 <if test="beginTime!=null and beginTime!=''"> AND begin_time =  date_format(#{beginTime},'%Y-%m-%d %H:%i:%s')</if>
+	    	 <if test="endTime!=null and endTime!=''"> AND end_time = date_format(#{endTime},'%Y-%m-%d %H:%i:%s')</if>
+    	</where> 
+    </select>
+    
+    <select id="findAllTeacherTime" parameterType="java.util.Map" resultType="teacher">
+        select
+        id,user_id,grade,course,
+    	 date_format(begin_time,'%Y-%m-%d %H:%i:%s') as beginTime,
+    	 date_format(end_time,'%Y-%m-%d %H:%i:%s') as endTime
+        from t_teach_time t
+		<where>
+	    	 <if test="id!=null and id!=''"> AND id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND user_id = #{userId}</if>
+	    	 <if test="grade!=null and grade!=''"> AND grade = #{grade}</if>
+	    	 <if test="course!=null and course!=''"> AND course = #{course}</if>
+	    	 <if test="beginTime!=null and beginTime!=''"> AND begin_time =  date_format(#{beginTime},'%Y-%m-%d %H:%i:%s')</if>
+	    	 <if test="endTime!=null and endTime!=''"> AND end_time = date_format(#{endTime},'%Y-%m-%d %H:%i:%s')</if>
+    	</where> 
+        order by t.id asc
+        <if test="rowStart != null and pageSize != null">
+         limit ${rowStart}, ${pageSize}
+        </if>
+    </select>
+    
+     <select id="findTeacherTimeCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(t.id)
+        from t_teach_time t
+       <where>
+	    	 <if test="id!=null and id!=''"> AND id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND user_id = #{userId}</if>
+	    	 <if test="grade!=null and grade!=''"> AND grade = #{grade}</if>
+	    	 <if test="course!=null and course!=''"> AND course = #{course}</if>
+	    	 <if test="beginTime!=null and beginTime!=''"> AND begin_time =  date_format(#{beginTime},'%Y-%m-%d %H:%i:%s')</if>
+	    	 <if test="endTime!=null and endTime!=''"> AND end_time = date_format(#{endTime},'%Y-%m-%d %H:%i:%s')</if>
+    	</where> 
+    </select>
+    
+    <update id="updateTeacherTimeById" parameterType="com.education.framework.model.teacher.TeacherTime">
+    	update t_teach_time 
+    	<set>
+	    	 <if test="grade!=null and grade!=''">
+		      	grade = #{grade,jdbcType=VARCHAR},  
+		     </if>
+	    	 <if test="course!=null and course!=''"> 
+		      	course = #{course,jdbcType=VARCHAR},  
+	    	 </if>
+    	</set>
+    	 <where> 1=1 
+	    	 <if test="id!=null and id!=''"> AND  id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND user_id = #{userId}</if>
+	    	 <if test="grade!=null and grade!=''"> AND grade = #{grade}</if>
+	    	 <if test="course!=null and course!=''"> AND course = #{course}</if>
+	    	 <if test="beginTime!=null and beginTime!=''"> AND begin_time =  date_format(#{beginTime},'%Y-%m-%d %H:%i:%s')</if>
+	    	 <if test="endTime!=null and endTime!=''"> AND end_time = date_format(#{endTime},'%Y-%m-%d %H:%i:%s')</if>
+    	</where> 
+    	
+    </update>
+    
+    <insert id="insertTeacherTime" parameterType="com.education.framework.model.teacher.TeacherTime">
+    	insert into t_teach_time
+    	(id
+    	<if test="userId">,user_id</if>
+    	<if test="gender">,grade</if>
+    	<if test="age">,course</if>
+    	<if test="beginTime">,begin_time</if>
+    	<if test="endTime">,end_time</if>
+    	)
+    	values(#{id}
+		<if test="userId">,#{userId}</if>
+    	<if test="gender">,#{grade}</if>
+    	<if test="age">,#{course}</if>
+    	<if test="beginTime!=null and beginTime!=''">, date_format(#{begin_time},'%Y-%m-%d %H:%i:%s')</if>
+	    <if test="endTime!=null and endTime!=''"> , date_format(#{end_time},'%Y-%m-%d %H:%i:%s')</if>
+    	)
+    </insert>
+    
+    <delete id="deleteTeacherTimeById" parameterType="java.lang.String">
+    	delete t_teach_time where id=#{id}
+    </delete>
+</mapper>
