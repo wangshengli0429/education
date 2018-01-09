@@ -24,6 +24,7 @@ import com.education.framework.common.pagination.Pagination;
 import com.education.framework.common.service.LogFormatService;
 import com.education.framework.dao.student.StudentDao;
 import com.education.framework.model.student.Student;
+import com.education.framework.model.student.vo.StudentVo;
 import com.education.framework.service.student.StudentService;
 
 @Service
@@ -38,7 +39,7 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public ApiResult findAllStudent(Map<String, Object> map) {
 		logger.info(LogFormatService.logFormat("findAllStudent begin"));
-		Pagination<Student> page = new Pagination<Student>();
+		Pagination<StudentVo> page = new Pagination<StudentVo>();
 		
         try {
         	 

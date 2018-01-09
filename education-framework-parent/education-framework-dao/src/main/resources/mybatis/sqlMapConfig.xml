@@ -9,6 +9,7 @@
         <typeAlias type="com.education.framework.model.user.User" alias="operater"/>
        
         <typeAlias type="com.education.framework.model.student.Student" alias="student"/>
+        <typeAlias type="com.education.framework.model.student.vo.StudentVo" alias="studentVo"/>
 		<!-- 教师 -->
         <typeAlias type="com.education.framework.model.teacher.vo.TeacherVo" alias="teacherVo"/>
         <typeAlias type="com.education.framework.model.teacher.Teacher" alias="teacher"/>

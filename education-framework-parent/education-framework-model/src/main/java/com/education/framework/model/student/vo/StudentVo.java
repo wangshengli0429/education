@@ -1,36 +1,36 @@
-package com.education.framework.model.teacher.vo;
+package com.education.framework.model.student.vo;
 
 import java.io.Serializable;
 
 import com.alibaba.fastjson.JSON;
 
-public class TeacherVo implements Serializable{
+public class StudentVo  implements Serializable{
+	
+	 
+	
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 8435121142894407759L;
-	/**
-	 * 主键ID
-	 */
+	private static final long serialVersionUID = -7282896136313841137L;
 	private String id;
-	private String userId;
-	
 	/**
-	 * 姓名
+	 * 用户表主键
 	 */
-	private String teacherName;
+	private String userId;
+	/**
+	 * 学生姓名
+	 */
+	private String student;
 	/**
 	 * 电话
 	 */
 	private String phone;
 	/**
-	 * 性别
+	 * 学生性别：M:男  W：女
 	 */
 	private String gender;
-	/**
-	 * 年龄
-	 */
-	private int age;
+	
+	private Integer age;
 	/**
 	 * 籍惯
 	 */
@@ -40,7 +40,7 @@ public class TeacherVo implements Serializable{
 	 */
 	private String province;
 	/**
-	 * 所在城市
+	 * 所在市
 	 */
 	private String city;
 	/**
@@ -54,21 +54,9 @@ public class TeacherVo implements Serializable{
 	/**
 	 * 身份证号
 	 */
-	private String idNumber;
+	private String idCard;
 	/**
-	 * 支付宝账号
-	 */
-	private String accountName;
-	/**
-	 * 最高学历
-	 */
-	private String education;
-	/**
-	 * 所学专业
-	 */
-	private String major;
-	/**
-	 * 自我介绍
+	 * 简介
 	 */
 	private String selfDescr;
 	/**
@@ -79,12 +67,10 @@ public class TeacherVo implements Serializable{
 	 * 备注
 	 */
 	private String remark;
-	/**
-	 * 注册时间
-	 */
+	
 	private String regTime;
 	
-	private String status;
+	private String lastTime;
 	public String getId() {
 		return id;
 	}
@@ -97,11 +83,11 @@ public class TeacherVo implements Serializable{
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getTeacherName() {
-		return teacherName;
+	public String getStudent() {
+		return student;
 	}
-	public void setTeacherName(String teacherName) {
-		this.teacherName = teacherName;
+	public void setStudent(String student) {
+		this.student = student;
 	}
 	public String getGender() {
 		return gender;
@@ -109,10 +95,10 @@ public class TeacherVo implements Serializable{
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public int getAge() {
+	public Integer getAge() {
 		return age;
 	}
-	public void setAge(int age) {
+	public void setAge(Integer age) {
 		this.age = age;
 	}
 	public String getNativePlace() {
@@ -145,23 +131,11 @@ public class TeacherVo implements Serializable{
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getIdNumber() {
-		return idNumber;
+	public String getIdCard() {
+		return idCard;
 	}
-	public void setIdNumber(String idNumber) {
-		this.idNumber = idNumber;
-	}
-	public String getEducation() {
-		return education;
-	}
-	public void setEducation(String education) {
-		this.education = education;
-	}
-	public String getMajor() {
-		return major;
-	}
-	public void setMajor(String major) {
-		this.major = major;
+	public void setIdCard(String idCard) {
+		this.idCard = idCard;
 	}
 	public String getSelfDescr() {
 		return selfDescr;
@@ -181,18 +155,12 @@ public class TeacherVo implements Serializable{
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	
+	 
 	public String getPhone() {
 		return phone;
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-	public String getAccountName() {
-		return accountName;
-	}
-	public void setAccountName(String accountName) {
-		this.accountName = accountName;
 	}
 	public String getRegTime() {
 		return regTime;
@@ -200,12 +168,11 @@ public class TeacherVo implements Serializable{
 	public void setRegTime(String regTime) {
 		this.regTime = regTime;
 	}
-	
-	public String getStatus() {
-		return status;
+	public String getLastTime() {
+		return lastTime;
 	}
-	public void setStatus(String status) {
-		this.status = status;
+	public void setLastTime(String lastTime) {
+		this.lastTime = lastTime;
 	}
 	@Override
 	public String toString() {

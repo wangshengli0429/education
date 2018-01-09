@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.education.framework.model.teacher.Teacher;
+import com.education.framework.model.teacher.vo.TeacherVo;
 
 /**
  * 
@@ -17,7 +18,7 @@ import com.education.framework.model.teacher.Teacher;
  */
 public interface TeacherDao {
 	
-	List<Teacher> findAllTeacher(Map<String, Object> map);
+	List<TeacherVo> findAllTeacher(Map<String, Object> map);
 	int findTeacherCount(Map<String, Object> map);
 	 
 	int deleteTeacherById(String id);

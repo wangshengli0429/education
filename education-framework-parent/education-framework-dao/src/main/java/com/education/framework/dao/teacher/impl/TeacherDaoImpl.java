@@ -8,11 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import com.education.framework.dao.teacher.TeacherDao;
 import com.education.framework.model.teacher.Teacher;
+import com.education.framework.model.teacher.vo.TeacherVo;
 @Repository
 public class TeacherDaoImpl extends SqlSessionDaoSupport implements TeacherDao{
 
 	@Override
-	public List<Teacher> findAllTeacher(Map<String, Object> map) {
+	public List<TeacherVo> findAllTeacher(Map<String, Object> map) {
 		return this.getSqlSession().selectList("teacher.findAllTeacher", map);
 	}
 

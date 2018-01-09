@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.education.framework.common.base.ApiResult;
 import com.education.framework.model.student.Student;
+import com.education.framework.model.student.vo.StudentVo;
 import com.education.framework.service.student.StudentService;
 import com.google.common.collect.Maps;
 
@@ -25,7 +26,7 @@ public class StudentController {
 	
 	@RequestMapping(value={"rest/student/queryStudent","student/queryStudent"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public ApiResult queryAllStudent(Student student, @RequestParam(defaultValue = "1") int page,
+	public ApiResult queryAllStudent(StudentVo student, @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int rows){
 		logger.info("controller queryAllStudent begin ");
 		 

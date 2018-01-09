@@ -24,6 +24,7 @@ import com.education.framework.common.pagination.Pagination;
 import com.education.framework.common.service.LogFormatService;
 import com.education.framework.dao.teacher.TeacherDao;
 import com.education.framework.model.teacher.Teacher;
+import com.education.framework.model.teacher.vo.TeacherVo;
 import com.education.framework.service.teacher.TeacherService;
 @Service
 @Transactional
@@ -36,7 +37,7 @@ public class TeacherServiceImpl implements TeacherService {
 	@Override
 	public ApiResult findAllTeacher(Map<String, Object> map) {
 		logger.info(LogFormatService.logFormat("findAllTeacher begin"));
-		Pagination<Teacher> page = new Pagination<Teacher>();
+		Pagination<TeacherVo> page = new Pagination<TeacherVo>();
 		
         try {
         	 
