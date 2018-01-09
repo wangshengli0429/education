@@ -10,7 +10,6 @@ import static com.education.framework.common.base.StatusCode.EDU_CODE_008;
 import static com.education.framework.common.base.StatusCode.EDU_CODE_009;
 import static com.education.framework.common.base.StatusCode.EDU_CODE_010;
 
-import java.sql.SQLException;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;

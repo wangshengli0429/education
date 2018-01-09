@@ -34,14 +34,26 @@
     	</where> 
     </select>
     
-    <select id="findAllTeacher" parameterType="java.util.Map" resultType="teacher">
+    <select id="findAllTeacher" parameterType="java.util.Map" resultType="teacherVo">
         select
-        id,user_id as userId,teacher_name as teacherName,gender,age,native_place as nativePlace,province,city,district,address,id_number as idNumber,education,major,self_descr as selfDescr,photo,remark
-        from t_teacher t
+         	t.id,t.user_id as userId,t.teacher_name as teacherName,
+         	u.user_name as phone,
+			t.gender,t.age,t.native_place as nativePlace,
+			t.province,t.city,t.district,t.address,
+			t.id_number as idNumber,b.ACCOUNT_NAME as accountName,
+			t.education,t.major,t.self_descr as selfDescr,
+			t.photo,t.remark,
+			u.reg_time as regTime,
+			a.status  
+        from t_teacher t INNER JOIN t_user u on t.user_id = u.id  
+			 LEFT JOIN t_authentication a on u.id = a.user_id
+			 LEFT JOIN t_bind_account b on u.id = b.user_id
 		<where>
-	    	 <if test="id!=null and id!=''"> AND id=#{id}</if>
-	    	 <if test="userId!=null and userId!=''"> AND user_id = #{userId}</if>
-	    	 <if test="teacherName!=null and teacherName!=''"> AND teacher_name = #{teacherName}</if>
+	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND t.user_id = #{userId}</if>
+	    	 <if test="teacherName!=null and teacherName!=''"> AND t.teacher_name = #{teacherName}</if>
+	    	 <if test="regTime!=null and regTime!=''"> AND u.reg_time = #{regTime}</if>
+	    	 <if test="phone!=null and phone!=''"> AND u.user_name = #{phone}</if>
     	</where> 
         order by t.id asc
         <if test="rowStart != null and pageSize != null">
@@ -51,11 +63,15 @@
     
      <select id="findTeacherCount" parameterType="java.util.Map" resultType="java.lang.Integer">
         select count(t.id)
-        from t_teacher t
+        from t_teacher t INNER JOIN t_user u on t.user_id = u.id  
+			 LEFT JOIN t_authentication a on u.id = a.user_id
+			 LEFT JOIN t_bind_account b on u.id = b.user_id
        <where>
-	    	 <if test="id!=null and id!=''"> AND id=#{id}</if>
-	    	 <if test="userId!=null and userId!=''"> AND user_id = #{userId}</if>
-	    	 <if test="teacherName!=null and teacherName!=''"> AND teacher_name = #{teacherName}</if>
+	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND t.user_id = #{userId}</if>
+	    	 <if test="teacherName!=null and teacherName!=''"> AND t.teacher_name = #{teacherName}</if>
+	    	 <if test="regTime!=null and regTime!=''"> AND u.reg_time = #{regTime}</if>
+	    	 <if test="phone!=null and phone!=''"> AND u.user_name = #{phone}</if>
     	</where> 
     </select>
     
