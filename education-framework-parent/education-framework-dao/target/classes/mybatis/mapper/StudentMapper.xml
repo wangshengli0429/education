@@ -20,7 +20,7 @@
     </resultMap>
     
     <select id="queryStudentById" parameterType="com.education.framework.model.student.Student" resultType="student">
-    	select id,user_id,student,gender,age,native_place,province,city,district,address,id_card,self_descr,photo,remark
+    	select id,user_id as userId,student,gender,age,native_place as nativePlace,province,city,district,address,id_card as idCard,self_descr as selfDescr,photo,remark
     	
 <!--     时间格式化	 date_format(created_at,'%Y-%m-%d %H:%i:%s') as created_at, -->
     	from t_student 
@@ -34,7 +34,7 @@
     
     <select id="findAllStudent" parameterType="java.util.Map" resultType="student">
         select
-        id,user_id,student,gender,age,native_place,province,city,district,address,id_card,self_descr,photo,remark
+        id,user_id as userId,student,gender,age,native_place as nativePlace,province,city,district,address,id_card as idCard,self_descr as selfDescr,photo,remark
         from t_student t
 		<where>
 	    	 <if test="id!=null and id!=''"> AND id=#{id}</if>

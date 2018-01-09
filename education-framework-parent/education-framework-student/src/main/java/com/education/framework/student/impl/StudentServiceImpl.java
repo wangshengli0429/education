@@ -49,7 +49,7 @@ public class StudentServiceImpl implements StudentService{
         	
             logger.info(LogFormatService.logFormat("分页获取资源列表success"));
            
-			return new ApiResult(EDU_CODE_009.getCode(),EDU_CODE_009.getMsg(),page);
+			return new ApiResult(EDU_CODE_009.getCode(),EDU_CODE_009.getMsg(),EDU_CODE_009.getShowMsg(),page);
 		} catch (BusinessException e) {
 			logger.debug(LogFormatService.logFormat("查询学生异常：{}"), e);
 		    throw new BusinessException(EDU_CODE_008, EDU_CODE_008.getMsg());
@@ -61,24 +61,7 @@ public class StudentServiceImpl implements StudentService{
 		
 		
 	}
-
-	@Override
-	public ApiResult findStudentCount(Map<String, Object> map) {
-		logger.info(LogFormatService.logFormat("findStudentCount  begin"));
-		int count = 0;
-		try {
-			count = studentDao.findStudentCount(map);
-			
-		}catch (BusinessException e) {
-			logger.debug(LogFormatService.logFormat("查询学生总数异常：{}"), e);
-		    throw new BusinessException(EDU_CODE_008, EDU_CODE_008.getMsg());
-		}
-		if (count > 0) {
-            return new ApiResult(EDU_CODE_009.getCode(), EDU_CODE_009.getMsg(), EDU_CODE_009.getShowMsg());
-        }
-		logger.info("findStudentCount count："+ count +" end.");    
-		return  new ApiResult(EDU_CODE_008.getCode(), EDU_CODE_008.getMsg(), EDU_CODE_008.getShowMsg());
-	}
+ 
 
 	@Override
 	public ApiResult queryStudentById(Map<String, Object> map) {
@@ -88,7 +71,7 @@ public class StudentServiceImpl implements StudentService{
 			student = studentDao.queryStudentById(map);
 			if(null != student){
 				logger.info(LogFormatService.logFormat(student.toString()));
-				return new ApiResult(EDU_CODE_009.getCode(), EDU_CODE_009.getMsg(),student);
+				return new ApiResult(EDU_CODE_009.getCode(), EDU_CODE_009.getMsg(),EDU_CODE_009.getShowMsg(),student);
 			}
 		} catch (BusinessException e) {
 			logger.debug(LogFormatService.logFormat("查询学生异常：{}"), e);

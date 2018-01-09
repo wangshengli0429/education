@@ -4,10 +4,11 @@ import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.support.SqlSessionDaoSupport;
+import org.springframework.stereotype.Repository;
 
 import com.education.framework.dao.teacher.TeacherCourseDao;
 import com.education.framework.model.teacher.TeacherCourse;
-
+@Repository
 public class TeacherCourseDaoImpl extends SqlSessionDaoSupport implements
 		TeacherCourseDao {
 

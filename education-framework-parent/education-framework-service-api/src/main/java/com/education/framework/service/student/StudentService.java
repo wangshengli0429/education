@@ -15,14 +15,7 @@ public interface StudentService {
      * @return
      */
 	ApiResult findAllStudent(Map<String, Object> map);
-    /**
-     *  查询学生总数
-     * 
-     * @param map
-     * @return
-     */
-    ApiResult findStudentCount(Map<String, Object> map);
-  
+   
     /**
      * 根据ID查询学生
      * 

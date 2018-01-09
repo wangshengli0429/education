@@ -5,6 +5,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,6 +39,20 @@ public class StudentController {
 		
 		return  studentService.findAllStudent(map);
 	}
+	
+	@RequestMapping(value={"rest/query/student/{id}","query/student/{id}"},method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public ApiResult queryAllStudent(@PathVariable String id){
+		logger.info("controller queryAllStudent begin ");
+		
+		Map<String, Object> map = Maps.newHashMap();
+		map.put("id",id);
+		
+	 
+		
+		return studentService.queryStudentById(map);
+	}
+	
 	
 	@RequestMapping(value={"rest/student/insert","student/insert"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
