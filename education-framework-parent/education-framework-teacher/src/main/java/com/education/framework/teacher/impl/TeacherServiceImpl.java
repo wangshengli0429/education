@@ -8,9 +8,12 @@ import static com.education.framework.common.base.StatusCode.EDU_CODE_006;
 import static com.education.framework.common.base.StatusCode.EDU_CODE_007;
 import static com.education.framework.common.base.StatusCode.EDU_CODE_008;
 import static com.education.framework.common.base.StatusCode.EDU_CODE_009;
+import static com.education.framework.common.base.StatusCode.EDU_CODE_010;
 
+import java.sql.SQLException;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +24,6 @@ import com.education.framework.common.exception.BusinessException;
 import com.education.framework.common.pagination.Pagination;
 import com.education.framework.common.service.LogFormatService;
 import com.education.framework.dao.teacher.TeacherDao;
-import com.education.framework.model.student.Student;
 import com.education.framework.model.teacher.Teacher;
 import com.education.framework.service.teacher.TeacherService;
 @Service
@@ -52,9 +54,8 @@ public class TeacherServiceImpl implements TeacherService {
 		} catch (BusinessException e) {
 			logger.debug(LogFormatService.logFormat("查询教师异常：{}"), e);
 		    throw new BusinessException(EDU_CODE_008, EDU_CODE_008.getMsg());
-		} catch (Exception e) {
+		}catch (Exception e) {
 			logger.debug(LogFormatService.logFormat("查询教师异常：{}"), e);
-			logger.debug(e.getMessage());
 		    throw new BusinessException(EDU_CODE_008, EDU_CODE_008.getMsg());
 		}
 	}
@@ -62,6 +63,10 @@ public class TeacherServiceImpl implements TeacherService {
 	@Override
 	public ApiResult deleteTeacherById(String id) {
 		logger.info(LogFormatService.logFormat("delete Teacher【"+ id +"】 begin"));
+		if(StringUtils.isNotBlank(id)){
+			return  new ApiResult(EDU_CODE_010.getCode(), EDU_CODE_010.getMsg(), EDU_CODE_010.getShowMsg());
+		}
+		
 		int num = 0;
 		try {
 			 num = teacherDao.deleteTeacherById(id);

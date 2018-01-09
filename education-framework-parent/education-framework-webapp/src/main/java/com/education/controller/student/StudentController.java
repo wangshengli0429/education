@@ -47,9 +47,6 @@ public class StudentController {
 		
 		Map<String, Object> map = Maps.newHashMap();
 		map.put("id",id);
-		
-	 
-		
 		return studentService.queryStudentById(map);
 	}
 	
@@ -57,8 +54,22 @@ public class StudentController {
 	@RequestMapping(value={"rest/student/insert","student/insert"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public ApiResult insertStudent(@RequestParam Student student){
-		
+		logger.info("controller insertStudent ");
 		return studentService.insertStudent(student);
+	}
+	
+	@RequestMapping(value={"rest/student/update","student/update"},method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public ApiResult updateStudent(@RequestParam Student student){
+		logger.info("controller updateStudent ");
+		return studentService.updateStudent(student);
+	}
+	
+	@RequestMapping(value={"rest/student/delete","student/delete"},method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public ApiResult deleteStudent(@RequestParam String id){
+		logger.info("controller deleteStudent ");
+		return studentService.deleteStudent(id);
 	}
 	
 }

@@ -22,7 +22,7 @@
     </resultMap>
     
     <select id="queryTeacherById" parameterType="com.education.framework.model.teacher.Teacher" resultType="teacher">
-    	select id,user_id,teacher_name,gender,age,native_place,province,city,district,address,id_number,education,major,self_descr,photo,remark
+    	select id,user_id as userId,teacher_name as teacherName,gender,age,native_place as nativePlace,province,city,district,address,id_number as idNumber,education,major,self_descr as selfDescr,photo,remark
     	
 <!--     时间格式化	 date_format(created_at,'%Y-%m-%d %H:%i:%s') as created_at, -->
     	from t_teacher 
@@ -36,7 +36,7 @@
     
     <select id="findAllTeacher" parameterType="java.util.Map" resultType="teacher">
         select
-        id,user_id,teacher_name,gender,age,native_place,province,city,district,address,id_number,education,major,self_descr,photo,remark
+        id,user_id as userId,teacher_name as teacherName,gender,age,native_place as nativePlace,province,city,district,address,id_number as idNumber,education,major,self_descr as selfDescr,photo,remark
         from t_teacher t
 		<where>
 	    	 <if test="id!=null and id!=''"> AND id=#{id}</if>

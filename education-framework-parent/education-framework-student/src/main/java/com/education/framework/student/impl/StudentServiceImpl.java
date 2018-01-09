@@ -8,9 +8,11 @@ import static com.education.framework.common.base.StatusCode.EDU_CODE_006;
 import static com.education.framework.common.base.StatusCode.EDU_CODE_007;
 import static com.education.framework.common.base.StatusCode.EDU_CODE_008;
 import static com.education.framework.common.base.StatusCode.EDU_CODE_009;
+import static com.education.framework.common.base.StatusCode.EDU_CODE_010;
 
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -131,6 +133,9 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public ApiResult deleteStudent(String id) {
 		logger.info(LogFormatService.logFormat("delete student【"+ id +"】 begin"));
+		if(StringUtils.isNotBlank(id)){
+			return  new ApiResult(EDU_CODE_010.getCode(), EDU_CODE_010.getMsg(), EDU_CODE_010.getShowMsg());
+		}
 		int num = 0;
 		try {
 			 num = studentDao.deleteStudentById(id);
