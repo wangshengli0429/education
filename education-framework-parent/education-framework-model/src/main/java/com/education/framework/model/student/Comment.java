@@ -1,7 +1,9 @@
 package com.education.framework.model.student;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.Date; 
+
+import com.alibaba.fastjson.JSON;
 
 
 /**
@@ -26,9 +28,7 @@ public class Comment implements Serializable{
 	private String studentId;
 	/** 评论时间  */
 	private Date commentTime;
-	/** 状态 */
-	private String status;
-	
+
 	//********************************************************* 以下是 get/set 方法 ******************************************************
 	public String getId() {
 		return id;
@@ -60,10 +60,9 @@ public class Comment implements Serializable{
 	public void setCommentTime(Date commentTime) {
 		this.commentTime = commentTime;
 	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
+	
+	@Override
+	public String toString() {
+		return JSON.toJSONString(this);
 	}
 }
