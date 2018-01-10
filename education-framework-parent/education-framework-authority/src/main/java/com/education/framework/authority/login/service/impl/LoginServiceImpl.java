@@ -1,5 +1,6 @@
 package com.education.framework.authority.login.service.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -12,10 +13,12 @@ import com.education.framework.authority.login.model.LoginUser;
 import com.education.framework.authority.login.service.LoginService;
 import com.education.framework.authority.management.model.Management;
 import com.education.framework.authority.management.service.ManagementService;
+import com.education.framework.authority.role.service.RoleService;
 import com.education.framework.common.base.ApiResult;
 import com.education.framework.common.service.LogFormatService;
 import com.education.framework.common.util.Const;
 import com.education.framework.common.util.MD5Util;
+import com.google.common.collect.Lists;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -24,7 +27,8 @@ public class LoginServiceImpl implements LoginService {
     private static Logger LOGGER = Logger.getLogger(LoginServiceImpl.class);
     @Autowired
     private ManagementService managementService;
-    
+    @Autowired
+    private RoleService roleService;
     /** startTime */
     private long startTime;
 
@@ -36,7 +40,7 @@ public class LoginServiceImpl implements LoginService {
     @Override
     public void doLogin(Map<String, Object> valueMap) {
         startTime = System.currentTimeMillis();
-       
+        List<String> roleList = Lists.newArrayList();
         String userName =
                 ((LoginUser) valueMap.get(VarKeys.structKey(VarKeys.LOGIN, VarKeys.LOGIN_USER))).getManageCode();
         String password =
@@ -57,9 +61,9 @@ public class LoginServiceImpl implements LoginService {
             } else {
                 if (StringUtils.isNotBlank(manage.getManagePwd())
                         && MD5Util.getEncryptedPwd(password).equals(manage.getManagePwd())) {
-//                	   roleList = roleService.getRole(user.getUserId());
+                	   roleList = roleService.getRole(manage.getManageCode());
                        valueMap.put(VarKeys.structKey(VarKeys.LOGIN, VarKeys.FLAG), true);
-                       valueMap.put(VarKeys.structKey(VarKeys.LOGIN, VarKeys.LOGIN_USER), new LoginUser(manage, null));
+                       valueMap.put(VarKeys.structKey(VarKeys.LOGIN, VarKeys.LOGIN_USER), new LoginUser(manage, roleList));
 //                       if (user.getIsstaff() != null && user.getIsstaff() == Const.Base.ISSTAFF_Y) {
 //                           findMenuListByUserId(valueMap);
 //                       }

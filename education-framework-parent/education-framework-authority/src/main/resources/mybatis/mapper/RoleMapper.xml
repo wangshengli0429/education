@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="role">
+    <!-- sql -->
+    <sql id="baseClumnId">
+     	role_code roleCode,
+		role_descr roleDescr,
+		remark,
+		creater_time createrTime,
+    </sql>
+    <!-- 用户列表 -->
+    <select id="findAllRole" parameterType="java.util.Map" resultType="role">
+        select
+        <include refid="baseClumnId"></include>
+        from t_role r,t_manage_role t
+         where 
+        r.role_code = t.role_code
+	     
+        order by create_time asc
+        <if test="rowStart != null and pageSize != null">
+         limit ${rowStart}, ${pageSize}
+        </if>
+    </select>
+    <!-- 用户统计 -->
+    <select id="findAllRoleCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select
+        count(r.id)
+        from t_role r,t_manage_role t
+        where 
+        r.role_code = t.role_code
+	      
+    </select>
+     
+    <!-- 根据roleCode获取用户 -->
+    <select id="getRoleById" parameterType="java.lang.String" resultType="role">
+        select
+        <include refid="baseClumnId"></include>
+        from t_role
+       <where>
+         	<if test="roleCode != null and roleCode != ''">
+	             role_code = #{roleCode}
+	        </if>
+        </where>  
+        limit 1
+    </select>
+      <!-- 根据ManagementCode获取角色 -->
+    <select id="getRoleByManagementCode" parameterType="java.lang.String" resultType="role">
+      select
+        <include refid="baseClumnId"></include>
+        from t_role t, t_manage_role mr
+        where  
+            t.id = mr.role_id
+          	<if test="manageCode != null and manageCode != ''">
+	       		and mr.manage_code = #{manageCode}
+	        </if>
+        order by t.creater_time asc
+    </select>
+    <!-- 修改用户信息 -->
+    <update id="updateRole" parameterType="role">
+        update t_role 
+        <set>
+        	<if test="roleCode != null and roleCode != ''">
+	            role_code = #{roleCode}
+	        </if>
+	        <if test="roleDescr != null and roleDescr != ''">
+	            ,role_descr = #{roleDescr}
+	        </if>
+	         <if test="remark != null and remark != ''">
+	             ,remark = #{remark}
+	        </if>
+	          
+		 	<if test="createrTime != null">
+	             ,creater_time = #{createrTime}
+	        </if>
+	          
+        </set>
+        where  role_code = #{roleCode}
+    </update>
+    
+    <!-- 添加用户 -->
+    <insert id="insertRole" parameterType="role">
+        insert into t_role
+        (role_code ,
+		role_descr ,
+		remark,
+		creater_time )
+        values(
+        #{roleCode}, #{roleDescr}, #{remark}, #{createrTime},
+        )
+    </insert>
+    <!-- 删除用户 -->
+    <delete id="deleteRole" parameterType="role">
+        delete t_role where  role_code = #{roleCode}
+    </delete>
+</mapper>

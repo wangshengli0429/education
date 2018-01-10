@@ -3,6 +3,8 @@ package com.education.framework.model.student;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.alibaba.fastjson.JSON;
+
 
 /**
  * <p>评论</p>
@@ -59,4 +61,8 @@ public class Comment implements Serializable{
 		this.commentTime = commentTime;
 	}
 	
+	@Override
+	public String toString() {
+		return JSON.toJSONString(this);
+	}
 }
