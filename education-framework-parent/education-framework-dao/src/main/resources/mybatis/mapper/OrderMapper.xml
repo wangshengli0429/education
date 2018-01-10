@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="order">
+    
+    <resultMap type="com.education.framework.model.order.Order" id="queryOrderResult">
+    	<result property="id" column="id"/>
+    	<result property="orderNumber" column="order_number"/>
+    	<result property="payAccount" column="pay_account"/>
+    	<result property="payStatus" column="pay_status"/>
+    	<result property="payMode" column="pay_mode"/>
+    	<result property="payMoney" column="pay_money"/>
+    	<result property="orderStatus" column="order_status"/>
+    	<result property="orderDescr" column="order_descr"/>
+    	<result property="address" column="address"/>
+    	<result property="orderTime" column="order_time"/>
+
+    	<result property="orderId" column="order_id"/>
+    	<result property="teacherId" column="teacher_id"/>
+
+    </resultMap>
+    
+    <select id="queryOrderById" parameterType="com.education.framework.model.order.Order" resultType="order">
+    	select t.id,t.user_id as userId,t.order,
+        	u.user_name as phone,gender,age,
+        	native_place as nativePlace,province,
+        	city,district,address,id_card as idCard,
+        	self_descr as selfDescr,photo,remark,
+        	date_format(u.reg_time ,'%Y-%m-%d %H:%i:%s') as regTime,
+        	date_format(u.last_time,'%Y-%m-%d %H:%i:%s') as lastTime
+        from t_order t INNER JOIN t_user u on t.user_id = u.id  
+    	
+    	<where>
+	    		 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND t.user_id = #{userId}</if>
+	    	 <if test="order!=null and order!=''"> AND t.order = #{order}</if>
+	    	 <if test="regTime!=null"> AND u.reg_time = date_format(#{regTime} ,'%Y-%m-%d %H:%i:%s')</if>
+    	</where> 
+    </select>
+    
+    <select id="findAllOrder" parameterType="java.util.Map" resultType="orderVo">
+        select
+        	t.id,t.user_id as userId,t.order,
+        	u.user_name as phone,gender,age,
+        	native_place as nativePlace,province,
+        	city,district,address,id_card as idCard,
+        	self_descr as selfDescr,photo,remark,
+        	date_format(u.reg_time ,'%Y-%m-%d %H:%i:%s') as regTime,
+        	date_format(u.last_time,'%Y-%m-%d %H:%i:%s') as lastTime
+        from t_order t INNER JOIN t_user u on t.user_id = u.id  
+		<where>
+	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND t.user_id = #{userId}</if>
+	    	 <if test="order!=null and order!=''"> AND t.order = #{order}</if>
+	    	 <if test="regTime!=null"> AND u.reg_time = date_format(#{regTime} ,'%Y-%m-%d %H:%i:%s')</if>
+    	</where> 
+        order by t.id asc
+        <if test="rowStart != null and pageSize != null">
+         limit ${rowStart}, ${pageSize}
+        </if>
+    </select>
+    
+     <select id="findOrderCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(t.id)
+        from t_order t INNER JOIN t_user u on t.user_id = u.id 
+       <where>
+	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND t.user_id = #{userId}</if>
+	    	 <if test="order!=null and order!=''"> AND t.order = #{order}</if>
+	    	 <if test="regTime!=null"> AND u.reg_time = date_format(#{regTime} ,'%Y-%m-%d %H:%i:%s')</if>
+    	</where> 
+    </select>
+    
+  
+  
+    <insert id="insertOrder" parameterType="com.education.framework.model.order.Order">
+    	insert into t_order
+    	(id
+    	<if test="orderNumber">,order_number</if>
+    	<if test="payAccount">,pay_account</if>
+    	<if test="payStatus">,pay_status</if>
+    	<if test="payMode">,pay_mode</if>
+    	<if test="payMoney">,pay_money</if>
+    	<if test="orderStatus">,order_status</if>
+    	<if test="orderDescr">,order_descr</if>
+    	<if test="address">,address</if>
+    	<if test="orderTime">,order_time</if>
+    	<if test="selfDescr">,self_descr</if>
+    	<if test="studentId">,student_id</if>
+    	<if test="teacherId">,teacher_id</if>
+    	)
+    	values(#{id}
+    	<if test="orderNumber">,#{orderNumber}</if>
+    	<if test="payAccount">,#{payAccount}</if>
+    	<if test="payStatus">,#{payStatus}</if>
+    	<if test="payMode">,#{payMode}</if>
+    	<if test="payMoney">,#{payMoney}</if>
+    	<if test="orderStatus">,#{orderStatus}</if>
+    	<if test="orderDescr">,#{orderDescr}</if>
+    	<if test="address">,#{address}</if>
+    	<if test="orderTime">,#{orderTime}</if>
+    	<if test="selfDescr">,#{selfDescr}</if>
+    	<if test="studentId">,#{studentId}</if>
+    	<if test="teacherId">,#{teacherId}</if>
+    	)
+    </insert>
+    
+    <delete id="deleteOrderById" parameterType="java.lang.String">
+    
+    	delete t_order where id=#{id}
+    </delete>
+</mapper>
