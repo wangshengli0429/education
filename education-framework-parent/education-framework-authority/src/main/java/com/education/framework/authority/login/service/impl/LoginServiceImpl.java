@@ -68,6 +68,7 @@ public class LoginServiceImpl implements LoginService {
 //                           findMenuListByUserId(valueMap);
 //                       }
 //                       findResourceByUser(valueMap);
+                       findMenuListByManageCode(valueMap);
                 } else {
                     valueMap.put(VarKeys.structKey(VarKeys.LOGIN, VarKeys.FLAG), false);
                     valueMap.put(VarKeys.structKey(VarKeys.LOGIN, VarKeys.MSG), Const.Base.USER_PWD_ERRINFO);
@@ -90,5 +91,7 @@ public class LoginServiceImpl implements LoginService {
      * 
      * @param valueMap
      */
-    
+    private void findMenuListByManageCode(Map<String, Object> valueMap) {
+    	
+    }
 }

@@ -9,7 +9,8 @@
 		<!--   角色 -->
         <typeAlias type="com.education.framework.authority.role.model.Role" alias="role"/>
         <typeAlias type="com.education.framework.authority.role.model.ManagementRole" alias="manageRole"/>
-		
+		<!--  菜单  -->
+        <typeAlias type="com.education.framework.authority.menu.model.Menu" alias="menu"/>
     </typeAliases>
     <!-- 这里不需要再注册mybatis的SQL映射文件 ，因为在Spring的配置文件中配置sqlSessionFactory时注册了mapper的路径-->
 </configuration>  
