@@ -42,6 +42,8 @@ public class LoginController extends BaseController {
         String userName = null;
         LOGGER.info(LogFormatService.logogram("登录start..."));
         String url = "manager/index";
+        //String url = "manager/index";
+        String url = "manager/index1";
         if (loginUser == null) {
             model.addAttribute(VarKeys.MSG, Const.Base.LOGIN_PARAM_ERRINFO);
             LOGGER.error(LogFormatService.logogram(Const.Base.LOGIN_PARAM_ERRINFO));
