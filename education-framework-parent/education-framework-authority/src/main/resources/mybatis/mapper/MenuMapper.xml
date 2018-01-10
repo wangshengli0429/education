@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="menu">
+    <!-- sql -->
+    <sql id="baseClumnId">
+     	menu_code menuCode,
+		parent_code parentCode,
+		menu_descr menuDescr,
+		menu_href menuHref,
+		target,
+		idx,
+		remark,
+		creator,
+		creater_time createrTime
+    </sql>
+    <!-- Menu列表 -->
+    <select id="findAllMenu" parameterType="java.util.Map" resultType="menu">
+        select
+        <include refid="baseClumnId"></include>
+        from  t_menu m,t_menu_role mr
+         where 
+       	m.menu_code = mr.menu_code
+	     
+        order by create_time asc
+        <if test="rowStart != null and pageSize != null">
+         limit ${rowStart}, ${pageSize}
+        </if>
+    </select>
+    <!-- Menu统计 -->
+    <select id="findAllMenuCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select
+        count(m.id)
+         from  t_menu m,t_menu_role mr
+         where 
+       	m.menu_code = mr.menu_code
+    </select>
+     
+    <!-- 根据menuCode获取Menu -->
+    <select id="getMenuByCode" parameterType="java.lang.String" resultType="menu">
+        select
+        <include refid="baseClumnId"></include>
+        from t_menu
+       <where>
+         	<if test="menuCode != null and menuCode != ''">
+	             menu_code = #{menuCode}
+	        </if>
+        </where>  
+        limit 1
+    </select>
+   
+    <!-- 修改Menu信息 -->
+    <update id="updateMenu" parameterType="menu">
+        update t_menu 
+        <set>
+		 
+		creater_time createrTime
+        	<if test="menuCode != null and menuCode != ''">
+	            menu_code = #{menuCode}
+	        </if>
+	        <if test="parentCode != null and parentCode != ''">
+	            ,parent_code = #{parentCode}
+	        </if>
+	         <if test="menuDescr != null and menuDescr != ''">
+	             ,menu_descr = #{menuDescr}
+	        </if>
+	         <if test="menuHref != null and menuHref != ''">
+	             ,menu_href = #{menuHref}
+	        </if>
+	         <if test="target != null and target != ''">
+	             ,target = #{target}
+	        </if>
+	         <if test="idx">
+	             ,idx = #{idx}
+	        </if>
+	         <if test="remark != null and remark != ''">
+	             ,remark = #{remark}
+	        </if>
+	         <if test="creator != null and creator != ''">
+	             ,creator = #{creator}
+	        </if>
+		 	<if test="createrTime != null">
+	             ,creater_time = #{createrTime}
+	        </if>
+	          
+        </set>
+        where  menu_code = #{menuCode}
+    </update>
+    
+    <!-- 添加Menu -->
+    <insert id="insertMenu" parameterType="menu">
+        insert into t_menu
+        (	menu_code ,
+		parent_code ,
+		menu_descr ,
+		menu_href ,
+		target,
+		idx,
+		remark,
+		creator,
+		creater_time )
+        values( #{menuCode}, 
+                 #{parentCode},
+		         #{menuDescr}, 
+		         #{menuHref},
+		         #{target},
+          		 #{idx},
+          		 #{remark}, 
+          		 #{remark},
+          		 #{creator},
+          		 #{createrTime}
+       			 )
+    </insert>
+    <!-- 删除Menu -->
+    <delete id="deleteMenu" parameterType="menu">
+        delete t_menu where  menu_code = #{menuCode}
+    </delete>
+</mapper>
