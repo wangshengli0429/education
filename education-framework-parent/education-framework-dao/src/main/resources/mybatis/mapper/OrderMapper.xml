@@ -37,7 +37,7 @@
     	</where> 
     </select>
     
-    <select id="findAllOrder" parameterType="java.util.Map" resultType="orderVo">
+    <select id="findAllOrder" parameterType="java.util.Map" resultType="order">
         select
         	t.id,t.user_id as userId,t.order,
         	u.user_name as phone,gender,age,
