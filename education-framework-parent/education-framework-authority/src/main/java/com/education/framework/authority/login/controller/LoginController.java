@@ -41,7 +41,6 @@ public class LoginController extends BaseController {
         startTime = System.currentTimeMillis();
         String userName = null;
         LOGGER.info(LogFormatService.logogram("登录start..."));
-        String url = "manager/index";
         //String url = "manager/index";
         String url = "manager/index1";
         if (loginUser == null) {
