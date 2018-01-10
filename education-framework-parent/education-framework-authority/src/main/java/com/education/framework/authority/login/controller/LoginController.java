@@ -16,11 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.education.framework.authority.base.BaseController;
 import com.education.framework.authority.common.service.VarKeys;
+import com.education.framework.authority.login.model.LoginUser;
 import com.education.framework.authority.login.service.LoginService;
 import com.education.framework.authority.notes.CurrentUser;
 import com.education.framework.common.service.LogFormatService;
 import com.education.framework.common.util.Const;
-import com.education.framework.model.user.LoginUser;
 
 @Controller
 @RequestMapping("/login")
@@ -45,15 +45,15 @@ public class LoginController extends BaseController {
         if (loginUser == null) {
             model.addAttribute(VarKeys.MSG, Const.Base.LOGIN_PARAM_ERRINFO);
             LOGGER.error(LogFormatService.logogram(Const.Base.LOGIN_PARAM_ERRINFO));
-        } else if (StringUtils.isBlank(loginUser.getUserName())) {
+        } else if (StringUtils.isBlank(loginUser.getManageCode())) {
             model.addAttribute(VarKeys.MSG, Const.Base.LOGIN_USERNAME_ERRINFO);
             LOGGER.error(LogFormatService.logogram("登录信息:" + Const.Base.LOGIN_USERNAME_ERRINFO));
-        } else if (StringUtils.isBlank(loginUser.getPassWord())) {
+        } else if (StringUtils.isBlank(loginUser.getManagePwd())) {
             model.addAttribute(VarKeys.MSG, Const.Base.LOGIN_PASSWORD_ERRINFO);
-            model.addAttribute("userName", loginUser.getUserName());
+            model.addAttribute("userName", loginUser.getManageCode());
             LOGGER.error(LogFormatService.logogram("登录信息:" + Const.Base.LOGIN_PASSWORD_ERRINFO));
         } else {
-            userName = loginUser.getUserName();
+            userName = loginUser.getManageCode();
             try {
                 valueMap.put(VarKeys.structKey(VarKeys.LOGIN, VarKeys.LOGIN_USER), loginUser);
                 loginService.doLogin(valueMap);
@@ -65,7 +65,7 @@ public class LoginController extends BaseController {
                                 : (String) valueMap.get(VarKeys.structKey(VarKeys.LOGIN, VarKeys.MSG));
                 if (!flag) {
                     model.addAttribute(VarKeys.MSG, msg);
-                    model.addAttribute("userName", loginUser.getUserName());
+                    model.addAttribute("userName", loginUser.getManageCode());
                     LOGGER.info(LogFormatService.logogram("登录失败"));
                 } else {
                     loginUser = (LoginUser) valueMap.get(VarKeys.structKey(VarKeys.LOGIN, VarKeys.LOGIN_USER));
@@ -76,32 +76,32 @@ public class LoginController extends BaseController {
                         LOGGER.info(LogFormatService.logogram("登录失败,loginUser获取信息错误"));
                     } else {
                         session.setAttribute("user", loginUser);
-                        Integer isstaff = loginUser.getIsstaff();
-                        if (isstaff != null) {
-                            if (isstaff == Const.Base.ISSTAFF_N) { // 用户
-                                url = "index";
-                                LOGGER.info(LogFormatService.logogram("登录成功》信息:" + loginUser.toString()));
-                            } else if (isstaff == Const.Base.ISSTAFF_Y) { // 员工
-                                url = "main";
-                                model.addAttribute("menuList", valueMap.get("login.menuList"));
-                                LOGGER.info(LogFormatService.logogram("登录成功》信息:" + loginUser.toString()));
-                            } else {
-//                                valueMap.remove(VarKeys.structKey(VarKeys.LOGIN, VarKeys.LOGIN_USER));
-//                                session.removeAttribute("user");
-//                                model.addAttribute(VarKeys.MSG, Const.Base.LOGIN_STAFF_ERRINFO);
-                                model.addAttribute("userName", userName);
-                                
-                                LOGGER.info(LogFormatService.logogram(Const.Base.LOGIN_STAFF_ERRINFO + "<isstaff:"
-                                        + isstaff + ">"));
-                            }
-                        } else {
-                            valueMap.remove(VarKeys.structKey(VarKeys.LOGIN, VarKeys.LOGIN_USER));
-                            session.removeAttribute("user");
-                            model.addAttribute(VarKeys.MSG, Const.Base.LOGIN_STAFF_ERRINFO);
-                            model.addAttribute("userName", userName);
-                            LOGGER.info(LogFormatService.logogram(Const.Base.LOGIN_STAFF_ERRINFO + "<isstaff:"
-                                    + isstaff + ">"));
-                        }
+//                        Integer isstaff = loginUser.getIsstaff();
+//                        if (isstaff != null) {
+//                            if (isstaff == Const.Base.ISSTAFF_N) { // 用户
+//                                url = "index";
+//                                LOGGER.info(LogFormatService.logogram("登录成功》信息:" + loginUser.toString()));
+//                            } else if (isstaff == Const.Base.ISSTAFF_Y) { // 员工
+//                                url = "main";
+//                                model.addAttribute("menuList", valueMap.get("login.menuList"));
+//                                LOGGER.info(LogFormatService.logogram("登录成功》信息:" + loginUser.toString()));
+//                            } else {
+////                                valueMap.remove(VarKeys.structKey(VarKeys.LOGIN, VarKeys.LOGIN_USER));
+////                                session.removeAttribute("user");
+////                                model.addAttribute(VarKeys.MSG, Const.Base.LOGIN_STAFF_ERRINFO);
+//                                model.addAttribute("userName", userName);
+//                                
+//                                LOGGER.info(LogFormatService.logogram(Const.Base.LOGIN_STAFF_ERRINFO + "<isstaff:"
+//                                        + isstaff + ">"));
+//                            }
+//                        } else {
+//                            valueMap.remove(VarKeys.structKey(VarKeys.LOGIN, VarKeys.LOGIN_USER));
+//                            session.removeAttribute("user");
+//                            model.addAttribute(VarKeys.MSG, Const.Base.LOGIN_STAFF_ERRINFO);
+//                            model.addAttribute("userName", userName);
+//                            LOGGER.info(LogFormatService.logogram(Const.Base.LOGIN_STAFF_ERRINFO + "<isstaff:"
+//                                    + isstaff + ">"));
+//                        }
                     }
                 }
             } catch (Exception e) {
@@ -110,7 +110,7 @@ public class LoginController extends BaseController {
                 }
                 valueMap.remove(VarKeys.structKey(VarKeys.LOGIN, VarKeys.LOGIN_USER));
                 model.addAttribute(VarKeys.MSG, "系统繁忙，请稍候再试");
-                model.addAttribute("userName", loginUser.getUserName());
+                model.addAttribute("userName", loginUser.getManageCode());
                 LOGGER.error(LogFormatService.logFormat("登录end,登录异常", startTime,
                         LoginController.class.toString() + ":login"), e);
             }

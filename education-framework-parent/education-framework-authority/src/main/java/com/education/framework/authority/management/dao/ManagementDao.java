@@ -3,7 +3,7 @@ package com.education.framework.authority.management.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.education.framework.authority.model.Management;
+import com.education.framework.authority.management.model.Management;
 /**
  * 
  * <p>ManagementDao.java</p>

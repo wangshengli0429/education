@@ -2,7 +2,7 @@ package com.education.framework.authority.management.service;
 
 import java.util.Map;
 
-import com.education.framework.authority.model.Management;
+import com.education.framework.authority.management.model.Management;
 import com.education.framework.common.base.ApiResult;
 
 public interface ManagementService {
