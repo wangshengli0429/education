@@ -1,14 +1,9 @@
 package com.education.framework.authority.interceptor;
 
-import java.io.File;
-import java.util.List;
-
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +14,10 @@ import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.education.framework.authority.login.model.LoginUser;
 import com.education.framework.common.service.LogFormatService;
 import com.education.framework.common.util.Const;
 import com.education.framework.common.util.ResultError;
-import com.education.framework.model.user.LoginUser;
 
 /**
  * 拦截器
@@ -70,7 +65,7 @@ public class LoginSessionInterceptor implements HandlerInterceptor {
             LoginUser loginUser = (LoginUser) session.getAttribute("user");
             // 判断用户是否为空，即是否登陆过
             if (loginUser != null) {
-                LogFormatService.init(reqPath, loginUser.getUserName());
+                LogFormatService.init(reqPath, loginUser.getManageCode());
                 // 服务端访问
 //                if (cotainAdmin(reqPath)) {
 //                    if (Const.Base.ISSTAFF_Y != loginUser.getIsstaff()) {

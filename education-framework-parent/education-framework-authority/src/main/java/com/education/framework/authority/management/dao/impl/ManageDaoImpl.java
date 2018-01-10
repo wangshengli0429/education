@@ -7,7 +7,7 @@ import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.education.framework.authority.management.dao.ManagementDao;
-import com.education.framework.authority.model.Management;
+import com.education.framework.authority.management.model.Management;
 @Repository
 public class ManageDaoImpl extends SqlSessionDaoSupport implements
 		ManagementDao {

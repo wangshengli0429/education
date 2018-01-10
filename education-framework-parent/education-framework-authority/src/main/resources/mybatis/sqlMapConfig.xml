@@ -4,7 +4,7 @@
     <!-- 定义别名 -->
     <typeAliases>
         <!-- 用户 -->
-        <typeAlias type="com.education.framework.authority.model.Management" alias="management"/>
+        <typeAlias type="com.education.framework.authority.management.model.Management" alias="management"/>
          
 		
     </typeAliases>

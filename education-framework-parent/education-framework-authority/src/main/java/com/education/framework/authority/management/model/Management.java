@@ -1,4 +1,4 @@
-package com.education.framework.authority.model;
+package com.education.framework.authority.management.model;
 
 import java.io.Serializable;
 import java.util.Date;

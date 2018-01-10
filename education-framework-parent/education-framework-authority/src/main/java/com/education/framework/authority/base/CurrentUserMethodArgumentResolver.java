@@ -8,8 +8,8 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
+import com.education.framework.authority.login.model.LoginUser;
 import com.education.framework.authority.notes.CurrentUser;
-import com.education.framework.model.user.LoginUser;
 
 public class CurrentUserMethodArgumentResolver implements HandlerMethodArgumentResolver {
 

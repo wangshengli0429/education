@@ -19,8 +19,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.education.framework.authority.management.dao.ManagementDao;
+import com.education.framework.authority.management.model.Management;
 import com.education.framework.authority.management.service.ManagementService;
-import com.education.framework.authority.model.Management;
 import com.education.framework.common.base.ApiResult;
 import com.education.framework.common.exception.BusinessException;
 import com.education.framework.common.pagination.Pagination;
