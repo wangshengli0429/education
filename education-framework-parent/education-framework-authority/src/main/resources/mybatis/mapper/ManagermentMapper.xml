@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="management">
+    <!-- sql -->
+    <sql id="baseClumnId">
+     	manage_code manageCode,
+		manage_pwd managePwd,
+		remark,
+		creator,
+		creater_time createrTime,
+		last_login_ip lastLoginIp,
+		last_login_time lastLoginTime,
+		status
+
+    </sql>
+    <!-- 用户列表 -->
+    <select id="findAllManagement" parameterType="java.util.Map" resultType="management">
+        select
+        <include refid="baseClumnId"></include>
+        from t_management
+        <where>
+	        <if test="manageCode != null and manageCode != ''">
+	             manage_code = #{manageCode}
+	        </if>
+        </where>
+        order by create_time asc
+        <if test="rowStart != null and pageSize != null">
+         limit ${rowStart}, ${pageSize}
+        </if>
+    </select>
+    <!-- 用户统计 -->
+    <select id="findAllManagementCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select
+        count(1)
+        from t_management
+        <where>
+	        <if test="manageCode != null and manageCode != ''">
+	             manage_code = #{manageCode}
+	        </if>
+	    </where>
+    </select>
+     
+    <!-- 根据managementCode获取用户 -->
+    <select id="findByManagementCode" parameterType="java.lang.String" resultType="management">
+        select
+        <include refid="baseClumnId"></include>
+        from t_management
+       <where>
+         	<if test="manageCode != null and manageCode != ''">
+	             manage_code = #{manageCode}
+	        </if>
+        </where>  
+        limit 1
+    </select>
+    <!-- 修改用户信息 -->
+    <update id="updateManagement" parameterType="management">
+        update t_management 
+        <set>
+        	<if test="manageCode != null and manageCode != ''">
+	             manage_code = #{manageCode}
+	        </if>
+	        <if test="managePwd != null and managePwd != ''">
+	             ,manage_pwd = #{managePwd}
+	        </if>
+	         <if test="remark != null and remark != ''">
+	             ,remark = #{remark}
+	        </if>
+	         <if test="creator != null and creator != ''">
+	             ,creator = #{creator}
+	        </if>
+		 	<if test="createrTime != null">
+	             ,creater_time = #{createrTime}
+	        </if>
+	         <if test="lastLoginIp != null and lastLoginIp != ''">
+	             ,last_login_ip = #{lastLoginIp}
+	        </if>
+	         <if test="lastLoginTime != null and lastLoginTime != ''">
+	             ,last_login_time = #{lastLoginTime}
+	        </if>
+		 
+        </set>
+        where manage_code = #{manageCode}
+    </update>
+    <!-- 修改用户密码 -->
+    <update id="updatePassword" parameterType="management">
+        update t_management set
+        manage_pwd = #{managePwd}
+        where manage_code = #{manageCode}
+    </update>
+    <!-- 添加用户 -->
+    <insert id="insertManagement" parameterType="management">
+        insert into t_Management
+        (manage_code ,
+		manage_pwd ,
+		remark,
+		creator,
+		creater_time ,
+		last_login_ip ,
+		last_login_time ,
+		status)
+        values(
+        #{manageCode}, #{managePwd}, #{remark}, #{creator},
+        #{createrTime}, #{lastLoginIp}, #{lastLoginTime}, #{status})
+    </insert>
+    <!-- 删除用户 -->
+    <update id="deleteManagement" parameterType="management">
+        update t_management set
+        last_login_ip = '',
+        stutas = 0
+        where  manage_code = #{manageCode}
+    </update>
+</mapper>
