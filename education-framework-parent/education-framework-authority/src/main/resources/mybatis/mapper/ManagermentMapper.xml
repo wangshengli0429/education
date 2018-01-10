@@ -82,7 +82,7 @@
         where manage_code = #{manageCode}
     </update>
     <!-- 修改用户密码 -->
-    <update id="updatePassword" parameterType="management">
+    <update id="updateManagetByPassword" parameterType="management">
         update t_management set
         manage_pwd = #{managePwd}
         where manage_code = #{manageCode}

@@ -2,14 +2,15 @@ package com.education.framework.common.base;
 
 import com.education.framework.common.util.JsonUtil;
 
-
-
-
 /**
- * StatusCode callback code
  * 
- * @author kayson Yang
- * @date 2016/6/19 0017
+ * <p>StatusCode.java</p>
+ * <p>返回报文枚举</p>
+ * <p>Company: </p>
+ * @author wangsl
+ * @version V1.0
+ * @Date 2018年1月10日 下午2:38:57
+ * <p>修改者姓名 修改内容说明</p>
  */
 public enum StatusCode {
  
