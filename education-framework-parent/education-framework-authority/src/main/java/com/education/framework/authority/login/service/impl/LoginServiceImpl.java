@@ -3,22 +3,27 @@ package com.education.framework.authority.login.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alibaba.fastjson.JSONArray;
 import com.education.framework.authority.common.service.VarKeys;
 import com.education.framework.authority.login.model.LoginUser;
 import com.education.framework.authority.login.service.LoginService;
 import com.education.framework.authority.management.model.Management;
 import com.education.framework.authority.management.service.ManagementService;
+import com.education.framework.authority.menu.model.Menu;
+import com.education.framework.authority.menu.service.MenuService;
 import com.education.framework.authority.role.service.RoleService;
 import com.education.framework.common.base.ApiResult;
 import com.education.framework.common.service.LogFormatService;
 import com.education.framework.common.util.Const;
 import com.education.framework.common.util.MD5Util;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 @Service
 public class LoginServiceImpl implements LoginService {
@@ -29,6 +34,8 @@ public class LoginServiceImpl implements LoginService {
     private ManagementService managementService;
     @Autowired
     private RoleService roleService;
+    @Autowired
+    private MenuService menuService;
     /** startTime */
     private long startTime;
 
@@ -92,6 +99,57 @@ public class LoginServiceImpl implements LoginService {
      * @param valueMap
      */
     private void findMenuListByManageCode(Map<String, Object> valueMap) {
-    	
+    	  List<Menu> subMenuVoList = Lists.newArrayList();
+          List<Menu> parentMenuList = Lists.newArrayList();
+          List<Menu> subMenuList = Lists.newArrayList();
+          List<Map<String, Object>> resultList = Lists.newArrayList();
+
+          startTime = System.currentTimeMillis();
+          LOGGER.info(LogFormatService.logogram("根据角色ID查询角色信息start..."));
+          try {
+              if (((LoginUser) valueMap.get(VarKeys.structKey(VarKeys.LOGIN, VarKeys.LOGIN_USER))).getManageCode() != null) {
+                  subMenuVoList = menuService.getMenuByCode(((LoginUser) valueMap.get(VarKeys.structKey(VarKeys.LOGIN,
+                          VarKeys.LOGIN_USER))).getManageCode());
+//                          subMenuService.findMenuListByUserId(((LoginUser) valueMap.get(VarKeys.structKey(VarKeys.LOGIN,
+//                                  VarKeys.LOGIN_USER))).getUserId());
+                  parentMenuList = menuService.getMenuByCode(((LoginUser) valueMap.get(VarKeys.structKey(VarKeys.LOGIN,
+                          VarKeys.LOGIN_USER))).getManageCode());
+                  if (CollectionUtils.isEmpty(subMenuVoList)) {
+                      LOGGER.info(LogFormatService.logFormat(
+                              "用户<"
+                                      + ((LoginUser) valueMap.get(VarKeys.structKey(
+                                              VarKeys.LOGIN, VarKeys.LOGIN_USER))).getManageCode()
+                                      + ">无有权限的子目录", startTime, LoginServiceImpl.class.toString()
+                                      + ":findMenuListByUserId"));
+                  } else if (CollectionUtils.isEmpty(parentMenuList)) {
+                      LOGGER.info(LogFormatService.logFormat("没有父目录", startTime, LoginServiceImpl.class.toString()
+                              + ":findMenuListByUserId"));
+                  } else {
+                      for (Menu parentMenu : parentMenuList) {
+                          Map<String, Object> map = Maps.newHashMap();
+                          subMenuList = Lists.newArrayList();
+                          for (Menu subMenuVo : subMenuVoList) {
+                              if (parentMenu.getMenuCode() == subMenuVo.getParentCode()) {
+                                  subMenuList.add(subMenuVo);
+                              }
+                          }
+                          if (CollectionUtils.isNotEmpty(subMenuList)) {
+                              map.put("pid", parentMenu.getMenuCode());
+                              map.put("pname", parentMenu.getMenuDescr());
+                              map.put("subMenuList", subMenuList);
+                              resultList.add(map);
+                          }
+                      }
+                    
+//                      net.sf.json.JSONArray jsonArray = net.sf.json.JSONArray.fromObject(resultList);
+                      valueMap.put(VarKeys.structKey(VarKeys.LOGIN, VarKeys.MENU_LIST), resultList);
+                      LOGGER.info(LogFormatService.logFormat("获取目录成功:" + resultList.toString(), startTime,
+                              LoginServiceImpl.class.toString() + ":findMenuListByUserId"));
+                  }
+              }
+          } catch (Exception e) {
+              LOGGER.error(LogFormatService.logFormat("获取目录异常", startTime,
+                      LoginServiceImpl.class.toString() + ":findMenuListByUserId"), e);
+          }
     }
 }

@@ -77,6 +77,7 @@ public class LoginController extends BaseController {
                         LOGGER.info(LogFormatService.logogram("登录失败,loginUser获取信息错误"));
                     } else {
                         session.setAttribute("user", loginUser);
+                        
 //                        Integer isstaff = loginUser.getIsstaff();
 //                        if (isstaff != null) {
 //                            if (isstaff == Const.Base.ISSTAFF_N) { // 用户
