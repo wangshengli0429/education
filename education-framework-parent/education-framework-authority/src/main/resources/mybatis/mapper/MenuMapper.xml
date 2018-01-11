@@ -21,7 +21,7 @@
          where 
        	m.menu_code = mr.menu_code
 	     
-        order by create_time asc
+        order by idx asc
         <if test="rowStart != null and pageSize != null">
          limit ${rowStart}, ${pageSize}
         </if>
@@ -36,16 +36,23 @@
     </select>
      
     <!-- 根据menuCode获取Menu -->
-    <select id="getMenuByCode" parameterType="java.lang.String" resultType="menu">
+    <select id="getMenuByCode" parameterType="java.util.Map" resultType="menu">
         select
         <include refid="baseClumnId"></include>
-        from t_menu
+        from t_menu m,t_menu_role mr
        <where>
+         	m.menu_code = mr.menu_code
          	<if test="menuCode != null and menuCode != ''">
-	             menu_code = #{menuCode}
+	             m.menu_code = #{menuCode}
+	        </if>
+	         <if test="parentCode != null and parentCode != ''">
+	             m.parent_code = #{parentCode}
+	        </if>
+	        <if test="manageCode != null and manageCode != ''">
+	             mr.manage_code = #{manageCode}
 	        </if>
         </where>  
-        limit 1
+        order by m.idx asc
     </select>
    
     <!-- 修改Menu信息 -->

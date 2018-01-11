@@ -38,8 +38,8 @@ public class MenuDaoOImpl extends SqlSessionDaoSupport implements MenuDao {
 	}
 
 	@Override
-	public Menu getMenuByCode(String manageCode) {
-		return this.getSqlSession().selectOne("menu.getMenuByCode", manageCode);
+	public  List<Menu> getMenuByCode(Map<String, Object> map) {
+		return this.getSqlSession().selectOne("menu.getMenuByCode", map);
 	}
 
 }

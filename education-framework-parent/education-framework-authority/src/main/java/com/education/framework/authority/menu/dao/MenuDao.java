@@ -12,5 +12,10 @@ public interface MenuDao {
 	int deleteMenu(String id);
 	int insertMenu(Menu menu);
 	int updateMenu(Menu menu);
-	Menu getMenuByCode(String manageCode);
+	/**
+	 * 根据Code获取菜单 
+	 * @param manageCode
+	 * @return
+	 */
+	List<Menu> getMenuByCode(Map<String, Object> map);
 }
