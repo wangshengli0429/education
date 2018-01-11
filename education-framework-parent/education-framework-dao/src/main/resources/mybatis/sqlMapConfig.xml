@@ -4,10 +4,8 @@
     <!-- 定义别名 -->
     <typeAliases>
         <!-- 用户 -->
-        <typeAlias type="com.education.framework.model.user.UserInfo" alias="userInfo"/>
-           <!-- 用户 -->
-        <typeAlias type="com.education.framework.model.user.User" alias="operater"/>
-           <!-- 学生 -->
+         
+        <!-- 学生 -->
         <typeAlias type="com.education.framework.model.student.Student" alias="student"/>
         <typeAlias type="com.education.framework.model.student.vo.StudentVo" alias="studentVo"/>
 		<!-- 教师 -->
