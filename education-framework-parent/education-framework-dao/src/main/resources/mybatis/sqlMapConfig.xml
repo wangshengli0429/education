@@ -18,7 +18,8 @@
         <typeAlias type="com.education.framework.model.order.Order" alias="order"/>
 		<!-- 留言 评论系统 -->
         <typeAlias type="com.education.framework.model.note.Note" alias="note"/>
-        <typeAlias type="com.education.framework.model.student.Comment" alias="comment"/>
+        <typeAlias type="com.education.framework.model.comment.Comment" alias="comment"/>
+        <typeAlias type="com.education.framework.model.comment.vo.CommentVo" alias="commentVo"/>
 		
     </typeAliases>
     <!-- 这里不需要再注册mybatis的SQL映射文件 ，因为在Spring的配置文件中配置sqlSessionFactory时注册了mapper的路径-->

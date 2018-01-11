@@ -1,4 +1,4 @@
-package com.education.framework.model.student;
+package com.education.framework.model.comment;
 
 import java.io.Serializable;
 import java.util.Date; 
