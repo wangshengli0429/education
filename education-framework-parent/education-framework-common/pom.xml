@@ -17,8 +17,7 @@
   </properties>
   
   <dependencies>
-  
-  	 
+  		
      <!-- spring相关的jar -->  
         <dependency>  
             <groupId>${spring.groupId}</groupId>  

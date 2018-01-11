@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="note">
+    
+    <resultMap type="com.education.framework.model.note.Note" id="queryNoteResult">
+    	<result property="id" column="id"/>
+    </resultMap>
+    
+    <select id="queryOrderById" parameterType="com.education.framework.model.order.Order" resultType="order">
+    	select  t.id,
+				t.note_content,
+				t.user_id,
+				u.user_name,
+		    	date_format(t.note_time ,'%Y-%m-%d %H:%i:%s') as noteTime
+        from t_note t INNER JOIN t_user u on t.user_id = u.id  
+    	
+    	<where>
+	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND t.user_id = #{userId}</if>
+	    	 <if test="order!=null and order!=''"> AND t.note_content like #{noteContent}</if>
+	    	 <if test="regTime!=null"> AND t.note_time = date_format(#{noteTime} ,'%Y-%m-%d %H:%i:%s')</if>
+    	</where> 
+    </select>
+    
+    <select id="findAllOrder" parameterType="java.util.Map" resultType="order">
+        select
+        	t.id,
+				t.note_content,
+				t.user_id,
+				u.user_name,
+		    	date_format(t.note_time ,'%Y-%m-%d %H:%i:%s') as noteTime
+        from t_note t INNER JOIN t_user u on t.user_id = u.id  
+    	
+		<where>
+	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND t.user_id = #{userId}</if>
+	    	 <if test="order!=null and order!=''"> AND t.note_content like #{noteContent}</if>
+	    	 <if test="regTime!=null"> AND t.note_time = date_format(#{noteTime} ,'%Y-%m-%d %H:%i:%s')</if>
+ 		</where> 
+        order by t.id asc
+        <if test="rowStart != null and pageSize != null">
+         limit ${rowStart}, ${pageSize}
+        </if>
+    </select>
+    
+     <select id="findOrderCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(t.id)
+        from t_note t INNER JOIN t_user u on t.user_id = u.id  
+       <where>
+	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND t.user_id = #{userId}</if>
+	    	 <if test="order!=null and order!=''"> AND t.note_content like #{noteContent}</if>
+	    	 <if test="regTime!=null"> AND t.note_time = date_format(#{noteTime} ,'%Y-%m-%d %H:%i:%s')</if>
+ 		</where> 
+    </select>
+    
+  
+  
+    <insert id="insertNote" parameterType="com.education.framework.model.note.Note">
+    	insert into t_note
+    	(id
+    	<if test="noteContent">,note_content</if>
+    	<if test="userId">,user_id</if>
+    	<if test="noteTime">,note_time</if>
+    	)
+    	values(#{id}
+    	<if test="noteContent">,#{noteContent}</if>
+    	<if test="userId">,#{userId}</if>
+    	<if test="noteTime">,#{noteTime}</if>
+    	 )
+    </insert>
+    
+    <delete id="deleteNoteById" parameterType="java.lang.String">
+    
+    	delete t_note where id=#{id}
+    </delete>
+</mapper>
