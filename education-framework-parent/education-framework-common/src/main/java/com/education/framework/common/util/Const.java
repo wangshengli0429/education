@@ -164,6 +164,8 @@ public class Const {
     public final static String FLAG_0 = "0";
     /** 员工权限 */
     public final static String ADMIN = "admin";
+    /** APP访问  */
+    public final static String REST = "rest";
     /** 运行数据库数驱动 */
     public final static String MYSQL = "com.mysql.jdbc.Driver";
     /** DELETE */

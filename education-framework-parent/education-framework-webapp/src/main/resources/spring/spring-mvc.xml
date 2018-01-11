@@ -70,6 +70,7 @@
 <!--     <mvc:interceptors> -->
 <!--        <mvc:interceptor> -->
 <!--            <mvc:mapping path="/**" /> -->
+<!--             <mvc:mapping path="/rest/**" /> -->
 <!--            <mvc:exclude-mapping path="/login/**" />    -->
 <!--            <mvc:exclude-mapping path="/register/**" />  -->
 <!--            <mvc:exclude-mapping path="/linkForFront/**" /> -->

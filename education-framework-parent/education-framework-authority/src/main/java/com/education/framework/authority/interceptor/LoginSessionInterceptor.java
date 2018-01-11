@@ -49,12 +49,17 @@ public class LoginSessionInterceptor implements HandlerInterceptor {
     /**
      * 拦截处理
      * 
-     * 1. session用户信息为空，未登陆 2. 访问路径有admin,但没有管理员权限的不能访问该路径
+     * 1. session用户信息为空，未登陆 
      * 
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
             Object arg2) throws Exception {
+    	
+	   
+    	
+    	
+    	
         HttpServletRequest httpReq = (HttpServletRequest) request;
         HttpSession session = httpReq.getSession();
         String method = httpReq.getMethod();
@@ -62,38 +67,51 @@ public class LoginSessionInterceptor implements HandlerInterceptor {
         String reqPath = "";
         if ("GET".equals(method) || "POST".equals(method)) {
             reqPath = extractRequestPath(httpReq);
-            LoginUser loginUser = (LoginUser) session.getAttribute("user");
-            // 判断用户是否为空，即是否登陆过
-            if (loginUser != null) {
-                LogFormatService.init(reqPath, loginUser.getManageCode());
-                // 服务端访问
-//                if (cotainAdmin(reqPath)) {
-//                    if (Const.Base.ISSTAFF_Y != loginUser.getIsstaff()) {
-//                        flag = false;
-//                        LOGGER.info(LogFormatService.logogram("用户[" + loginUser.getUserName()
-//                                + "]没有服务器端访问权限, request path:" + reqPath));
-//                        request.getRequestDispatcher("/static/error/error2login.jsp").forward(request, response);
-//                    } else {
-//                        if (hasAnthority(reqPath, loginUser)) {
-//                            flag = true;
-//                        } else {
-//                            LOGGER.info(LogFormatService.logogram("有服务器端访问权限但无该资源的访问权限reqPath:" + reqPath));
-//                            if (extractRequestAjax(request)) {
-//                                fail(response, -1, "用户没有权限");
-//                            } else {
-//                                request.getRequestDispatcher("/static/error/error3Authority.jsp").forward(request, response);
-//                            }
-//                            flag = false;
-//                        }
-//                    }
-//                } else {
-//                    LOGGER.info("有客户端访问权限");
-                    flag = true;
-//                }
-            } else {
-                // 未登录，跳转到登录页面
-                LOGGER.info(LogFormatService.logogram("用户未登录, request path:" + reqPath));
-                request.getRequestDispatcher("/static/error/error2login.jsp").forward(request, response);
+            /******************  APP 登录拦截规则  **********************/
+            if(cotainRest(reqPath)){
+            	LOGGER.info("拦截到APP端访问:"+reqPath);
+            	//TODO APP访问拦截规则定义
+            	//TODO APP 查询数据库Token
+            	//TODO Token存在效验正确放过
+            	//TODO Token失败返回登录
+            	
+            }else{
+            
+	            /******************  PC登录管理拦截  **********************/
+	            LoginUser loginUser = (LoginUser) session.getAttribute("user");
+	            // 判断用户是否为空，即是否登陆过
+	            if (loginUser != null) {
+	                LogFormatService.init(reqPath, loginUser.getManageCode());
+	                // 服务端访问
+	//                if (cotainAdmin(reqPath)) {
+	//                    if (Const.Base.ISSTAFF_Y != loginUser.getIsstaff()) {
+	//                        flag = false;
+	//                        LOGGER.info(LogFormatService.logogram("用户[" + loginUser.getUserName()
+	//                                + "]没有服务器端访问权限, request path:" + reqPath));
+	//                        request.getRequestDispatcher("/static/error/error2login.jsp").forward(request, response);
+	//                    } else {
+	//                        if (hasAnthority(reqPath, loginUser)) {
+	//                            flag = true;
+	//                        } else {
+	//                            LOGGER.info(LogFormatService.logogram("有服务器端访问权限但无该资源的访问权限reqPath:" + reqPath));
+	//                            if (extractRequestAjax(request)) {
+	//                                fail(response, -1, "用户没有权限");
+	//                            } else {
+	//                                request.getRequestDispatcher("/static/error/error3Authority.jsp").forward(request, response);
+	//                            }
+	//                            flag = false;
+	//                        }
+	//                    }
+	//                } else {
+	//                    LOGGER.info("有客户端访问权限");
+	                    flag = true;
+	//                }
+	            } else {
+	                // 未登录，跳转到登录页面
+	                LOGGER.info(LogFormatService.logogram("用户未登录, request path:" + reqPath));
+	                request.getRequestDispatcher("/static/error/error2login.jsp").forward(request, response);
+	            }
+            
             }
         }
         if (!flag) {
@@ -133,6 +151,19 @@ public class LoginSessionInterceptor implements HandlerInterceptor {
         }
         return false;
     }
+    /** 判断是否是APP访问 规则  /rest/**  */
+    private boolean cotainRest(String url) {
+        if (url != null && !"".equals(url) && url.length() > 0) {
+            String[] pathArr = url.split("/");
+            for (int i = 0; i < pathArr.length; i++) {
+                if (Const.REST.equals(pathArr[i])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
 
     /** 用户权限 */
     private boolean hasAnthority(String url, LoginUser loginUser) {
