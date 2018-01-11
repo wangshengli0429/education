@@ -43,7 +43,7 @@ public class StudentController {
 	
 	@RequestMapping(value={"rest/query/student/{id}","query/student/{id}"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public ApiResult queryAllStudent(@PathVariable String id){
+	public ApiResult queryStudentById(@PathVariable String id){
 		logger.info("controller queryAllStudent begin ");
 		
 		Map<String, Object> map = Maps.newHashMap();
