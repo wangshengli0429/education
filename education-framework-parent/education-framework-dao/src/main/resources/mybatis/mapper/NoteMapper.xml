@@ -6,7 +6,7 @@
     	<result property="id" column="id"/>
     </resultMap>
     
-    <select id="queryOrderById" parameterType="com.education.framework.model.order.Order" resultType="order">
+    <select id="queryNoteById" parameterType="com.education.framework.model.note.Note" resultType="note">
     	select  t.id,
 				t.note_content,
 				t.user_id,
@@ -15,14 +15,14 @@
         from t_note t INNER JOIN t_user u on t.user_id = u.id  
     	
     	<where>
-	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
+	    	  <if test="id!=null and id!=''"> AND t.id=#{id}</if>
 	    	 <if test="userId!=null and userId!=''"> AND t.user_id = #{userId}</if>
-	    	 <if test="order!=null and order!=''"> AND t.note_content like #{noteContent}</if>
-	    	 <if test="regTime!=null"> AND t.note_time = date_format(#{noteTime} ,'%Y-%m-%d %H:%i:%s')</if>
+	    	 <if test="noteContent!=null and noteContent!=''"> AND t.note_content like #{noteContent}</if>
+	    	 <if test="noteTime!=null"> AND t.note_time = date_format(#{noteTime} ,'%Y-%m-%d %H:%i:%s')</if>
     	</where> 
     </select>
     
-    <select id="findAllOrder" parameterType="java.util.Map" resultType="order">
+    <select id="findAllNote" parameterType="java.util.Map" resultType="note">
         select
         	t.id,
 				t.note_content,
@@ -34,8 +34,8 @@
 		<where>
 	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
 	    	 <if test="userId!=null and userId!=''"> AND t.user_id = #{userId}</if>
-	    	 <if test="order!=null and order!=''"> AND t.note_content like #{noteContent}</if>
-	    	 <if test="regTime!=null"> AND t.note_time = date_format(#{noteTime} ,'%Y-%m-%d %H:%i:%s')</if>
+	    	 <if test="noteContent!=null and noteContent!=''"> AND t.note_content like #{noteContent}</if>
+	    	 <if test="noteTime!=null"> AND t.note_time = date_format(#{noteTime} ,'%Y-%m-%d %H:%i:%s')</if>
  		</where> 
         order by t.id asc
         <if test="rowStart != null and pageSize != null">
@@ -43,14 +43,14 @@
         </if>
     </select>
     
-     <select id="findOrderCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+     <select id="findNoteCount" parameterType="java.util.Map" resultType="java.lang.Integer">
         select count(t.id)
         from t_note t INNER JOIN t_user u on t.user_id = u.id  
        <where>
 	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
 	    	 <if test="userId!=null and userId!=''"> AND t.user_id = #{userId}</if>
-	    	 <if test="order!=null and order!=''"> AND t.note_content like #{noteContent}</if>
-	    	 <if test="regTime!=null"> AND t.note_time = date_format(#{noteTime} ,'%Y-%m-%d %H:%i:%s')</if>
+	    	 <if test="noteContent!=null and noteContent!=''"> AND t.note_content like #{noteContent}</if>
+	    	 <if test="noteTime!=null"> AND t.note_time = date_format(#{noteTime} ,'%Y-%m-%d %H:%i:%s')</if>
  		</where> 
     </select>
     

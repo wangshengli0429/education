@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="comment">
+    
+    <resultMap type="com.education.framework.model.comment.Comment" id="queryCommentResult">
+    	<result property="id" column="id"/>
+    	<result property="teacherId" column="teacher_id"/>
+    	<result property="commentContent" column="comment_content"/>
+    	<result property="studentId" column="student_id"/>
+    	<result property="commentTime" column="comment_time"/>
+    	<result property="status" column="status"/>
+    </resultMap>
+    
+    <select id="queryCommentById" parameterType="com.education.framework.model.comment.Comment" resultType="comment">
+    	select  t.id,
+				t.teacher_id as teacherId,
+				t.comment_content as commentContent,
+				t.student_id as studentId,
+		    	date_format(t.comment_time ,'%y-%m-%d %h:%i:%s') as commentTime,
+		    	t.status,
+				s.student,
+				e.teacher_name as teacherName
+        from t_comment t,t_student s,t_teacher e
+    	
+    	<where>
+    	 		t.student_id =s.id and t.teacher_id = e.id
+	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
+	    	 <if test="order!=null and order!=''"> AND t.comment_content like #{commentContent}</if>
+	    	 <if test="regTime!=null"> AND t.comment_time = date_format(#{commentTime} ,'%Y-%m-%d %H:%i:%s')</if>
+    	</where> 
+    </select>
+    
+    <select id="findAllComment" parameterType="java.util.Map" resultType="comment">
+        select  t.id,
+        	    t.teacher_id as teacherId,
+				t.comment_content as commentContent,
+				t.student_id as studentId,
+		    	date_format(t.comment_time ,'%y-%m-%d %h:%i:%s') as commentTime,
+		    	t.status,
+				s.student,
+				e.teacher_name as teacherName
+        from t_comment t,t_student s,t_teacher e
+    	
+		<where>
+			t.student_id =s.id and t.teacher_id = e.id
+	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
+	    	 <if test="order!=null and order!=''"> AND t.comment_content like #{commentContent}</if>
+	    	 <if test="regTime!=null"> AND t.comment_time = date_format(#{commentTime} ,'%Y-%m-%d %H:%i:%s')</if>
+ 		</where> 
+        order by t.id asc
+        <if test="rowStart != null and pageSize != null">
+         limit ${rowStart}, ${pageSize}
+        </if>
+    </select>
+    
+     <select id="findCommentCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(t.id)
+        from t_comment t INNER JOIN t_user u on t.user_id = u.id  
+       <where>
+	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
+	    	 <if test="userId!=null and userId!=''"> AND t.user_id = #{userId}</if>
+	    	 <if test="order!=null and order!=''"> AND t.comment_content like #{commentContent}</if>
+	    	 <if test="regTime!=null"> AND t.comment_time = date_format(#{commentTime} ,'%Y-%m-%d %H:%i:%s')</if>
+ 		</where> 
+    </select>
+    
+  
+  
+    <insert id="insertComment" parameterType="com.education.framework.model.comment.Comment">
+    	insert into t_comment
+    	(id
+    	<if test="teacherId">,teacher_id</if>
+    	<if test="commentContent">,comment_content</if>
+    	<if test="studentId">,student_id</if>
+    	<if test="commentTime">,comment_time </if>
+    	<if test="status">,status</if>
+    	)
+    	values(#{id}
+    	<if test="teacherId">,#{teacherId}</if>
+    	<if test="commentContent">,#{commentContent}</if>
+    	<if test="studentId">,#{studentId}</if>
+    	<if test="commentTime">,date_format( #{commentTime},'%y-%m-%d %h:%i:%s')</if>
+    	<if test="commentTime">,#{commentTime}</if>
+    	 )
+    </insert>
+    
+    <delete id="deleteCommentById" parameterType="java.lang.String">
+    
+    	delete t_comment where id=#{id}
+    </delete>
+</mapper>
