@@ -34,7 +34,7 @@
 	      <div class='icon'>
 	        <img alt="" src='<%=path %>/static/layui_login/img/user_icon_copy.png'>
 	      </div>
-	      <input name="login" placeholder='用户名' maxlength="16" type='text' autocomplete="off" value=""/>
+	      <input name="manageCode" placeholder='用户名' maxlength="16" type='text' autocomplete="off" value=""/>
 	        <div class='validation'>
 	          <img alt="" src='<%=path %>/static/layui_login/img/tick.png'>
 	        </div>
@@ -43,7 +43,7 @@
 	      <div class='icon'>
 	        <img alt="" src='<%=path %>/static/layui_login/img/lock_icon_copy.png'>
 	      </div>
-	      <input name="pwd" placeholder='密码' maxlength="16" type='text' autocomplete="off">
+	      <input name=managePwd placeholder='密码' maxlength="16" type='text' autocomplete="off">
 	      <div class='validation'>
 	        <img alt="" src='<%=path %>/static/layui_login/img/tick.png'>
 	      </div>
@@ -127,7 +127,7 @@
 	        dotColor: '#E8DFE8',
 	        lineColor: '#133b88'
 	    });
-	    $('input[name="pwd"]').focus(function () {
+	    $('input[name="managePwd"]').focus(function () {
 	        $(this).attr('type', 'password');
 	    });
 	    $('input[type="text"]').focus(function () {
@@ -136,7 +136,7 @@
 	    $('input[type="text"],input[type="password"]').blur(function () {
 	        $(this).prev().animate({ 'opacity': '.5' }, 200);
 	    });
-	    $('input[name="login"],input[name="pwd"]').keyup(function () {
+	    $('input[name="manageCode"],input[name="managePwd"]').keyup(function () {
 	        var Len = $(this).val().length;
 	        if (!$(this).val() == '' && Len >= 5) {
 	            $(this).next().animate({
@@ -159,12 +159,12 @@
 // 			}); 
 	        //非空验证
 	        $('input[type="button"]').click(function () {
-	            var login = $('input[name="login"]').val();
-	            var pwd = $('input[name="pwd"]').val();
+	            var manageCode = $('input[name="manageCode"]').val();
+	            var managePwd = $('input[name="managePwd"]').val();
 	            var code = $('input[name="code"]').val();
-	            if (login == '') {
+	            if (manageCode == '') {
 	                ErroAlert('请输入您的账号');
-	            } else if (pwd == '') {
+	            } else if (managePwd == '') {
 	                ErroAlert('请输入密码');
 	            } else if (code == '' || code.length != 4) {
 	                ErroAlert('输入验证码');
@@ -188,11 +188,11 @@
 	                }, 500);
 					//******************* 认证中... ************************/
 	                //登录验证...
-	                var JsonData = { login: login, pwd: pwd, code: code };
+	                var LoginUser = { manageCode: manageCode, managePwd: managePwd, code: code };
 					//此处做为ajax内部判断
 					var url = "";
-					if(JsonData.login == truelogin && JsonData.pwd == truepwd && JsonData.code.toUpperCase() == CodeVal.toUpperCase()){
-						url = "Ajax/Login";
+					if(LoginUser.manageCode == truelogin && LoginUser.managePwd == truepwd && JsonData.code.toUpperCase() == CodeVal.toUpperCase()){
+						url = "<%=path %>/login/doLogin";
 					}else{
 						url = "Ajax/LoginFalse";
 					}
@@ -201,9 +201,26 @@
 	                AjaxPost(url, JsonData,
 	                                function () {
 	                                    //ajax加载中
-	                                	 ErroAlert('ajax加载中');
+	                                	  $.ajax({
+	                                          type: "GET",
+	                                          url: url,
+	                                          data: {manageCode:LoginUser.manageCode, managePwd:LoginUser.managePwd},
+	                                          dataType: "json",
+	                                          success: function(data){
+// 	                                                      $('#resText').empty();   //清空resText里面的所有内容
+	                                                      var html = ''; 
+	                                                      alert(data)
+// 	                                                      $.each(data, function(commentIndex, comment){
+// 	                                                            html += '<div class="comment"><h6>' + comment['username']
+// 	                                                                      + ':</h6><p class="para"' + comment['content']
+// 	                                                                      + '</p></div>';
+// 	                                                      });
+// 	                                                      $('#resText').html(html);
+	                                                   }
+	                                      });
 	                                },
 	                                function (data) {
+	                                	 
 	                                    //ajax返回 
 	                                    //认证完成
 	                                    setTimeout(function () {
@@ -250,18 +267,21 @@
 	    }  
 		if(ajaxmockjax == 1){
 			$.mockjax({  
-				url: 'Ajax/Login',  
+				url: '<%=path %>/login/doLogin',  
 				status: 200,  
-				responseTime: 50,          
-				responseText: {"Status":"ok","Text":"登录成功<br /><br /><br /><a href=\"http://www.baidu.com\">去主页面</a>"}  
+				responseTime: 500,          
+// 				responseText: {"Status":"ok","Text":"登录成功<br /><br /><br /><a href=\"http://www.baidu.com\">去主页面</a>"} ,
+				response: function(data){
+			           alert(data)
+			            }
 			}); 
-			$.mockjax({  
-				url: 'Ajax/LoginFalse',  
-				status: 200,  
-				responseTime: 50,          
-				responseText: {"Status":"Erro","Erro":"账号名或密码或验证码有误"}
-			});   
+// 			$.mockjax({ 
+// 				url: 'Ajax/LoginFalse',  
+// 				status: 200,  
+// 				responseTime: 50,          
+// 				responseText: {"Status":"Erro","Erro":"账号名或密码或验证码有误"}
+// 			});   
 		}
     </script>
-</body><a 
+</body>
 </html>
