@@ -197,6 +197,7 @@
 						url = "Ajax/LoginFalse";
 					}
 					
+					alert(url);
 					
 	                AjaxPost(url, JsonData,
 	                                function () {
