@@ -24,7 +24,7 @@ public class RoleDaoImpl extends SqlSessionDaoSupport implements RoleDao{
 
 	@Override
 	public List<Role> getRoleByManagementCode(String manageCode) {
-		return this.getSqlSession().selectList("role.getRoleByUserId", manageCode);
+		return this.getSqlSession().selectList("role.getRoleByManagementCode", manageCode);
 	}
 
 	@Override

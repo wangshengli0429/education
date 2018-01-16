@@ -35,7 +35,7 @@
         from t_management
         <where>
 	        <if test="manageCode != null and manageCode != ''">
-	             manage_code = #{manageCode}
+	          AND   manage_code = #{manageCode}
 	        </if>
 	    </where>
     </select>
@@ -44,10 +44,10 @@
     <select id="findByManagementCode" parameterType="java.lang.String" resultType="management">
         select
         <include refid="baseClumnId"></include>
-        from t_management
+        from t_management 
        <where>
-         	<if test="manageCode != null and manageCode != ''">
-	             manage_code = #{manageCode}
+         	<if test="_parameter != null and _parameter != ''">
+	             manage_code = #{_parameter,jdbcType=VARCHAR}
 	        </if>
         </where>  
         limit 1

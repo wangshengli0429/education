@@ -67,7 +67,10 @@ public class LoginServiceImpl implements LoginService {
                         startTime, LoginServiceImpl.class.toString() + ":doLogin"));
             } else {
                 if (StringUtils.isNotBlank(manage.getManagePwd())
-                        && MD5Util.getEncryptedPwd(password).equals(manage.getManagePwd())) {
+                		
+                		//TODO MD5加密
+//                        && MD5Util.getEncryptedPwd(password).equals(manage.getManagePwd())
+                        ) {
                 	   roleList = roleService.getRole(manage.getManageCode());
                        valueMap.put(VarKeys.structKey(VarKeys.LOGIN, VarKeys.FLAG), true);
                        valueMap.put(VarKeys.structKey(VarKeys.LOGIN, VarKeys.LOGIN_USER), new LoginUser(manage, roleList));

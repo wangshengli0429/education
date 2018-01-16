@@ -3,6 +3,7 @@ package com.education.framework.authority.management.dao.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 
@@ -44,7 +45,7 @@ public class ManageDaoImpl extends SqlSessionDaoSupport implements
 	}
 
 	@Override
-	public Management findByManagementCode(String manageCode) {
+	public Management findByManagementCode(@Param("manageCode")String manageCode) {
 		 
 		return this.getSqlSession().selectOne("management.findByManagementCode", manageCode);
 	}

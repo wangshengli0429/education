@@ -158,7 +158,7 @@ public class ManagementServiceImpl implements ManagementService{
 	@Override
 	public ApiResult findByManagementCode(String manageCode) {
 		logger.info(LogFormatService.logFormat("findByManagementCode  begin"));
-		if(StringUtils.isNotBlank(manageCode)){
+		if(StringUtils.isBlank(manageCode)){
 			return 	new ApiResult(EDU_CODE_010.getCode(), EDU_CODE_010.getMsg(), EDU_CODE_010.getShowMsg());
 			
 		}

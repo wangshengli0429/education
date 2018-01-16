@@ -90,7 +90,7 @@
     <script type="text/javascript" src="<%=path %>/static/layui_login/js/jquery.mockjax.js"></script>
 	<script type="text/javascript">
 		var canGetCookie = 0;//是否支持存储Cookie 0 不支持 1 支持
-		var ajaxmockjax = 1;//是否启用虚拟Ajax的请求响 0 不启用  1 启用
+		var ajaxmockjax = 0;//是否启用虚拟Ajax的请求响 0 不启用  1 启用
 		//默认账号密码
 		
 		var truelogin = "123456";
@@ -191,33 +191,36 @@
 	                var LoginUser = { manageCode: manageCode, managePwd: managePwd, code: code };
 					//此处做为ajax内部判断
 					var url = "";
-					if(LoginUser.manageCode == truelogin && LoginUser.managePwd == truepwd && JsonData.code.toUpperCase() == CodeVal.toUpperCase()){
+// 					if(LoginUser.manageCode == truelogin && LoginUser.managePwd == truepwd && LoginUser.code.toUpperCase() == CodeVal.toUpperCase()){
+					if(LoginUser.code.toUpperCase() == CodeVal.toUpperCase()){
 						url = "<%=path %>/login/doLogin";
 					}else{
 						url = "Ajax/LoginFalse";
 					}
 					
-					alert(url);
 					
-	                AjaxPost(url, JsonData,
+	                AjaxPost(url, LoginUser,
 	                                function () {
 	                                    //ajax加载中
-	                                	  $.ajax({
+	                                	 $.ajax({
 	                                          type: "GET",
 	                                          url: url,
 	                                          data: {manageCode:LoginUser.manageCode, managePwd:LoginUser.managePwd},
 	                                          dataType: "json",
 	                                          success: function(data){
-// 	                                                      $('#resText').empty();   //清空resText里面的所有内容
+//	                                                      $('#resText').empty();   //清空resText里面的所有内容
 	                                                      var html = ''; 
-	                                                      alert(data)
-// 	                                                      $.each(data, function(commentIndex, comment){
-// 	                                                            html += '<div class="comment"><h6>' + comment['username']
-// 	                                                                      + ':</h6><p class="para"' + comment['content']
-// 	                                                                      + '</p></div>';
-// 	                                                      });
-// 	                                                      $('#resText').html(html);
-	                                                   }
+	                                                      alert(data);
+//	                                                      $.each(data, function(commentIndex, comment){
+//	                                                            html += '<div class="comment"><h6>' + comment['username']
+//	                                                                      + ':</h6><p class="para"' + comment['content']
+//	                                                                      + '</p></div>';
+//	                                                      });
+//	                                                      $('#resText').html(html);
+	                                                   },
+	                                          error:function(msg){
+	                                        	  alert(msg);
+	                                          }
 	                                      });
 	                                },
 	                                function (data) {
@@ -236,9 +239,11 @@
 	                                        }).addClass('visible');
 	                                        $('.login').removeClass('testtwo'); //平移特效
 	                                    }, 2000);
+	                                    ErroAlert(data.Status);
 	                                    setTimeout(function () {
 	                                        $('.authent').hide();
 	                                        $('.login').removeClass('test');
+	                                       
 	                                        if (data.Status == 'ok') {
 	                                            //登录成功
 	                                            $('.login div').fadeOut(100);
@@ -247,7 +252,13 @@
 												//跳转操作
 												
 	                                        } else {
-	                                            AjaxErro(data);
+	                                        	
+	                                        alert(<%=path %>)
+	                                            layer.open({
+	                                            	  type: 2, 
+	                                            	  content: '<%=path %>' 
+	                                            	  //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+	                                            	}); 
 	                                        }
 	                                    }, 2400);
 	                                })
@@ -267,21 +278,20 @@
 	        }
 	    }  
 		if(ajaxmockjax == 1){
+			
 			$.mockjax({  
 				url: '<%=path %>/login/doLogin',  
 				status: 200,  
 				responseTime: 500,          
-// 				responseText: {"Status":"ok","Text":"登录成功<br /><br /><br /><a href=\"http://www.baidu.com\">去主页面</a>"} ,
-				response: function(data){
-			           alert(data)
-			            }
+				responseText: {"Status":"ok","Text":"登录成功<br /><br /><br /><a href=\"http://www.baidu.com\">去主页面</a>"} ,
+				
 			}); 
-// 			$.mockjax({ 
-// 				url: 'Ajax/LoginFalse',  
-// 				status: 200,  
-// 				responseTime: 50,          
-// 				responseText: {"Status":"Erro","Erro":"账号名或密码或验证码有误"}
-// 			});   
+			$.mockjax({ 
+				url: 'Ajax/LoginFalse',  
+				status: 200,  
+				responseTime: 50,          
+				responseText: {"Status":"Erro","Erro":"账号名或密码或验证码有误"}
+			});   
 		}
     </script>
 </body>
