@@ -40,8 +40,8 @@ public class CommentServiceImpl implements CommentService{
 		Pagination<CommentVo> page = new Pagination<CommentVo>();
 	   try {
         	 
-            page.setPageNo(Integer.valueOf(map.get("pageNo").toString()));//当前页
-            page.setPageCount(Integer.valueOf(map.get("pageCount").toString()));//当前页总条数
+           // page.setPageNo(Integer.valueOf(map.get("pageNo").toString()));//当前页
+          //  page.setPageCount(Integer.valueOf(map.get("pageCount").toString()));//当前页总条数
             // 设置总数
             page.setItemCount(commentDao.findCommentCount(map));
             // 设置用户列表信息

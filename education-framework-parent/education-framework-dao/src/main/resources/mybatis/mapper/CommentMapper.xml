@@ -37,17 +37,17 @@
 				t.student_id as studentId,
 		    	date_format(t.comment_time ,'%y-%m-%d %h:%i:%s') as commentTime,
 		    	t.status,
-				s.student,
-				e.teacher_name as teacherName
-        from t_comment t,t_student s,t_teacher e
-    	
-		<where>
-			t.student_id =s.id and t.teacher_id = e.id
-	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
-	    	 <if test="order!=null and order!=''"> AND t.comment_content like #{commentContent}</if>
-	    	 <if test="regTime!=null"> AND t.comment_time = date_format(#{commentTime} ,'%Y-%m-%d %H:%i:%s')</if>
+				us.user_name as studentName,
+				ut.user_name as teacherName
+        from t_comment t INNER JOIN t_user us on t.student_id = us.id  
+        inner join t_user ut on t.teacher_id = ut.id
+		 <where>
+	    	 <if test="keyword != null and keyword != ''">
+	    	 	instr(us.user_name, #{keyword}) > 0 
+	    	 	or instr(ut.user_name, #{keyword}) > 0
+	    	 	or instr(t.comment_content, #{keyword}) > 0</if>
  		</where> 
-        order by t.id asc
+        order by t.id desc
         <if test="rowStart != null and pageSize != null">
          limit ${rowStart}, ${pageSize}
         </if>
@@ -55,12 +55,13 @@
     
      <select id="findCommentCount" parameterType="java.util.Map" resultType="java.lang.Integer">
         select count(t.id)
-        from t_comment t INNER JOIN t_user u on t.user_id = u.id  
+        from t_comment t INNER JOIN t_user us on t.student_id = us.id  
+        inner join t_user ut on t.teacher_id = ut.id
        <where>
-	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
-	    	 <if test="userId!=null and userId!=''"> AND t.user_id = #{userId}</if>
-	    	 <if test="order!=null and order!=''"> AND t.comment_content like #{commentContent}</if>
-	    	 <if test="regTime!=null"> AND t.comment_time = date_format(#{commentTime} ,'%Y-%m-%d %H:%i:%s')</if>
+	    	 <if test="keyword != null and keyword != ''">
+	    	 	instr(us.user_name, #{keyword}) > 0 
+	    	 	or instr(ut.user_name, #{keyword}) > 0
+	    	 	or instr(t.comment_content, #{keyword}) > 0</if>
  		</where> 
     </select>
     
