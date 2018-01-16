@@ -23,7 +23,7 @@ public class TeacherTimeController {
 	
 	private static Logger logger = Logger.getLogger(TeacherTimeServiceImpl.class);
 
-	@RequestMapping(value={"",""},method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value={"rest/query/teacherTime","query/teacherTime"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public ApiResult findAllTeacherTime(TeacherTime teacherTime, @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int rows){
