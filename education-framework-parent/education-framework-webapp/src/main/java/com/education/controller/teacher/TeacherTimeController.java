@@ -55,7 +55,7 @@ public class TeacherTimeController {
 		return teacherTimeService.insertTeacherTime(teacherTime);
 	}
 	
-	@RequestMapping(value={"rest/teacher/update","teacher/update"},method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value={"rest/teacherTime/update","teacherTime/update"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public ApiResult updateTeacherTime(@RequestParam TeacherTime teacherTime){
 		logger.info("controller updateTeacherTime ");
