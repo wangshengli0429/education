@@ -3,6 +3,7 @@ package com.education.framework.authority.role.dao.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 
@@ -23,7 +24,7 @@ public class RoleDaoImpl extends SqlSessionDaoSupport implements RoleDao{
 	}
 
 	@Override
-	public List<Role> getRoleByManagementCode(String manageCode) {
+	public List<Role> getRoleByManagementCode(@Param("manageCode")String manageCode) {
 		return this.getSqlSession().selectList("role.getRoleByManagementCode", manageCode);
 	}
 

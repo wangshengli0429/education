@@ -253,7 +253,7 @@
 												
 	                                        } else {
 	                                        	
-	                                        alert(<%=path %>)
+	                                        alert('<%=path %>')
 	                                            layer.open({
 	                                            	  type: 2, 
 	                                            	  content: '<%=path %>' 

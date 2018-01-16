@@ -6,7 +6,7 @@
      	role_code roleCode,
 		role_descr roleDescr,
 		remark,
-		creater_time createrTime,
+		creater_time createrTime
     </sql>
     <!-- 用户列表 -->
     <select id="findAllRole" parameterType="java.util.Map" resultType="role">
@@ -46,13 +46,18 @@
       <!-- 根据ManagementCode获取角色 -->
     <select id="getRoleByManagementCode" parameterType="java.lang.String" resultType="role">
       select
-        <include refid="baseClumnId"></include>
+        t.role_code roleCode,  
+		 role_descr roleDescr,   t.remark,  
+		 t.creater_time createrTime 
         from t_role t, t_manage_role mr
-        where  
-            t.id = mr.role_id
-          	<if test="manageCode != null and manageCode != ''">
-	       		and mr.manage_code = #{manageCode}
+        <where>
+        	  t.role_code = mr.role_code
+         	<if test="_parameter != null and _parameter != ''">
+	             and mr.manage_code = #{_parameter,jdbcType=VARCHAR}
 	        </if>
+        </where>  
+            
+          	 
         order by t.creater_time asc
     </select>
     <!-- 修改用户信息 -->
