@@ -1,15 +1,37 @@
 ﻿//Ajax提交
 function AjaxPost(Url,JsonData,LodingFun,ReturnFun) {
-    $.ajax({
-        type: "post",
+	$.ajax({
+        type: "GET",
         url: Url,
-        data: JsonData,
-        dataType: 'json',
-        async: 'false',
-        beforeSend: LodingFun,
-        error: function () { AjaxErro({ "Status": "Erro", "Erro": "500" }); },
-        success: ReturnFun
+        data: {manageCode:JsonData.manageCode, managePwd:JsonData.managePwd},
+        dataType: "json",
+        success: function(data){
+//                    $('#resText').empty();   //清空resText里面的所有内容
+                    var html = ''; 
+                   alert("ajax data: " + data);
+//                    $.each(data, function(commentIndex, comment){
+//                          html += '<div class="comment"><h6>' + comment['username']
+//                                    + ':</h6><p class="para"' + comment['content']
+//                                    + '</p></div>';
+//                    });
+//                    $('#resText').html(html);
+                 },
+        error:function(data){
+        	ErroAlert("login error: " + data.MSG);
+        	layer.alert(data.MSG, { icon: 5, time: 2000, offset: 't', closeBtn: 0, title: '错误信息', btn: [], anim: 2, shade: 0 });
+
+        }
     });
+//    $.ajax({
+//        type: "post",
+//        url: Url,
+//        data: JsonData,
+//        dataType: 'json',
+//        async: 'false',
+//        beforeSend: LodingFun,
+//        error: function () { AjaxErro({ "Status": "Erro", "Erro": "500" }); },
+//        success: ReturnFun
+//    });
 }
 //示例
 //AjaxPost("ajax调用路径", ajax传参,
@@ -24,7 +46,7 @@ function AjaxPost(Url,JsonData,LodingFun,ReturnFun) {
 
 //弹出
 function ErroAlert(e) {
-    var index = layer.alert(e, { icon: 5, time: 2000, offset: 't', closeBtn: 0, title: '错误信息', btn: [], anim: 2, shade: 0 });
+    var index = layer.alert(e, { icon: 5,  offset: 't', closeBtn: 1, title: '错误信息', btn: [], anim: 2, shade: 0 });
     layer.style(index, {
         color: '#777'
     }); 

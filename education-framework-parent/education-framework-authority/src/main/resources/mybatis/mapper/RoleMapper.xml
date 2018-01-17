@@ -50,12 +50,12 @@
 		 role_descr roleDescr,   t.remark,  
 		 t.creater_time createrTime 
         from t_role t, t_manage_role mr
-        <where>
+        where
         	  t.role_code = mr.role_code
          	<if test="_parameter != null and _parameter != ''">
 	             and mr.manage_code = #{_parameter,jdbcType=VARCHAR}
 	        </if>
-        </where>  
+         
             
           	 
         order by t.creater_time asc

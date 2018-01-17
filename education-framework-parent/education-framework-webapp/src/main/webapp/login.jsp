@@ -64,7 +64,7 @@
 	  <div class='success'>
 	  </div>
 	  <div class='disclaimer'>
-	    <p>欢迎登录后台管理系统 </p>
+	    <p>欢迎登录好学习后台管理系统 </p>
 	  </div>
 	</div>
 	<div class='authent'>
@@ -198,30 +198,10 @@
 						url = "Ajax/LoginFalse";
 					}
 					
-					
 	                AjaxPost(url, LoginUser,
 	                                function () {
 	                                    //ajax加载中
-	                                	 $.ajax({
-	                                          type: "GET",
-	                                          url: url,
-	                                          data: {manageCode:LoginUser.manageCode, managePwd:LoginUser.managePwd},
-	                                          dataType: "json",
-	                                          success: function(data){
-//	                                                      $('#resText').empty();   //清空resText里面的所有内容
-	                                                      var html = ''; 
-	                                                      alert("suc:"data);
-//	                                                      $.each(data, function(commentIndex, comment){
-//	                                                            html += '<div class="comment"><h6>' + comment['username']
-//	                                                                      + ':</h6><p class="para"' + comment['content']
-//	                                                                      + '</p></div>';
-//	                                                      });
-//	                                                      $('#resText').html(html);
-	                                                   },
-	                                          error:function(msg){
-	                                        	  alert("error:"+msg);
-	                                          }
-	                                      });
+	                                	console.info("ajax加载中: ");
 	                                },
 	                                function (data) {
 	                                	 
@@ -239,7 +219,8 @@
 	                                        }).addClass('visible');
 	                                        $('.login').removeClass('testtwo'); //平移特效
 	                                    }, 2000);
-	                                    ErroAlert(data.Status);
+	                                	 
+	                                    
 	                                    setTimeout(function () {
 	                                        $('.authent').hide();
 	                                        $('.login').removeClass('test');
@@ -252,13 +233,8 @@
 												//跳转操作
 												
 	                                        } else {
-	                                        	
-	                                        alert('<%=path %>')
-	                                            layer.open({
-	                                            	  type: 2, 
-	                                            	  content: '<%=path %>' 
-	                                            	  //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
-	                                            	}); 
+	                                        	 
+	                                        	   AjaxErro(data);
 	                                        }
 	                                    }, 2400);
 	                                })
@@ -276,22 +252,25 @@
 	        } else {
 	            //浏览器不支持全屏API或已被禁用  
 	        }
+	        
 	    }  
 		if(ajaxmockjax == 1){
-			
-			$.mockjax({  
-				url: '<%=path %>/login/doLogin',  
-				status: 200,  
-				responseTime: 500,          
-				responseText: {"Status":"ok","Text":"登录成功<br /><br /><br /><a href=\"http://www.baidu.com\">去主页面</a>"} ,
+		 
+			 
+			 
+// 			$.mockjax({  
+<%-- 				url: '<%=path %>/login/doLogin',   --%>
+// 				status: 200,  
+// 				responseTime: 500,          
+// 				responseText: {"Status":"ok","Text":"登录成功<br /><br /><br /><a href=\"http://www.baidu.com\">去主页面</a>"} ,
 				
-			}); 
-			$.mockjax({ 
-				url: 'Ajax/LoginFalse',  
-				status: 200,  
-				responseTime: 50,          
-				responseText: {"Status":"Erro","Erro":"账号名或密码或验证码有误"}
-			});   
+// 			}); 
+// 			$.mockjax({ 
+// 				url: 'Ajax/LoginFalse',  
+// 				status: 200,  
+// 				responseTime: 50,          
+// 				responseText: {"Status":"Erro","Erro":"账号名或密码或验证码有误"}
+// 			});   
 		}
     </script>
 </body>
