@@ -210,7 +210,7 @@
 	                                          success: function(data){
 //	                                                      $('#resText').empty();   //清空resText里面的所有内容
 	                                                      var html = ''; 
-	                                                      alert(data);
+	                                                      alert("suc:"data);
 //	                                                      $.each(data, function(commentIndex, comment){
 //	                                                            html += '<div class="comment"><h6>' + comment['username']
 //	                                                                      + ':</h6><p class="para"' + comment['content']
@@ -219,7 +219,7 @@
 //	                                                      $('#resText').html(html);
 	                                                   },
 	                                          error:function(msg){
-	                                        	  alert(msg);
+	                                        	  alert("error:"+msg);
 	                                          }
 	                                      });
 	                                },

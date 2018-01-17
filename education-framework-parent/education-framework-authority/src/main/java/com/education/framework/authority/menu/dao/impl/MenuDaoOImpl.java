@@ -39,7 +39,7 @@ public class MenuDaoOImpl extends SqlSessionDaoSupport implements MenuDao {
 
 	@Override
 	public  List<Menu> getMenuByCode(Map<String, Object> map) {
-		return this.getSqlSession().selectOne("menu.getMenuByCode", map);
+		return this.getSqlSession().selectList("menu.getMenuByCode", map);
 	}
 
 }

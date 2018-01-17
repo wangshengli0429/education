@@ -139,8 +139,8 @@ public class LoginServiceImpl implements LoginService {
                               }
                           }
                           if (CollectionUtils.isNotEmpty(subMenuList)) {
-                              map.put("pid", parentMenu.getMenuCode());
-                              map.put("pname", parentMenu.getMenuDescr());
+                              map.put("parantCode", parentMenu.getMenuCode());
+                              map.put("menuDescr", parentMenu.getMenuDescr());
                               map.put("subMenuList", subMenuList);
                               resultList.add(map);
                           }
