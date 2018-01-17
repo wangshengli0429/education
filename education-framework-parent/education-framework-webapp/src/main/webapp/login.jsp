@@ -198,46 +198,73 @@
 						url = "Ajax/LoginFalse";
 					}
 					
-	                AjaxPost(url, LoginUser,
-	                                function () {
-	                                    //ajax加载中
-	                                	console.info("ajax加载中: ");
-	                                },
-	                                function (data) {
+					
+					$.ajax({
+				        type: "POST",
+				        url: url,
+				        data: {manageCode:LoginUser.manageCode, managePwd:LoginUser.managePwd},
+				        dataType: "json",
+				        success: function(data){
+//				                    $('#resText').empty();   //清空resText里面的所有内容
+				                    var html = ''; 
+				                   alert("ajax data: " + data);
+//				                    $.each(data, function(commentIndex, comment){
+//				                          html += '<div class="comment"><h6>' + comment['username']
+//				                                    + ':</h6><p class="para"' + comment['content']
+//				                                    + '</p></div>';
+//				                    });
+//				                    $('#resText').html(html);
+				                 },
+				        error:function(data){
+				        	 var index = layer.alert("登录失败", { icon: 5,  offset: 't', closeBtn: 1, title: '错误信息', btn: [], anim: 2, shade: 0 });
+				        	    layer.style(index, {
+				        	        color: '#777'
+				        	    }); 
+				        	top.location.href = '<%=path %>';
+	
+				        }
+				    });
+					
+// 	                AjaxPost(url, LoginUser,
+// 	                                function () {
+// 	                                    //ajax加载中
+// 	                                	console.info("ajax加载中: ");
+// 	                                },
+// 	                                function (data) {
 	                                	 
-	                                    //ajax返回 
-	                                    //认证完成
-	                                    setTimeout(function () {
-	                                        $('.authent').show().animate({ right: 90 }, {
-	                                            easing: 'easeOutQuint',
-	                                            duration: 600,
-	                                            queue: false
-	                                        });
-	                                        $('.authent').animate({ opacity: 0 }, {
-	                                            duration: 200,
-	                                            queue: false
-	                                        }).addClass('visible');
-	                                        $('.login').removeClass('testtwo'); //平移特效
-	                                    }, 2000);
+// 	                                    //ajax返回 
+// 	                                    //认证完成
+// 	                                    setTimeout(function () {
+// 	                                        $('.authent').show().animate({ right: 90 }, {
+// 	                                            easing: 'easeOutQuint',
+// 	                                            duration: 600,
+// 	                                            queue: false
+// 	                                        });
+// 	                                        $('.authent').animate({ opacity: 0 }, {
+// 	                                            duration: 200,
+// 	                                            queue: false
+// 	                                        }).addClass('visible');
+// 	                                        $('.login').removeClass('testtwo'); //平移特效
+// 	                                    }, 2000);
 	                                	 
 	                                    
-	                                    setTimeout(function () {
-	                                        $('.authent').hide();
-	                                        $('.login').removeClass('test');
+// 	                                    setTimeout(function () {
+// 	                                        $('.authent').hide();
+// 	                                        $('.login').removeClass('test');
 	                                       
-	                                        if (data.Status == 'ok') {
-	                                            //登录成功
-	                                            $('.login div').fadeOut(100);
-	                                            $('.success').fadeIn(1000);
-	                                            $('.success').html(data.Text);
-												//跳转操作
+// 	                                        if (data.Status == 'ok') {
+// 	                                            //登录成功
+// 	                                            $('.login div').fadeOut(100);
+// 	                                            $('.success').fadeIn(1000);
+// 	                                            $('.success').html(data.Text);
+// 												//跳转操作
 												
-	                                        } else {
+// 	                                        } else {
 	                                        	 
-	                                        	   AjaxErro(data);
-	                                        }
-	                                    }, 2400);
-	                                })
+// 	                                        	   AjaxErro(data);
+// 	                                        }
+// 	                                    }, 2400);
+// 	                                })
 	            }
 	        })
 	    })

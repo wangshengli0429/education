@@ -54,20 +54,20 @@ function ErroAlert(e) {
 
 //Ajax 错误返回处理
 function AjaxErro(e) {
-    if (e.Status == "Erro") {
-        switch (e.Erro) {
-            case "500":
-                top.location.href = '/Erro/Erro500';
-                break;
-            case "100001":
-                ErroAlert("错误 : 错误代码 '10001'");
-                break;
-            default:
-                ErroAlert(e.Erro);
-        }
-    } else {
-        layer.msg("未知错误！");
-    }
+//    if (e.Status == "Erro") {
+//        switch (e.Erro) {
+//            case "500":
+//                top.location.href = '/Erro/Erro500';
+//                break;
+//            case "100001":
+//                ErroAlert("错误 : 错误代码 '10001'");
+//                break;
+//            default:
+//                ErroAlert(e.Erro);
+//        }
+//    } else {
+//        layer.msg("未知错误！");
+//    }
 }
 
 
