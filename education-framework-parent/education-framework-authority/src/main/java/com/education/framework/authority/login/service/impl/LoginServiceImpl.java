@@ -78,6 +78,7 @@ public class LoginServiceImpl implements LoginService {
 //                           findMenuListByUserId(valueMap);
 //                       }
 //                       findResourceByUser(valueMap);
+                       
                        findMenuListByManageCode(valueMap);
                 } else {
                     valueMap.put(VarKeys.structKey(VarKeys.LOGIN, VarKeys.FLAG), false);
@@ -111,11 +112,12 @@ public class LoginServiceImpl implements LoginService {
           LOGGER.info(LogFormatService.logogram("根据角色ID查询角色信息start..."));
           try {
               if (((LoginUser) valueMap.get(VarKeys.structKey(VarKeys.LOGIN, VarKeys.LOGIN_USER))).getManageCode() != null) {
-                  subMenuVoList = menuService.getMenuByCode(((LoginUser) valueMap.get(VarKeys.structKey(VarKeys.LOGIN,
+            	  
+                  subMenuVoList = menuService.getMenuByRoleCode(((LoginUser) valueMap.get(VarKeys.structKey(VarKeys.LOGIN,
                           VarKeys.LOGIN_USER))).getManageCode());
 //                          subMenuService.findMenuListByUserId(((LoginUser) valueMap.get(VarKeys.structKey(VarKeys.LOGIN,
 //                                  VarKeys.LOGIN_USER))).getUserId());
-                  parentMenuList = menuService.getMenuByCode(((LoginUser) valueMap.get(VarKeys.structKey(VarKeys.LOGIN,
+                  parentMenuList = menuService.getMenuByRoleCode(((LoginUser) valueMap.get(VarKeys.structKey(VarKeys.LOGIN,
                           VarKeys.LOGIN_USER))).getManageCode());
                   if (CollectionUtils.isEmpty(subMenuVoList)) {
                       LOGGER.info(LogFormatService.logFormat(

@@ -12,5 +12,5 @@ public interface MenuService {
 	ApiResult deleteMenu(String id);
 	ApiResult insertMenu(Menu menu);
 	ApiResult updateMenu(Menu menu);
-	List<Menu> getMenuByCode(String manageCode);
+	List<Menu> getMenuByRoleCode(String roleCode);
 }

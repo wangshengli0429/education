@@ -38,18 +38,28 @@
     <!-- 根据menuCode获取Menu -->
     <select id="getMenuByCode" parameterType="java.util.Map" resultType="menu">
         select
-        <include refid="baseClumnId"></include>
+       			m.menu_code menuCode,  
+       			parent_code parentCode,  
+       			menu_descr menuDescr,  
+ 				menu_href menuHref,   
+ 				target,   idx,   
+ 				m.remark,   
+ 				creator,   
+ 				creater_time createrTime 
         from t_menu m,t_menu_role mr
        <where>
          	m.menu_code = mr.menu_code
          	<if test="menuCode != null and menuCode != ''">
-	             m.menu_code = #{menuCode}
+	           and  m.menu_code = #{menuCode}
 	        </if>
 	         <if test="parentCode != null and parentCode != ''">
-	             m.parent_code = #{parentCode}
+	           and  m.parent_code = #{parentCode}
 	        </if>
 	        <if test="manageCode != null and manageCode != ''">
-	             mr.manage_code = #{manageCode}
+	           and  mr.manage_code = #{manageCode}
+	        </if>
+	          <if test="roleCode != null and roleCode != ''">
+	           and  mr.role_code= #{roleCode}
 	        </if>
         </where>  
         order by m.idx asc

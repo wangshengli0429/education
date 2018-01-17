@@ -38,7 +38,7 @@ public class RoleServiceImpl implements RoleService {
 	        List<Role> list =  roleDao.getRoleByManagementCode(manageCode);
 	        if (CollectionUtils.isNotEmpty(list)) {
 	            for (Role role : list) {
-	                roleList.add(role.getRoleDescr());
+	                roleList.add(role.getRoleCode());
 	            }
 	        }
 	        logger.info(LogFormatService.logogram("用户ID获取用所拥有的角色字符串:" + list.toString()));

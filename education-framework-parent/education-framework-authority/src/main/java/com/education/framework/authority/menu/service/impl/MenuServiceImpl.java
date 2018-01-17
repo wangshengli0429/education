@@ -48,9 +48,9 @@ public class MenuServiceImpl implements MenuService{
 	}
 
 	@Override
-	public List<Menu> getMenuByCode(String manageCode) {
+	public List<Menu> getMenuByRoleCode(String roleCode) {
 		Map<String, Object> map = Maps.newHashMap();
-		map.put("manageCode", manageCode);
+		map.put("roleCode", roleCode);
 		List<Menu> menuList = menuDao.getMenuByCode(map);
 		logger.info("菜单："+menuList.size());
 		return menuList;
