@@ -64,6 +64,7 @@ public class LoginController extends BaseController {
                         valueMap.get(VarKeys.structKey(VarKeys.LOGIN, VarKeys.MSG)) == null ? ""
                                 : (String) valueMap.get(VarKeys.structKey(VarKeys.LOGIN, VarKeys.MSG));
                 if (!flag) {
+                	url="manager/login/login";
                     model.addAttribute(VarKeys.MSG, msg);
                     model.addAttribute("userName", loginUser.getManageCode());
                     LOGGER.info(LogFormatService.logogram("登录失败"));
@@ -75,8 +76,9 @@ public class LoginController extends BaseController {
                         model.addAttribute("userName", userName);
                         LOGGER.info(LogFormatService.logogram("登录失败,loginUser获取信息错误"));
                     } else {
+                    	LOGGER.info(LogFormatService.logogram("登录成功》信息:" + loginUser.toString()));
                         session.setAttribute("user", loginUser);
-                        
+                        model.addAttribute("menuList", valueMap.get("login.menuList"));
 //                        Integer isstaff = loginUser.getIsstaff();
 //                        if (isstaff != null) {
 //                            if (isstaff == Const.Base.ISSTAFF_N) { // 用户
