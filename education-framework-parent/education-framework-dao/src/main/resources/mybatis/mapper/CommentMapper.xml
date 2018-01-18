@@ -5,7 +5,7 @@
     <resultMap type="com.education.framework.model.comment.Comment" id="queryCommentResult">
     	<result property="id" column="id"/>
     	<result property="teacherId" column="teacher_id"/>
-    	<result property="content" column="comment_content"/>
+    	<result property="commentContent" column="comment_content"/>
     	<result property="studentId" column="student_id"/>
     	<result property="commentTime" column="comment_time"/>
     	<result property="status" column="status"/>
@@ -33,40 +33,35 @@
     <select id="findAllComment" parameterType="java.util.Map" resultType="com.education.framework.model.comment.vo.CommentVo">
         select  t.id,
         	    t.teacher_id as teacherId,
-				t.comment_content as content,
+				t.comment_content as commentContent,
 				t.student_id as studentId,
-		    	date_format(t.comment_time ,'%Y-%m-%d %H:%i:%s') as commentTime,
+		    	date_format(t.comment_time ,'%y-%m-%d %h:%i:%s') as commentTime,
 		    	t.status,
 				us.user_name as studentName,
 				ut.user_name as teacherName
         from t_comment t INNER JOIN t_user us on t.student_id = us.id  
         inner join t_user ut on t.teacher_id = ut.id
 		 <where>
-		 	t.status = 'Y'
 	    	 <if test="keyword != null and keyword != ''">
-	    	   and (
 	    	 	instr(us.user_name, #{keyword}) > 0 
 	    	 	or instr(ut.user_name, #{keyword}) > 0
-	    	 	or instr(t.comment_content, #{keyword}) > 0)
-	    	 	</if>
+	    	 	or instr(t.comment_content, #{keyword}) > 0</if>
  		</where> 
         order by t.id desc
         <if test="rowStart != null and pageSize != null">
          limit ${rowStart}, ${pageSize}
         </if>
     </select>
-   
+    
      <select id="findCommentCount" parameterType="java.util.Map" resultType="java.lang.Integer">
         select count(t.id)
         from t_comment t INNER JOIN t_user us on t.student_id = us.id  
         inner join t_user ut on t.teacher_id = ut.id
        <where>
-       		t.status = 'Y'
 	    	 <if test="keyword != null and keyword != ''">
-	    	 	 and (instr(us.user_name, #{keyword}) > 0 
+	    	 	instr(us.user_name, #{keyword}) > 0 
 	    	 	or instr(ut.user_name, #{keyword}) > 0
-	    	 	or instr(t.comment_content, #{keyword}) > 0 )
-	    	 </if>
+	    	 	or instr(t.comment_content, #{keyword}) > 0</if>
  		</where> 
     </select>
     

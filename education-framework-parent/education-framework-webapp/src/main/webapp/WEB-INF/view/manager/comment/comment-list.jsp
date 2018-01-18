@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
 %>
-<c:set value="<%=path %>" var="path"></c:set>
 <!-- _meta 作为公共模版分离出去-->
 <%@ include file="../../../../layui-inc/_meta.jsp" %>
 <!-- _meta 作为公共模版分离出去-->
@@ -23,17 +21,23 @@
   
   <div class="layui-body">
     <!-- 内容主体区域 -->
-		<div style="padding: 15px;">
-		  <div class="demoTable">
-		  <div class="layui-inline">
-		    <input class="layui-input" name="keyword" id="demoReload" autocomplete="off">
-		  </div>
-		  <button class="layui-btn" data-type="reload">搜索</button>
-		</div>
-    	<table class="layui-hide" id="dataTable" lay-filter="comment"></table>
-    	<script type="text/html" id="barDemo">
-  			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-		</script>
+    <div style="padding: 15px;">
+      内容主体区域
+      
+      <br><br>
+      <blockquote class="layui-elem-quote">
+        layui 之所以赢得如此多人的青睐，更多是在于它“前后台系统通吃”的能力。既可编织出绚丽的前台页面，又可满足繁杂的后台功能需求。
+        <br>layui 后台布局， 致力于让每一位开发者都能轻松搭建自己的后台模板。
+      </blockquote>
+      
+      <a href="/doc/element/layout.html#admin" target="_blank" class="layui-btn layui-btn-big">获取该布局代码</a>
+      
+      <br><br><br><br>
+      
+       
+      
+      
+      下面是充数内容，为的是出现滚动条<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>
     </div>
   </div>
   
@@ -48,58 +52,11 @@
 <!-- _footer 作为公共模版分离出去-->
 
 <!-- 下面写业务相关的JS脚本 -->
-<script type type="text/javascript">
+<script>
 //JavaScript代码区域
-layui.use('table', function(){
-  var table = layui.table;
-  // 获取dataTable 
-  // alert($("input[name='keyword']").val());
+layui.use('element', function(){
+  var element = layui.element;
   
-  var $ = layui.$, active = {
-	        reload: function(){
-	            var demoReload = $('#demoReload');
-	            table.reload('testReload', {
-	                where: {
-	                	keyword: demoReload.val()
-	                }
-	            });
-	        }
-	    }; 
-  // 加载表格数据
-  table.render({
-	    elem: '#dataTable',
-	    /* params:{keyword:$("input[name='keyword']").val()}, */
-	    height: 450,
-	    url: '${path}/comment/getAllComment',    //数据接口
-	    page: true, //开启分页
-	    cols: [[ //表头
-	       {field: 'content', title: '评论内容', width:500, sort: true,align:'center', fixed: 'left'}
-	      ,{field: 'studentName', title: '评论人', align:'center',width:140}
-	      ,{field: 'teacherName', title: '被评论人', align:'center',width:140}
-	      ,{field: 'commentTime', title: '评论时间', align:'center',width:180,
-	    	  templet:function(row){
-	    		  return DateFormat(row.commentTime,'yyyy-MM-dd HH:mm:ss');
-	    	 }  
-	      } 
-	      ,{fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}
-	    ]]
-  		,id: 'testReload'
-	  });
-  
-  	// 监听操作	
-  	table.on('tool(comment)',function(obj) {
-  		if(obj.event === 'del'){
-  			// layer.confirm('真的删除行么', function(index){
-  				alert('Y');
-  				layer.msg("N");
-  			// }
-  		}
-  	});
-  	
-  	$('.demoTable .layui-btn').on('click', function(){
-  	    var type = $(this).data('type');
-  	    active[type] ? active[type].call(this) : '';
-  	});
 });
 </script>
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_30088308'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/c.php%3Fid%3D30088308' type='text/javascript'%3E%3C/script%3E"));</script>

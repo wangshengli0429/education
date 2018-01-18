@@ -1,5 +1,6 @@
 package com.education.controller.comment;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.education.framework.common.base.ApiResult;
-import com.education.framework.common.base.WebResult;
+import com.education.framework.model.comment.vo.CommentVo;
 import com.education.framework.service.comment.CommentService;
 import com.google.common.collect.Maps;
 
@@ -40,16 +41,12 @@ public class CommentController {
 	
 	@RequestMapping(value={"rest/comment/getAllComment","comment/getAllComment"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public WebResult getAllComment(@RequestParam(required=false) String keyword, @RequestParam Integer page, @RequestParam Integer limit) {
+	public ApiResult getAllComment(@RequestParam String keyword) {
 		logger.info("controller comment begin");
 		Map<String,Object> map = Maps.newHashMap();
 		// 检索条件
 		map.put("keyword", keyword);
-		map.put("rowStart", page-1);
-		map.put("pageSize",limit);
-		WebResult webResult = commentService.findAllComment(map);
-		System.out.println(webResult);
-		return webResult;
+		return commentService.findAllComment(map);
 	}
 
 }
