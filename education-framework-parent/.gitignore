@@ -17,5 +17,7 @@
 /.settings
 /.classpath
 /.project
+*.iml
+*.class
 .idea
 logs
