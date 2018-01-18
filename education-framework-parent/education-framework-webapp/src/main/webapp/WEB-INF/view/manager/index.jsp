@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.education.framework.authority.login.model.LoginUser" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+	String path = request.getContextPath();
+	LoginUser user = (LoginUser)session.getAttribute("user");
+%>
+<c:set value="<%=path %>" var="path"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +19,10 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black"> 
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
-  
-  <link rel="stylesheet" href="//res.layui.com/layui/dist/css/layui.css?t=1515376178738"  media="all">
+    
+  <link href="<%=path %>/static/layui-v2.2.5/css/layui.css" rel="stylesheet" type="text/css" />
+	
+ 
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -93,23 +102,28 @@
        
       
       
-      下面是充数内容，为的是出现滚动条<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>
     </div>
   </div>
   
   <div class="layui-footer">
     <!-- 底部固定区域 -->
-    © layui.com - 底部固定区域
+   
   </div>
 </div>
-<script src="//res.layui.com/layui/src/layui.js?t=1515376178738" charset="utf-8"></script>
+<script src="<%=path %>/static/layui-v2.2.5/layui.js" charset="utf-8"></script>
 <script>
 //JavaScript代码区域
 layui.use('element', function(){
   var element = layui.element;
   
 });
+
+var menuList = '${menuList}';
+//	menuList = eval("(" + menuList + ")");
+$(function(){
+	alert(menuList)
+});
 </script>
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_30088308'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/c.php%3Fid%3D30088308' type='text/javascript'%3E%3C/script%3E"));</script>
+
 </body>
 </html>
