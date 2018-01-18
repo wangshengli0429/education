@@ -30,36 +30,38 @@
 	    <span>管理员登录</span>
 	  </div>
 	  <div class='login_fields'>
-	    <div class='login_fields__user'>
-	      <div class='icon'>
-	        <img alt="" src='<%=path %>/static/layui_login/img/user_icon_copy.png'>
-	      </div>
-	      <input name="manageCode" placeholder='用户名' maxlength="16" type='text' autocomplete="off" value=""/>
-	        <div class='validation'>
-	          <img alt="" src='<%=path %>/static/layui_login/img/tick.png'>
-	        </div>
-	    </div>
-	    <div class='login_fields__password'>
-	      <div class='icon'>
-	        <img alt="" src='<%=path %>/static/layui_login/img/lock_icon_copy.png'>
-	      </div>
-	      <input name=managePwd placeholder='密码' maxlength="16" type='text' autocomplete="off">
-	      <div class='validation'>
-	        <img alt="" src='<%=path %>/static/layui_login/img/tick.png'>
-	      </div>
-	    </div>
-	    <div class='login_fields__password'>
-	      <div class='icon'>
-	        <img alt="" src='<%=path %>/static/layui_login/img/key.png'>
-	      </div>
-	      <input name="code" placeholder='验证码' maxlength="4" type='text' name="ValidateNum" autocomplete="off">
-	      <div class='validation' style="opacity: 1; right: -5px;top: -3px;">
-          <canvas class="J_codeimg" id="myCanvas" onclick="Code();">对不起，您的浏览器不支持canvas，请下载最新版浏览器!</canvas>
-	      </div>
-	    </div>
-	    <div class='login_fields__submit'>
-	      <input type='button' value='登录'>
-	    </div>
+	  		<form id="loginForm" method="post" action="<%=path %>/login/doLogin">
+			    <div class='login_fields__user'>
+			      <div class='icon'>
+			        <img alt="" src='<%=path %>/static/layui_login/img/user_icon_copy.png'>
+			      </div>
+			      <input name="manageCode" placeholder='用户名' maxlength="16" type='text' autocomplete="off" value=""/>
+			        <div class='validation'>
+			          <img alt="" src='<%=path %>/static/layui_login/img/tick.png'>
+			        </div>
+			    </div>
+			    <div class='login_fields__password'>
+			      <div class='icon'>
+			        <img alt="" src='<%=path %>/static/layui_login/img/lock_icon_copy.png'>
+			      </div>
+			      <input name=managePwd placeholder='密码' maxlength="16" type='text' autocomplete="off">
+			      <div class='validation'>
+			        <img alt="" src='<%=path %>/static/layui_login/img/tick.png'>
+			      </div>
+			    </div>
+<!-- 			    <div class='login_fields__password'> -->
+<!-- 			      <div class='icon'> -->
+<%-- 			        <img alt="" src='<%=path %>/static/layui_login/img/key.png'> --%>
+<!-- 			      </div> -->
+<!-- 			      <input name="code" placeholder='验证码' maxlength="4" type='text' name="ValidateNum" autocomplete="off"> -->
+<!-- 			      <div class='validation' style="opacity: 1; right: -5px;top: -3px;"> -->
+<%-- 		          <canvas class="J_codeimg" id="myCanvas" onclick="Code();">对不起，您的浏览器不支持canvas，请下载最新版浏览器!</canvas> --%>
+<!-- 			      </div> -->
+<!-- 			    </div> -->
+			    <div class='login_fields__submit'>
+			        <input type='submit'  lay-submit lay-filter="formDemo" value='登录'/>
+			    </div>
+			</form>    
 	  </div>
 	  <div class='success'>
 	  </div>
@@ -97,29 +99,33 @@
 		var truepwd = "123456";
 		
 		var CodeVal = 0;
-	    Code();
-	    function Code() {
-			if(canGetCookie == 1){
-				createCode("AdminCode");
-				var AdminCode = getCookieValue("AdminCode");
-				showCheck(AdminCode);
-			}else{
-				showCheck(createCode(""));
-			}
-	    }
-	    function showCheck(a) {
-			CodeVal = a;
-	        var c = document.getElementById("myCanvas");
-	        var ctx = c.getContext("2d");
-	        ctx.clearRect(0, 0, 1000, 1000);
-	        ctx.font = "80px 'Hiragino Sans GB'";
-	        ctx.fillStyle = "#E8DFE8";
-	        ctx.fillText(a, 0, 100);
-	    }
+		
+		/************* 验证码 ****************/
+// 	    Code();
+// 	    function Code() {
+// 			if(canGetCookie == 1){
+// 				createCode("AdminCode");
+// 				var AdminCode = getCookieValue("AdminCode");
+// 				showCheck(AdminCode);
+// 			}else{
+// 				showCheck(createCode(""));
+// 			}
+// 	    }
+	   
+// 	    function showCheck(a) {
+// 			CodeVal = a;
+// 	        var c = document.getElementById("myCanvas");
+// 	        var ctx = c.getContext("2d");
+// 	        ctx.clearRect(0, 0, 1000, 1000);
+// 	        ctx.font = "80px 'Hiragino Sans GB'";
+// 	        ctx.fillStyle = "#E8DFE8";
+// 	        ctx.fillText(a, 0, 100);
+// 	    }
+		/************* 验证码 ****************/
 	    $(document).keypress(function (e) {
 	        // 回车键事件  
 	        if (e.which == 13) {
-	            $('input[type="button"]').click();
+	            $('input[type="submit"]').click();
 	        }
 	    });
 	    //粒子背景特效
@@ -158,17 +164,19 @@
 // 				color: '#777'
 // 			}); 
 	        //非空验证
-	        $('input[type="button"]').click(function () {
+	        $('input[type="submit"]').click(function () {
 	            var manageCode = $('input[name="manageCode"]').val();
 	            var managePwd = $('input[name="managePwd"]').val();
-	            var code = $('input[name="code"]').val();
+// 	            var code = $('input[name="code"]').val();
 	            if (manageCode == '') {
 	                ErroAlert('请输入您的账号');
 	            } else if (managePwd == '') {
 	                ErroAlert('请输入密码');
-	            } else if (code == '' || code.length != 4) {
-	                ErroAlert('输入验证码');
-	            } else {
+	            } 
+// 	            else if (code == '' || code.length != 4) {
+// 	                ErroAlert('输入验证码');
+// 	            }
+	            else {
 	                //认证中..
 	                fullscreen();
 	                $('.login').addClass('test'); //倾斜特效
@@ -188,42 +196,17 @@
 	                }, 500);
 					//******************* 认证中... ************************/
 	                //登录验证...
-	                var LoginUser = { manageCode: manageCode, managePwd: managePwd, code: code };
+	                var LoginUser = { manageCode: manageCode, managePwd: managePwd};
 					//此处做为ajax内部判断
-					var url = "";
+					var url = "<%=path %>/login/doLogin";
 // 					if(LoginUser.manageCode == truelogin && LoginUser.managePwd == truepwd && LoginUser.code.toUpperCase() == CodeVal.toUpperCase()){
-					if(LoginUser.code.toUpperCase() == CodeVal.toUpperCase()){
-						url = "<%=path %>/login/doLogin";
-					}else{
-						url = "Ajax/LoginFalse";
-					}
+// 					if(LoginUser.code.toUpperCase() == CodeVal.toUpperCase()){
+<%-- 						url = "<%=path %>/login/doLogin"; --%>
+// 					}else{
+// 						url = "Ajax/LoginFalse";
+// 					}
 					
-					
-					$.ajax({
-				        type: "POST",
-				        url: url,
-				        data: {manageCode:LoginUser.manageCode, managePwd:LoginUser.managePwd},
-				        dataType: "json",
-				        success: function(data){
-//				                    $('#resText').empty();   //清空resText里面的所有内容
-				                    var html = ''; 
-				                   alert("ajax data: " + data);
-//				                    $.each(data, function(commentIndex, comment){
-//				                          html += '<div class="comment"><h6>' + comment['username']
-//				                                    + ':</h6><p class="para"' + comment['content']
-//				                                    + '</p></div>';
-//				                    });
-//				                    $('#resText').html(html);
-				                 },
-				        error:function(data){
-				        	 var index = layer.alert("登录失败", { icon: 5,  offset: 't', closeBtn: 1, title: '错误信息', btn: [], anim: 2, shade: 0 });
-				        	    layer.style(index, {
-				        	        color: '#777'
-				        	    }); 
-				        	top.location.href = '<%=path %>';
-	
-				        }
-				    });
+// 				  
 					
 // 	                AjaxPost(url, LoginUser,
 // 	                                function () {
