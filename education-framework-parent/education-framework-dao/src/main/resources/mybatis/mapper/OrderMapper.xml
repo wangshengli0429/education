@@ -19,7 +19,7 @@
 
     </resultMap>
     
-    <select id="queryOrderById" parameterType="com.education.framework.model.order.Order" resultType="order">
+    <select id="queryOrderById" parameterType="com.education.framework.model.order.Order" resultType="com.education.framework.model.order.Order">
     	select t.id,t.user_id as userId,t.order,
         	u.user_name as phone,gender,age,
         	native_place as nativePlace,province,
@@ -37,7 +37,7 @@
     	</where> 
     </select>
     
-    <select id="findAllOrder" parameterType="java.util.Map" resultType="order">
+    <select id="findAllOrder" parameterType="java.util.Map" resultType="com.education.framework.model.order.Order">
         select
         	t.id,t.user_id as userId,t.order,
         	u.user_name as phone,gender,age,

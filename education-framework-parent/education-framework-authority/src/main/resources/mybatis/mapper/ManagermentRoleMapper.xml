@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="manageRole">
-    <!-- sql -->
-<!--     <sql id="baseClumnId"> -->
-<!--      	manage_code manageCode, -->
-<!-- 		manage_pwd managePwd, -->
-<!-- 		remark, -->
-<!-- 		creator, -->
-<!-- 		creater_time createrTime, -->
-<!-- 		last_login_ip lastLoginIp, -->
-<!-- 		last_login_time lastLoginTime, -->
-<!-- 		status -->
+     
+    <sql id="baseClumnId">
+     	manage_code manageCode,
+		manage_pwd managePwd,
+		remark,
+		creator,
+		creater_time createrTime,
+		last_login_ip lastLoginIp,
+		last_login_time lastLoginTime,
+		status
 
-<!--     </sql> -->
+    </sql>
     <!-- 用户列表 -->
-<!--     <select id="findAllManagementRole" parameterType="java.util.Map" resultType="manageRole"> -->
-<!--         select -->
-<!--          * -->
-<!--         from t_management_role -->
-<!--         <where> -->
-<!-- 	        <if test="manageCode != null and manageCode != ''"> -->
-<!-- 	             manage_code = #{manageCode} -->
-<!-- 	        </if> -->
-<!--         </where> -->
-<!--         order by create_time asc -->
-<!--         <if test="rowStart != null and pageSize != null"> -->
-<!--          limit ${rowStart}, ${pageSize} -->
-<!--         </if> -->
-<!--     </select> -->
+    <select id="findAllManagementRole" parameterType="java.util.Map" resultType="com.education.framework.authority.role.model.ManagementRole">
+        select
+         *
+        from t_management_role
+        <where>
+	        <if test="manageCode != null and manageCode != ''">
+	             manage_code = #{manageCode}
+	        </if>
+        </where>
+        order by create_time asc
+        <if test="rowStart != null and pageSize != null">
+         limit ${rowStart}, ${pageSize}
+        </if>
+    </select>
     
     
 </mapper>

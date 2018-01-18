@@ -14,7 +14,7 @@
 		creater_time createrTime
     </sql>
     <!-- Menu列表 -->
-    <select id="findAllMenu" parameterType="java.util.Map" resultType="menu">
+    <select id="findAllMenu" parameterType="java.util.Map" resultType="com.education.framework.authority.menu.model.Menu">
         select
         <include refid="baseClumnId"></include>
         from  t_menu m,t_menu_role mr
@@ -36,7 +36,7 @@
     </select>
      
     <!-- 根据menuCode获取Menu -->
-    <select id="getMenuByCode" parameterType="java.util.Map" resultType="menu">
+    <select id="getMenuByCode" parameterType="java.util.Map" resultType="com.education.framework.authority.menu.model.Menu">
         select
        			m.menu_code menuCode,  
        			parent_code parentCode,  
@@ -66,7 +66,7 @@
     </select>
    
     <!-- 修改Menu信息 -->
-    <update id="updateMenu" parameterType="menu">
+    <update id="updateMenu" parameterType="com.education.framework.authority.menu.model.Menu">
         update t_menu 
         <set>
 		 
@@ -104,7 +104,7 @@
     </update>
     
     <!-- 添加Menu -->
-    <insert id="insertMenu" parameterType="menu">
+    <insert id="insertMenu" parameterType="com.education.framework.authority.menu.model.Menu">
         insert into t_menu
         (	menu_code ,
 		parent_code ,
@@ -128,7 +128,7 @@
        			 )
     </insert>
     <!-- 删除Menu -->
-    <delete id="deleteMenu" parameterType="menu">
+    <delete id="deleteMenu" parameterType="com.education.framework.authority.menu.model.Menu">
         delete t_menu where  menu_code = #{menuCode}
     </delete>
 </mapper>

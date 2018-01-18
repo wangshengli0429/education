@@ -11,7 +11,7 @@
     	
     </resultMap>
     
-    <select id="queryTeacherCertificateById" parameterType="com.education.framework.model.teacher.TeacherCertificate" resultType="teacherCertificate">
+    <select id="queryTeacherCertificateById" parameterType="com.education.framework.model.teacher.TeacherCertificate" resultType="com.education.framework.model.teacher.TeacherCertificate">
     	select id,user_id,certificate_type,
     		   date_format(certificate_reg_date,'%Y-%m-%d %H:%i:%s') as certificateRegDate,
     		   descr
@@ -26,7 +26,7 @@
     	</where> 
     </select>
     
-    <select id="findAllTeacherCertificate" parameterType="java.util.Map" resultType="teacherCertificate">
+    <select id="findAllTeacherCertificate" parameterType="java.util.Map" resultType="com.education.framework.model.teacher.TeacherCertificate">
         select
         	   id,user_id,certificate_type,
     		   date_format(certificate_reg_date,'%Y-%m-%d %H:%i:%s') as certificateRegDate,

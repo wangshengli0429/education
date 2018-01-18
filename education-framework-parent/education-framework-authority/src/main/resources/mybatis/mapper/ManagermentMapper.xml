@@ -14,7 +14,7 @@
 
     </sql>
     <!-- 用户列表 -->
-    <select id="findAllManagement" parameterType="java.util.Map" resultType="management">
+    <select id="findAllManagement" parameterType="java.util.Map" resultType="com.education.framework.authority.management.model.Management">
         select
         <include refid="baseClumnId"></include>
         from t_management
@@ -41,7 +41,7 @@
     </select>
      
     <!-- 根据managementCode获取用户 -->
-    <select id="findByManagementCode" parameterType="java.lang.String" resultType="management">
+    <select id="findByManagementCode" parameterType="java.lang.String" resultType="com.education.framework.authority.management.model.Management">
         select
         <include refid="baseClumnId"></include>
         from t_management 
@@ -53,7 +53,7 @@
         limit 1
     </select>
     <!-- 修改用户信息 -->
-    <update id="updateManagement" parameterType="management">
+    <update id="updateManagement" parameterType="com.education.framework.authority.management.model.Management">
         update t_management 
         <set>
         	<if test="manageCode != null and manageCode != ''">
@@ -82,13 +82,13 @@
         where manage_code = #{manageCode}
     </update>
     <!-- 修改用户密码 -->
-    <update id="updateManagetByPassword" parameterType="management">
+    <update id="updateManagetByPassword" parameterType="com.education.framework.authority.management.model.Management">
         update t_management set
         manage_pwd = #{managePwd}
         where manage_code = #{manageCode}
     </update>
     <!-- 添加用户 -->
-    <insert id="insertManagement" parameterType="management">
+    <insert id="insertManagement" parameterType="com.education.framework.authority.management.model.Management">
         insert into t_Management
         (manage_code ,
 		manage_pwd ,
@@ -103,7 +103,7 @@
         #{createrTime}, #{lastLoginIp}, #{lastLoginTime}, #{status})
     </insert>
     <!-- 删除用户 -->
-    <update id="deleteManagement" parameterType="management">
+    <update id="deleteManagement" parameterType="com.education.framework.authority.management.model.Management">
         update t_management set
         last_login_ip = '',
         stutas = 0

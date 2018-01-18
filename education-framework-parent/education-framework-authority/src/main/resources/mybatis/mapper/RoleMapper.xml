@@ -9,7 +9,7 @@
 		creater_time createrTime
     </sql>
     <!-- 用户列表 -->
-    <select id="findAllRole" parameterType="java.util.Map" resultType="role">
+    <select id="findAllRole" parameterType="java.util.Map" resultType="com.education.framework.authority.role.model.Role">
         select
         <include refid="baseClumnId"></include>
         from t_role r,t_manage_role t
@@ -32,7 +32,7 @@
     </select>
      
     <!-- 根据roleCode获取用户 -->
-    <select id="getRoleById" parameterType="java.lang.String" resultType="role">
+    <select id="getRoleById" parameterType="java.lang.String" resultType="com.education.framework.authority.role.model.Role">
         select
         <include refid="baseClumnId"></include>
         from t_role
@@ -44,7 +44,7 @@
         limit 1
     </select>
       <!-- 根据ManagementCode获取角色 -->
-    <select id="getRoleByManagementCode" parameterType="java.lang.String" resultType="role">
+    <select id="getRoleByManagementCode" parameterType="java.lang.String" resultType="com.education.framework.authority.role.model.Role">
       select
         t.role_code roleCode,  
 		 role_descr roleDescr,   t.remark,  
@@ -61,7 +61,7 @@
         order by t.creater_time asc
     </select>
     <!-- 修改用户信息 -->
-    <update id="updateRole" parameterType="role">
+    <update id="updateRole" parameterType="com.education.framework.authority.role.model.Role">
         update t_role 
         <set>
         	<if test="roleCode != null and roleCode != ''">
@@ -83,7 +83,7 @@
     </update>
     
     <!-- 添加用户 -->
-    <insert id="insertRole" parameterType="role">
+    <insert id="insertRole" parameterType="com.education.framework.authority.role.model.Role">
         insert into t_role
         (role_code ,
 		role_descr ,
@@ -94,7 +94,7 @@
         )
     </insert>
     <!-- 删除用户 -->
-    <delete id="deleteRole" parameterType="role">
+    <delete id="deleteRole" parameterType="com.education.framework.authority.role.model.Role">
         delete t_role where  role_code = #{roleCode}
     </delete>
 </mapper>

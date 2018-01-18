@@ -11,7 +11,7 @@
     	<result property="status" column="status"/>
     </resultMap>
     
-    <select id="queryCommentById" parameterType="com.education.framework.model.comment.vo.CommentVo" resultType="commentVo">
+    <select id="queryCommentById" parameterType="com.education.framework.model.comment.vo.CommentVo" resultType="com.education.framework.model.comment.vo.CommentVo">
     	select  t.id,
 				t.teacher_id as teacherId,
 				t.comment_content as commentContent,
@@ -30,7 +30,7 @@
     	</where> 
     </select>
     
-    <select id="findAllComment" parameterType="java.util.Map" resultType="commentVo">
+    <select id="findAllComment" parameterType="java.util.Map" resultType="com.education.framework.model.comment.vo.CommentVo">
         select  t.id,
         	    t.teacher_id as teacherId,
 				t.comment_content as commentContent,

@@ -10,7 +10,7 @@
     	
     </resultMap>
     
-    <select id="queryTeacherCourseById" parameterType="com.education.framework.model.teacher.TeacherCourse" resultType="teacherCourse">
+    <select id="queryTeacherCourseById" parameterType="com.education.framework.model.teacher.TeacherCourse" resultType="com.education.framework.model.teacher.TeacherCourse">
     	select id,user_id,grade,course
     	
 <!--     时间格式化	 date_format(created_at,'%Y-%m-%d %H:%i:%s') as created_at, -->
@@ -24,7 +24,7 @@
     	</where> 
     </select>
     
-    <select id="findAllTeacherCourse" parameterType="java.util.Map" resultType="teacherCourse">
+    <select id="findAllTeacherCourse" parameterType="java.util.Map" resultType="com.education.framework.model.teacher.TeacherCourse">
         select
         id,user_id,grade,course
         from t_course t

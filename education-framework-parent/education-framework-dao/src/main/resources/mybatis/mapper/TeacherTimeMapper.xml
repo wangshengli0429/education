@@ -12,7 +12,7 @@
     	
     </resultMap>
     
-    <select id="queryTeacherTimeById" parameterType="com.education.framework.model.teacher.TeacherTime" resultType="teacherTime">
+    <select id="queryTeacherTimeById" parameterType="com.education.framework.model.teacher.TeacherTime" resultType="com.education.framework.model.teacher.TeacherTime">
     	select id,user_id,grade,course,
     	 date_format(begin_time,'%Y-%m-%d %H:%i:%s') as beginTime,
     	 date_format(end_time,'%Y-%m-%d %H:%i:%s') as endTime
@@ -28,7 +28,7 @@
     	</where> 
     </select>
     
-    <select id="findAllTeacherTime" parameterType="java.util.Map" resultType="teacher">
+    <select id="findAllTeacherTime" parameterType="java.util.Map" resultType="com.education.framework.model.teacher.TeacherTime">
         select
         id,user_id,grade,course,
     	 date_format(begin_time,'%Y-%m-%d %H:%i:%s') as beginTime,

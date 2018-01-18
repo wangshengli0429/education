@@ -6,7 +6,7 @@
     	<result property="id" column="id"/>
     </resultMap>
     
-    <select id="queryNoteById" parameterType="com.education.framework.model.note.Note" resultType="note">
+    <select id="queryNoteById" parameterType="com.education.framework.model.note.Note" resultType="com.education.framework.model.note.Note">
     	select  t.id,
 				t.note_content,
 				t.user_id,
@@ -22,7 +22,7 @@
     	</where> 
     </select>
     
-    <select id="findAllNote" parameterType="java.util.Map" resultType="note">
+    <select id="findAllNote" parameterType="java.util.Map" resultType="com.education.framework.model.note.Note">
         select
         	t.id,
 				t.note_content,

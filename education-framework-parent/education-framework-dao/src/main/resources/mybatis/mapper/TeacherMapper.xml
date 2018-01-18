@@ -21,7 +21,7 @@
     	<result property="remark" column="remark"/>
     </resultMap>
     
-    <select id="queryTeacherById" parameterType="com.education.framework.model.teacher.Teacher" resultType="teacher">
+    <select id="queryTeacherById" parameterType="com.education.framework.model.teacher.Teacher" resultType="com.education.framework.model.teacher.Teacher">
     	select id,user_id as userId,teacher_name as teacherName,gender,age,native_place as nativePlace,province,city,district,address,id_number as idNumber,education,major,self_descr as selfDescr,photo,remark
     	
 <!--     时间格式化	 date_format(created_at,'%Y-%m-%d %H:%i:%s') as created_at, -->
@@ -34,7 +34,7 @@
     	</where> 
     </select>
     
-    <select id="findAllTeacher" parameterType="java.util.Map" resultType="teacherVo">
+    <select id="findAllTeacher" parameterType="java.util.Map" resultType="com.education.framework.model.teacher.vo.TeacherVo">
         select
          	t.id,t.user_id as userId,t.teacher_name as teacherName,
          	u.user_name as phone,

@@ -27,8 +27,8 @@
     <!-- sessionFactory 将spring和mybatis整合 -->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource" />
-        <property name="configLocation" value="classpath:mybatis/sqlMapConfig.xml" />
-        <property name="mapperLocations" value="classpath:mybatis/mapper/*.xml" />    <!-- 加载mapper文件 -->
+<!--         <property name="configLocation" value="classpath:mybatis/sqlMapConfig.xml" /> -->
+        <property name="mapperLocations" value="classpath*:/mybatis/mapper/*.xml" />    <!-- 加载mapper文件 -->
     </bean>
     
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" scope="prototype">
