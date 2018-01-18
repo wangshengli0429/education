@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+	String path = request.getContextPath();
+%>
+<c:set value="<%=path %>" var="path"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,8 +17,9 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black"> 
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
-  
-  <link rel="stylesheet" href="//res.layui.com/layui/dist/css/layui.css?t=1515376178738"  media="all">
+    
+  <link href="<%=path %>/static/layui-v2.2.5/css/layui.css" rel="stylesheet" type="text/css" />
+    
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -93,7 +99,6 @@
        
       
       
-      下面是充数内容，为的是出现滚动条<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>
     </div>
   </div>
   
