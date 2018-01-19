@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.education.framework.common.base.ApiResult;
 import com.education.framework.model.teacher.Teacher;
-import com.education.framework.model.teacher.vo.TeacherVo;
 import com.education.framework.service.teacher.TeacherService;
 import com.google.common.collect.Maps;
 
@@ -28,19 +27,22 @@ public class TeacherController {
 	
 	@RequestMapping(value={"rest/query/teacher","query/teacher"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public ApiResult findAllTeacher(TeacherVo teacher, @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int rows){
+	public ApiResult findAllTeacher(
+            @RequestParam(required=false) String keyword, @RequestParam Integer page, @RequestParam Integer limit){
 		logger.info("controller queryAllTeacher ");
-		 
-		Map<String, Object> map = Maps.newHashMap();
-		map.put("id", teacher.getId());
-		
-		// 设置检索开始条数
-		map.put("pageNo", (page - 1) * rows);
-//      // 设置检索截止条数
-		map.put("pageCount", rows);
+		Map<String,Object> map = Maps.newHashMap();
+		// 检索条件
+		map.put("keyword", keyword);
+		map.put("rowStart", page-1);
+		map.put("pageSize",limit);
 		
 		return teacherService.findAllTeacher(map);
+	}
+	
+
+	@RequestMapping(value={"rest/to/query/teacher","to/query/teacher"},method={RequestMethod.GET,RequestMethod.POST})
+	public String toAllTeacher() {
+		return "manager/teacher/teacher-list";
 	}
 	
 	@RequestMapping(value={"rest/query/teacher/{id}","query/teacher/{id}"},method={RequestMethod.GET,RequestMethod.POST})

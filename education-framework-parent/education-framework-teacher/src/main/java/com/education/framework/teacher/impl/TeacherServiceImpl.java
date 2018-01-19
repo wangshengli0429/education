@@ -1,5 +1,6 @@
 package com.education.framework.teacher.impl;
 
+import static com.education.framework.common.base.StatusCode.EDU_CODE_000;
 import static com.education.framework.common.base.StatusCode.EDU_CODE_002;
 import static com.education.framework.common.base.StatusCode.EDU_CODE_003;
 import static com.education.framework.common.base.StatusCode.EDU_CODE_004;
@@ -20,11 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.education.framework.common.base.ApiResult;
 import com.education.framework.common.exception.BusinessException;
-import com.education.framework.common.pagination.Pagination;
 import com.education.framework.common.service.LogFormatService;
 import com.education.framework.dao.teacher.TeacherDao;
 import com.education.framework.model.teacher.Teacher;
-import com.education.framework.model.teacher.vo.TeacherVo;
 import com.education.framework.service.teacher.TeacherService;
 @Service
 @Transactional
@@ -37,20 +36,15 @@ public class TeacherServiceImpl implements TeacherService {
 	@Override
 	public ApiResult findAllTeacher(Map<String, Object> map) {
 		logger.info(LogFormatService.logFormat("findAllTeacher begin"));
-		Pagination<TeacherVo> page = new Pagination<TeacherVo>();
-		
+		ApiResult apiResult = new ApiResult(EDU_CODE_000.getCode(),EDU_CODE_000.getMsg());		
         try {
-        	 
-            page.setPageNo(Integer.valueOf(map.get("pageNo").toString()));//当前页
-            page.setPageCount(Integer.valueOf(map.get("pageCount").toString()));//当前页总条数
             // 设置总数
-            page.setItemCount(teacherDao.findTeacherCount(map));
+        	apiResult.setCount(teacherDao.findTeacherCount(map));
             // 设置用户列表信息
-        	page.setItems(teacherDao.findAllTeacher(map));
-        	
-            logger.info(LogFormatService.logFormat("分页获取资源列表success"));
-           
-			return new ApiResult(EDU_CODE_009.getCode(),EDU_CODE_009.getMsg(),EDU_CODE_009.getShowMsg(),page);
+        	apiResult.setData(teacherDao.findAllTeacher(map));
+            logger.info(LogFormatService.logFormat("分页获取教师列表success"));
+            logger.info(LogFormatService.logFormat(apiResult.toString()));
+			return apiResult;
 		} catch (BusinessException e) {
 			logger.debug(LogFormatService.logFormat("查询教师异常：{}"), e);
 		    throw new BusinessException(EDU_CODE_008, EDU_CODE_008.getMsg());

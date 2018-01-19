@@ -4,7 +4,7 @@
       <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class="layui-nav layui-nav-tree"  lay-filter="test">
         <li class="layui-nav-item layui-nav-itemed">
-          <a class="" href="javascript:;">教师管理</a>
+          <a href="${path}/to/query/teacher">教师管理</a>
          <!--  <dl class="layui-nav-child">
             <dd><a href="javascript:;">列表一</a></dd>
             <dd><a href="javascript:;">列表二</a></dd>
@@ -13,7 +13,7 @@
           </dl> -->
         </li>
         <li class="layui-nav-item">
-          <a href="javascript:;">学生管理</a>
+          <a href="${path}/to/query/student">学生管理</a>
         </li>
         <li class="layui-nav-item">
           <a href="javascript:;">订单管理</a>

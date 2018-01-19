@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.education.framework.common.base.ApiResult;
 import com.education.framework.model.student.Student;
-import com.education.framework.model.student.vo.StudentVo;
 import com.education.framework.service.student.StudentService;
 import com.google.common.collect.Maps;
 
@@ -24,19 +23,22 @@ public class StudentController {
 	
 	private static Logger logger = Logger.getLogger(StudentController.class);
 	
-	@RequestMapping(value={"rest/student/queryStudent","student/queryStudent"},method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value={"rest/to/query/student","to/query/student"},method={RequestMethod.GET,RequestMethod.POST})
+	public String toAllStudent() {
+		return "manager/student/student-list";
+	}
+	
+	@RequestMapping(value={"rest/query/student","query/student"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public ApiResult queryAllStudent(StudentVo student, @RequestParam(defaultValue = "1") int page,
-            @RequestParam(defaultValue = "10") int rows){
+	public ApiResult queryAllStudent(
+            @RequestParam(required=false) String keyword, @RequestParam Integer page, @RequestParam Integer limit){
 		logger.info("controller queryAllStudent begin ");
 		 
-		Map<String, Object> map = Maps.newHashMap();
-		map.put("id", student.getId());
-		
-		// 设置检索开始条数
-		map.put("pageNo", (page - 1) * rows);
-//      // 设置检索截止条数
-		map.put("pageCount", rows);
+		Map<String,Object> map = Maps.newHashMap();
+		// 检索条件
+		map.put("keyword", keyword);
+		map.put("rowStart", page-1);
+		map.put("pageSize",limit);
 		
 		return  studentService.findAllStudent(map);
 	}

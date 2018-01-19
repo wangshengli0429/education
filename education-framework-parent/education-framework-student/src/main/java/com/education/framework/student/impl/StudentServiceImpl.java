@@ -1,5 +1,6 @@
 package com.education.framework.student.impl;
 
+import static com.education.framework.common.base.StatusCode.EDU_CODE_000;
 import static com.education.framework.common.base.StatusCode.EDU_CODE_002;
 import static com.education.framework.common.base.StatusCode.EDU_CODE_003;
 import static com.education.framework.common.base.StatusCode.EDU_CODE_004;
@@ -20,11 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.education.framework.common.base.ApiResult;
 import com.education.framework.common.exception.BusinessException;
-import com.education.framework.common.pagination.Pagination;
 import com.education.framework.common.service.LogFormatService;
 import com.education.framework.dao.student.StudentDao;
 import com.education.framework.model.student.Student;
-import com.education.framework.model.student.vo.StudentVo;
 import com.education.framework.service.student.StudentService;
 
 @Service
@@ -39,20 +38,17 @@ public class StudentServiceImpl implements StudentService{
 	@Override
 	public ApiResult findAllStudent(Map<String, Object> map) {
 		logger.info(LogFormatService.logFormat("findAllStudent begin"));
-		Pagination<StudentVo> page = new Pagination<StudentVo>();
-		
+		ApiResult apiResult = new ApiResult(EDU_CODE_000.getCode(),EDU_CODE_000.getMsg());			
         try {
-        	 
-            page.setPageNo(Integer.valueOf(map.get("pageNo").toString()));//当前页
-            page.setPageCount(Integer.valueOf(map.get("pageCount").toString()));//当前页总条数
             // 设置总数
-            page.setItemCount(studentDao.findStudentCount(map));
+        	apiResult.setCount(studentDao.findStudentCount(map));
             // 设置用户列表信息
-        	page.setItems(studentDao.findAllStudent(map));
+        	apiResult.setData(studentDao.findAllStudent(map));
         	
             logger.info(LogFormatService.logFormat("分页获取资源列表success"));
+            logger.info(LogFormatService.logFormat(apiResult.toString()));
            
-			return new ApiResult(EDU_CODE_009.getCode(),EDU_CODE_009.getMsg(),EDU_CODE_009.getShowMsg(),page);
+			return apiResult;
 		} catch (BusinessException e) {
 			logger.debug(LogFormatService.logFormat("查询学生异常：{}"), e);
 		    throw new BusinessException(EDU_CODE_008, EDU_CODE_008.getMsg());
