@@ -27,7 +27,7 @@
   <div class="layui-body">
     <!-- 内容主体区域 -->
 	<div style="padding:15px;" align="center">
-		  <h1>阿忠，周林，胜利抓紧写代码，少看黄色图片</h1>
+		  <h1>阿忠，周林抓紧写代码，少看黄色图片</h1>
 		  <img style="height:450px;width:800px;" src="<%=path%>/static/img/index.jpg"></img>
     </div>
   </div>
