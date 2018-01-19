@@ -1,10 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.education.framework.authority.login.model.LoginUser" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
+	LoginUser user = (LoginUser)session.getAttribute("user");
 %>
 <c:set value="<%=path %>" var="path"></c:set>
+<c:set value="<%=user %>" var="user"></c:set>
 <!-- _meta 作为公共模版分离出去-->
 <%@ include file="../../../../layui-inc/_meta.jsp" %>
 <!-- _meta 作为公共模版分离出去-->
@@ -88,11 +91,27 @@ layui.use('table', function(){
   
   	// 监听操作	
   	table.on('tool(comment)',function(obj) {
+  		var data = obj.data;
+  		alert(data.content);
   		if(obj.event === 'del'){
-  			// layer.confirm('真的删除行么', function(index){
-  				alert('Y');
-  				layer.msg("N");
-  			// }
+  			layer.confirm('真的删除吗？', function(index){
+  				<%--  $.ajax({
+                    url: "<%=path%>/comment/",
+                    type: "POST",
+                    data:{"uvid":data.id,"memthodname":"deleteuv","aid":data.aid},
+                    dataType: "json",
+                    success: function(data){
+                        if(data.state==1){
+                            obj.del();
+                            layer.close(index);
+                            layer.msg("删除成功", {icon: 6});
+                        }else{
+                            layer.msg("删除失败", {icon: 5});
+                        }
+                    }
+
+                });  --%>
+  			})
   		}
   	});
   	

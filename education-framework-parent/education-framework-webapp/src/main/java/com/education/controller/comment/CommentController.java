@@ -37,6 +37,15 @@ public class CommentController {
 		return "manager/comment/comment-list";
 	}
 	
+	/**
+	 * <p>评论查询</p>
+	 * 
+	 * @author wangqiang
+	 * @param keyword    检索关键字
+	 * @param page       页码
+	 * @param limit      每页显示数
+	 * @return
+	 */
 	@RequestMapping(value={"rest/comment/getAllComment","comment/getAllComment"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public WebResult getAllComment(@RequestParam(required=false) String keyword, @RequestParam Integer page, @RequestParam Integer limit) {
@@ -50,5 +59,6 @@ public class CommentController {
 		System.out.println(webResult);
 		return webResult;
 	}
+	
 
 }

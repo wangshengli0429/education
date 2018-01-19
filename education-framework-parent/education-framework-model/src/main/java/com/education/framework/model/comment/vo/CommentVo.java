@@ -21,7 +21,7 @@ public class CommentVo {
 	/** 评论时间  */
 	private Date commentTime;
 	/** 学生姓名*/
-	private String student;
+	private String studentName;
 	/** 教师姓名*/
 	private String teacherName;
 	public String getId() {
@@ -54,11 +54,11 @@ public class CommentVo {
 	public void setCommentTime(Date commentTime) {
 		this.commentTime = commentTime;
 	}
-	public String getStudent() {
-		return student;
+	public String getStudentName() {
+		return studentName;
 	}
-	public void setStudent(String student) {
-		this.student = student;
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
 	}
 	public String getTeacherName() {
 		return teacherName;
