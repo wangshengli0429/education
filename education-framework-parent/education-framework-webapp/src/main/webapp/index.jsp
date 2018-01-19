@@ -94,6 +94,7 @@
       
       <a href="/doc/element/layout.html#admin" target="_blank" class="layui-btn layui-btn-big">获取该布局代码</a>
       
+      <a href="<%=path%>/comment/toGetAllComment">测试评论</a>
       <br><br><br><br>
       
        
