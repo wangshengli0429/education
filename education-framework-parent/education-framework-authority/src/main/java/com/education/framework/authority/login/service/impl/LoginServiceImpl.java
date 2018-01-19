@@ -54,7 +54,7 @@ public class LoginServiceImpl implements LoginService {
                 ((LoginUser) valueMap.get(VarKeys.structKey(VarKeys.LOGIN, VarKeys.LOGIN_USER))).getManagePwd();
         ApiResult apiResult = managementService.findByManagementCode(userName);
         Management  manage= null;
-        if(null!=apiResult && 9 == apiResult.getState()){
+        if(null!=apiResult && 9 == apiResult.getCode()){
         	manage = (Management)apiResult.getData();
         }
         

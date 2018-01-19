@@ -9,14 +9,15 @@ public class ApiResult implements java.io.Serializable {
 
 	private static final long serialVersionUID = 2177938600160116668L;
 
-	private int state;// 状态码
+	private int code;// 状态码
 
-	private String message;// 信息
+	private String msg;// 信息
 
 	private String showMessage;// 显示信息
 
 	private Object data;// 数据
-
+	/** 数据总数 */
+	private Integer count;
 	/**
 	 * 创建成功结果的Message
 	 *
@@ -36,30 +37,37 @@ public class ApiResult implements java.io.Serializable {
 		return new ApiResult(statusCode.getCode(), statusCode.getMsg(), statusCode.getShowMsg());
 	}
 
-	public ApiResult(int state, String message, String showMessage, Object data) {
-		setState(state);
-		setMessage(message);
+	public ApiResult(int code, String msg, String showMessage, Object data) {
+		setCode(code);
+		setMsg(msg);
 		setShowMessage(showMessage);
 		setData(data);
 	}
 
-	public ApiResult(int state, String showMessage, Object data) {
+	public ApiResult(int code, String showMessage, Object data) {
 		super();
-		this.state = state;
+		this.code = code;
 		this.showMessage = showMessage;
 		this.data = data;
 	}
-
-	 
-	public ApiResult(int state, String showMessage) {
+	/******** layui 后台报文使用  ********/
+	public ApiResult(int code, String msg, Object data, Integer count) {
 		super();
-		this.state = state;
+		this.code = code;
+		this.msg = msg;
+		this.data = data;
+		this.count = count;
+	}
+	/******** layui 后台报文使用  ********/
+	public ApiResult(int code, String showMessage) {
+		super();
+		this.code = code;
 		this.showMessage = showMessage;
 	}
 
-	public ApiResult(int state, String message, String showMessage) {
-		setState(state);
-		setMessage(message);
+	public ApiResult(int code, String msg, String showMessage) {
+		setCode(code);
+		setMsg(msg);
 		setShowMessage(showMessage);
 	}
 
@@ -67,21 +75,31 @@ public class ApiResult implements java.io.Serializable {
 		// nothing...
 	}
 
-	public int getState() {
-		return state;
+	 
+
+	public int getCode() {
+		return code;
 	}
 
-	public void setState(int state) {
-		this.state = state;
+
+
+	public void setCode(int code) {
+		this.code = code;
 	}
 
-	public String getMessage() {
-		return message;
+
+
+	public String getMsg() {
+		return msg;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+
+
+	public void setMsg(String msg) {
+		this.msg = msg;
 	}
+
+
 
 	public String getShowMessage() {
 		return showMessage;
@@ -105,4 +123,18 @@ public class ApiResult implements java.io.Serializable {
 	public String toString() {
 		return JSON.toJSONString(this);
 	}
+
+
+
+	public Integer getCount() {
+		return count;
+	}
+
+
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+	
+	
 }

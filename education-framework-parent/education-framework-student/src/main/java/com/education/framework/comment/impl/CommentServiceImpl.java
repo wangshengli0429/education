@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.education.framework.common.base.ApiResult;
-import com.education.framework.common.base.WebResult;
 import com.education.framework.common.exception.BusinessException;
 import com.education.framework.common.service.LogFormatService;
 import com.education.framework.dao.comment.CommentDao;
@@ -38,16 +37,16 @@ public class CommentServiceImpl implements CommentService{
 	private CommentDao commentDao;
 
 	@Override
-	public WebResult findAllComment(Map<String, Object> map) {
+	public ApiResult findAllComment(Map<String, Object> map) {
 		logger.info(LogFormatService.logFormat("findAllComment begin"));
 		try {
 		    logger.info(LogFormatService.logFormat("分页获取评论列表success"));
-		    WebResult webResult = new WebResult(EDU_CODE_000.getCode(),EDU_CODE_000.getMsg());
+		    ApiResult apiResult = new ApiResult(EDU_CODE_000.getCode(),EDU_CODE_000.getMsg());
 		    // 设置数据总数
-		    webResult.setCount(commentDao.findCommentCount(map));
+		    apiResult.setCount(commentDao.findCommentCount(map));
 		    // 设置数据
-		    webResult.setData(commentDao.findAllComment(map));
-			return webResult;
+		    apiResult.setData(commentDao.findAllComment(map));
+			return apiResult;
 		} catch (BusinessException e) {
 			logger.debug(LogFormatService.logFormat("查询评论异常：{}"), e);
 		    throw new BusinessException(EDU_CODE_008, EDU_CODE_008.getMsg());

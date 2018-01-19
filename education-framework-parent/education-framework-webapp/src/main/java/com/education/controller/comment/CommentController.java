@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.education.framework.common.base.WebResult;
+import com.education.framework.common.base.ApiResult;
 import com.education.framework.service.comment.CommentService;
 import com.google.common.collect.Maps;
 
@@ -48,16 +48,16 @@ public class CommentController {
 	 */
 	@RequestMapping(value={"rest/comment/getAllComment","comment/getAllComment"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public WebResult getAllComment(@RequestParam(required=false) String keyword, @RequestParam Integer page, @RequestParam Integer limit) {
+	public ApiResult getAllComment(@RequestParam(required=false) String keyword, @RequestParam Integer page, @RequestParam Integer limit) {
 		logger.info("controller comment begin");
 		Map<String,Object> map = Maps.newHashMap();
 		// 检索条件
 		map.put("keyword", keyword);
 		map.put("rowStart", page-1);
 		map.put("pageSize",limit);
-		WebResult webResult = commentService.findAllComment(map);
-		System.out.println(webResult);
-		return webResult;
+		ApiResult apiResult = commentService.findAllComment(map);
+		logger.info(apiResult.toString());
+		return apiResult;
 	}
 	
 
