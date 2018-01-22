@@ -159,9 +159,9 @@ public class Const {
     }
 
     /** 有效 */
-    public final static String FLAG_1 = "1";
+    public final static String STATUS_Y = "Y";
     /** 无效 */
-    public final static String FLAG_0 = "0";
+    public final static String STATUS_N = "N";
     /** 员工权限 */
     public final static String ADMIN = "admin";
     /** APP访问  */

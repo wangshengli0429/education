@@ -92,16 +92,16 @@ layui.use('table', function(){
   	// 监听操作	
   	table.on('tool(comment)',function(obj) {
   		var data = obj.data;
-  		alert(data.content);
+  		alert(data.id);
   		if(obj.event === 'del'){
   			layer.confirm('真的删除吗？', function(index){
-  				<%--  $.ajax({
-                    url: "<%=path%>/comment/",
+  				 $.ajax({
+                    url: "<%=path%>/comment/updateCommentStatusById",
                     type: "POST",
-                    data:{"uvid":data.id,"memthodname":"deleteuv","aid":data.aid},
+                    data:{"id":data.id},
                     dataType: "json",
                     success: function(data){
-                        if(data.state==1){
+                        if(data.code == 7){
                             obj.del();
                             layer.close(index);
                             layer.msg("删除成功", {icon: 6});
@@ -110,7 +110,7 @@ layui.use('table', function(){
                         }
                     }
 
-                });  --%>
+                });
   			})
   		}
   	});
