@@ -28,7 +28,7 @@
           <dl class="layui-nav-child">
             <dd><a href="javascript:;">管理员</a></dd>
             <dd><a href="javascript:;">数据字典</a></dd>
-            <dd><a href="javascript:;">角色管理</a></dd>
+            <dd><a href="${path}/sys/toGetAllRoles">角色管理</a></dd>
           </dl>
         </li>
       </ul>
