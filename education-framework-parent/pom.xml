@@ -17,6 +17,7 @@
     <module>education-framework-student</module>
     <module>education-framework-authority</module>
     <module>education-framework-teacher</module>
+    <module>education-framework-order</module>
   </modules>
   
   
