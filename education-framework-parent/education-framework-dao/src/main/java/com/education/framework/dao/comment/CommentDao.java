@@ -9,8 +9,7 @@ import com.education.framework.model.comment.vo.CommentVo;
 public interface CommentDao {
 	List<CommentVo> findAllComment(Map<String, Object> map);
 	int findCommentCount(Map<String, Object> map);
-	 
-	int deleteCommentById(String id);
+	int updateCommentStatusById(Map<String, Object> map);
 	int insertComment(Comment comment);
 	CommentVo queryCommentById(Map<String, Object> map);
 }

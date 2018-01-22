@@ -70,8 +70,6 @@
  		</where> 
     </select>
     
-  
-  
     <insert id="insertComment" parameterType="com.education.framework.model.comment.Comment">
     	insert into t_comment
     	(id
@@ -90,8 +88,7 @@
     	 )
     </insert>
     
-    <delete id="deleteCommentById" parameterType="java.lang.String">
-    
-    	delete t_comment where id=#{id}
-    </delete>
+    <update id="updateCommentStatusById" parameterType="java.lang.String">
+    	update t_comment t set t.status = #{status} where t.id = #{id} 
+    </update>
 </mapper>

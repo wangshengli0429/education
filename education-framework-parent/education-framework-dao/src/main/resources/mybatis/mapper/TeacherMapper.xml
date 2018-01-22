@@ -43,7 +43,7 @@
 			t.id_number as idNumber,b.ACCOUNT_NAME as accountName,
 			t.education,t.major,t.self_descr as selfDescr,
 			t.photo,t.remark,
-			u.reg_time as regTime,
+			date_format(u.reg_time,'%Y-%m-%d %H:%i:%s') regTime,
 			a.status  
         from t_teacher t INNER JOIN t_user u on t.user_id = u.id  
 			 LEFT JOIN t_authentication a on u.id = a.user_id

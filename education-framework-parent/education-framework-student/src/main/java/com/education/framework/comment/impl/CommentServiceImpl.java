@@ -59,14 +59,16 @@ public class CommentServiceImpl implements CommentService{
 	}
 
 	@Override
-	public ApiResult deleteCommentById(String id) {
-		logger.info(LogFormatService.logFormat("delete comment【"+ id +"】 begin"));
-		if(StringUtils.isNotBlank(id)){
+	public ApiResult updateCommentStatusById(Map<String, Object> map) {
+		logger.info(LogFormatService.logFormat("delete comment【"+ map.get("id") +"】 begin"));
+		if(map.get("id") == null || StringUtils.isBlank(map.get("id").toString())){
 			return  new ApiResult(EDU_CODE_010.getCode(), EDU_CODE_010.getMsg(), EDU_CODE_010.getShowMsg());
 		}
+		// 修改返回结果 0：修改失败， 大于0：修改成功
 		int num = 0;
 		try {
-			 num = commentDao.deleteCommentById(id);
+			// 修改评论状态位  N-无效 Y-有效
+			 num = commentDao.updateCommentStatusById(map);
 		} catch (BusinessException e) {
 			logger.debug(LogFormatService.logFormat("删除评论异常：{}"), e);
 		    throw new BusinessException(EDU_CODE_006, EDU_CODE_006.getMsg());
@@ -74,11 +76,12 @@ public class CommentServiceImpl implements CommentService{
 			logger.debug(LogFormatService.logFormat("删除评论异常：{}"), e);
 		    throw new BusinessException(EDU_CODE_006, EDU_CODE_006.getMsg());
 		}
-		
-		logger.info(LogFormatService.logFormat("delete comment "+(num > 0?"success":"fail") +"end."));    
+		logger.info(LogFormatService.logFormat("delete comment "+(num > 0?"success":"fail") +"end."));  
+		// 修改成功
 		if (num > 0) {
             return new ApiResult(EDU_CODE_007.getCode(), EDU_CODE_007.getMsg(), EDU_CODE_007.getShowMsg());
         }
+		// 修改失败
 		return new ApiResult(EDU_CODE_006.getCode(), EDU_CODE_006.getMsg(), EDU_CODE_006.getShowMsg());
 	
 	}

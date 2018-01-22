@@ -92,7 +92,7 @@ layui.use('table', function(){
 	      ,{field: 'remark', title: '备注', align:'center',width:140}
 	      ,{field: 'regTime', title: '注册时间', align:'center',width:180,
 	    	  templet:function(row){
-	    		  return DateFormat(row.commentTime,'yyyy-MM-dd HH:mm:ss');
+	    		  return DateFormat(row.regTime,'yyyy-MM-dd HH:mm:ss');
 	    	 }  
 	      } 
 	      ,{fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}

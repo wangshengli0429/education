@@ -24,11 +24,6 @@ public class CommentDaoImpl extends SqlSessionDaoSupport implements CommentDao{
 	}
 
 	@Override
-	public int deleteCommentById(String id) {
-		return this.getSqlSession().delete("comment.deleteCommentById", id);
-	}
-
-	@Override
 	public int insertComment(Comment comment) {
 		return this.getSqlSession().insert("comment.insertComment",comment);
 	}
@@ -38,4 +33,9 @@ public class CommentDaoImpl extends SqlSessionDaoSupport implements CommentDao{
 		return this.getSqlSession().selectOne("comment.queryCommentById", map);
 	}
 
+	@Override
+	public int updateCommentStatusById(Map<String, Object> map) {
+		return this.getSqlSession().update("comment.updateCommentStatusById", map);
+	}
+	
 }
