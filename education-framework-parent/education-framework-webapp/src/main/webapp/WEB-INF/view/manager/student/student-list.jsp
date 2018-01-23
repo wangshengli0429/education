@@ -12,7 +12,7 @@
 <%@ include file="../../../../layui-inc/_meta.jsp" %>
 <!-- _meta 作为公共模版分离出去-->
 
-<title>好学习-评论管理</title>
+<title>好学习-学生管理</title>
 </head>
 <body class="layui-layout-body">
 <div class="layui-layout layui-layout-admin">
@@ -33,11 +33,13 @@
 		  </div>
 		  <button class="layui-btn" data-type="reload">搜索</button>
 		</div>
-    	<table class="layui-hide" id="dataTable" lay-filter="teacher"></table>
+    	<table class="layui-hide" id="dataTable" lay-filter="student"></table>
     	<script type="text/html" id="barDemo">
+			 <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
   			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 		</script>
     </div>
+    
   </div>
   
   <div class="layui-footer">
@@ -52,6 +54,7 @@
 
 <!-- 下面写业务相关的JS脚本 -->
 <script type type="text/javascript">
+
 //JavaScript代码区域
 layui.use('table', function(){
   var table = layui.table;
@@ -68,6 +71,9 @@ layui.use('table', function(){
 	            });
 	        }
 	    }; 
+  
+	 
+	
   // 加载表格数据
   table.render({
 	    elem: '#dataTable',
@@ -76,16 +82,25 @@ layui.use('table', function(){
 	    url: '${path}/query/student',    //数据接口
 	    page: true, //开启分页
 	    cols: [[ //表头
-	      {field: 'student', title: '教师姓名', align:'center',width:140}
-	      ,{field: 'gender', title: '性别', align:'center',width:120}
+	      {field: 'id', title: 'ID', align:'center',width:30}
+	      ,{field: 'student', title: '学生姓名', align:'center',width:80}
+	      ,{field: 'gender', title: '性别', align:'center',width:50,
+	    	  templet:function(row){
+	    		  if(row.gender === 'M'){
+	    			  return "男";
+	    		  }
+	    		  if(row.gender === 'W'){
+	    			  return "女";
+	    		  }
+	    	  }
+	      }
 	      ,{field: 'age', title: '年龄', align:'center',width:50}
-	      ,{field: 'nativePlace', title: '籍贯', align:'center',width:140}
-	      ,{field: 'province', title: '所在省份', align:'center',width:140}
-	      ,{field: 'city', title: '所在城市', align:'center',width:140}
+	      ,{field: 'nativePlace', title: '籍贯', align:'center',width:120}
+	      ,{field: 'province', title: '所在省份', align:'center',width:120}
+	      ,{field: 'city', title: '所在城市', align:'center',width:120}
 	      ,{field: 'district', title: '所在区县', align:'center',width:140}
 	      ,{field: 'address', title: '现在住址', align:'center',width:140}
 	      ,{field: 'idCard', title: '身份证号', align:'center',width:140}
-	      ,{field: 'major', title: '所学专业', align:'center',width:140}
 	      ,{field: 'selfDescr', title: '自我介绍', align:'center',width:140}
 	      ,{field: 'remark', title: '备注', align:'center',width:140}
 // 	      ,{field: 'regTime', title: '注册时间', align:'center',width:180,
@@ -99,9 +114,19 @@ layui.use('table', function(){
 	  });
   
   	// 监听操作	
-  	table.on('tool(comment)',function(obj) {
+  	table.on('tool(student)',function(obj) {
   		var data = obj.data;
-  		alert(data.content);
+  		if(obj.event === 'detail'){
+  			 layer.open({ 
+  			  title: ['学生审核', 'background-color: #00bb9d;text-align:center;font-size:18px;'],
+  			  type: 2,
+  			  shade: false,  
+  		      maxmin: true, 
+  			  skin: 'layui-layer-rim', //加上边框
+  			  area: ['893px', '600px'], //宽高
+  			  content: '${path}/query/student/'+data.id
+  			});
+  		}
   		if(obj.event === 'del'){
   			layer.confirm('真的删除吗？', function(index){
   				<%--  $.ajax({
@@ -128,7 +153,11 @@ layui.use('table', function(){
   	    var type = $(this).data('type');
   	    active[type] ? active[type].call(this) : '';
   	});
+  	
+  	
 });
+
+
 </script>
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_30088308'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/c.php%3Fid%3D30088308' type='text/javascript'%3E%3C/script%3E"));</script>
 </body>

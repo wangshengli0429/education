@@ -1,10 +1,12 @@
 package com.education.controller.student;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,13 +46,18 @@ public class StudentController {
 	}
 	
 	@RequestMapping(value={"rest/query/student/{id}","query/student/{id}"},method={RequestMethod.GET,RequestMethod.POST})
-	@ResponseBody
-	public ApiResult queryStudentById(@PathVariable String id){
+	public String queryStudentById(Model model,@PathVariable String id){
 		logger.info("controller queryAllStudent begin ");
 		
-		Map<String, Object> map = Maps.newHashMap();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id",id);
-		return studentService.queryStudentById(map);
+		ApiResult apiResult = studentService.queryStudentById(map);
+		logger.info(""+ apiResult.toString());
+		if(apiResult.getCode() == 9){
+			Student student = (Student)apiResult.getData();
+			map.put("student",student);
+		}
+		 return "manager/student/student-detail";
 	}
 	
 	
