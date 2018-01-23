@@ -83,10 +83,19 @@
     <bean id="multipartResolver" 
            class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
     </bean> 
-     <!-- 自定义注解 获取当前登录用户信息 -->  
+    
+     <!-- 自定义jackson bean -->
+    <bean id="objectMapper" class="com.education.framework.common.bean.JacksonBean"/>
+     <!-- 自定义注解 -->  
      <mvc:annotation-driven>
 	    <mvc:argument-resolvers>
+	    	<!-- 后台登录User -->
 	        <bean class="com.education.framework.authority.base.CurrentUserMethodArgumentResolver"></bean>
-	    </mvc:argument-resolvers>
+	        <!-- App和服务器加解密 -->
+            <bean class="com.education.framework.common.notes.RequestAttributeResolver"/>
+            <bean class="com.education.framework.common.notes.RequestBodyFormResolver">
+                <property name="mapper" ref="objectMapper"/>
+            </bean>
+        </mvc:argument-resolvers>
 	</mvc:annotation-driven>
 </beans>
