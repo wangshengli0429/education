@@ -3,20 +3,20 @@
 <mapper namespace="role">
     <!-- sql -->
     <sql id="baseClumnId">
-     	role_code roleCode,
-		role_descr roleDescr,
-		remark,
-		creater_time createrTime
+     	r.role_code roleCode,
+		r.role_descr roleDescr,
+		r.remark,
+		r.creater_time createrTime
     </sql>
     <!-- 用户列表 -->
     <select id="findAllRole" parameterType="java.util.Map" resultType="com.education.framework.authority.role.model.Role">
         select
-        <include refid="baseClumnId"></include>
-        from t_role r,t_manage_role t
-         where 
-        r.role_code = t.role_code
-	     
-        order by create_time asc
+	        r.role_code roleCode,
+			r.role_descr roleDescr,
+			r.remark,
+			r.creater_time createrTime
+        from t_role r
+        order by creater_time asc
         <if test="rowStart != null and pageSize != null">
          limit ${rowStart}, ${pageSize}
         </if>
@@ -24,11 +24,8 @@
     <!-- 用户统计 -->
     <select id="findAllRoleCount" parameterType="java.util.Map" resultType="java.lang.Integer">
         select
-        count(r.id)
-        from t_role r,t_manage_role t
-        where 
-        r.role_code = t.role_code
-	      
+        count(0)
+        from t_role r
     </select>
      
     <!-- 根据roleCode获取用户 -->
@@ -46,8 +43,9 @@
       <!-- 根据ManagementCode获取角色 -->
     <select id="getRoleByManagementCode" parameterType="java.lang.String" resultType="com.education.framework.authority.role.model.Role">
       select
-        t.role_code roleCode,  
-		 role_descr roleDescr,   t.remark,  
+         t.role_code roleCode,  
+		 role_descr roleDescr,   
+		 t.remark,  
 		 t.creater_time createrTime 
         from t_role t, t_manage_role mr
         where

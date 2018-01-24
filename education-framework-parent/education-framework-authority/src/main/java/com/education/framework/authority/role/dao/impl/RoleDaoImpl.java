@@ -15,12 +15,12 @@ public class RoleDaoImpl extends SqlSessionDaoSupport implements RoleDao{
 
 	@Override
 	public List<Role> findAllRole(Map<String, Object> map) {
-		return this.getSqlSession().selectList("role.RoleDaoImpl",map);
+		return this.getSqlSession().selectList("role.findAllRole",map);
 	}
 
 	@Override
 	public Integer findRoleCount(Map<String, Object> map) {
-		return this.getSqlSession().selectOne("role.findRoleCount", map);
+		return this.getSqlSession().selectOne("role.findAllRoleCount", map);
 	}
 
 	@Override
