@@ -51,7 +51,7 @@
 <!-- _footer 作为公共模版分离出去-->
 
 <!-- 下面写业务相关的JS脚本 -->
-<script type type="text/javascript">
+<script type="text/javascript">
 //JavaScript代码区域
 layui.use('table', function(){
   var table = layui.table;
