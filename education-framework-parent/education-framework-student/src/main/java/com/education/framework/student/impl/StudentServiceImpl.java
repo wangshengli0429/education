@@ -150,5 +150,28 @@ public class StudentServiceImpl implements StudentService{
         }
 		return new ApiResult(EDU_CODE_006.getCode(), EDU_CODE_006.getMsg(), EDU_CODE_006.getShowMsg());
 	}
+
+
+	@Override
+	public ApiResult updateStrudentById(String id) {
+		logger.info(LogFormatService.logFormat("update student begin"));
+		int num = 0;
+		try {
+			num = studentDao.updateStrudentById(id);
+		} catch (BusinessException e) {
+			logger.debug(LogFormatService.logFormat("修改学生异常：{}"), e);
+		    throw new BusinessException(EDU_CODE_004, EDU_CODE_004.getMsg());
+		} catch (Exception e) {
+			logger.debug(LogFormatService.logFormat("修改学生异常：{}"), e);
+			throw new BusinessException(EDU_CODE_004, EDU_CODE_004.getMsg());
+		}
+		
+		logger.info(LogFormatService.logFormat("update student "+(num > 0?"success":"fail") +"end."));    
+	       
+		if (num > 0) {
+            return new ApiResult(EDU_CODE_005.getCode(), EDU_CODE_005.getMsg(), EDU_CODE_005.getShowMsg());
+        }
+		return new ApiResult(EDU_CODE_004.getCode(), EDU_CODE_004.getMsg(), EDU_CODE_004.getShowMsg());
+	}
 	
 }

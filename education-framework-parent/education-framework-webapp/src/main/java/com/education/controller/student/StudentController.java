@@ -46,7 +46,8 @@ public class StudentController {
 	}
 	
 	@RequestMapping(value={"rest/query/student/{id}","query/student/{id}"},method={RequestMethod.GET,RequestMethod.POST})
-	public String queryStudentById(Model model,@PathVariable String id){
+	@ResponseBody
+	public   Map<String, Object> queryStudentById(@PathVariable String id){
 		logger.info("controller queryAllStudent begin ");
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -54,10 +55,9 @@ public class StudentController {
 		ApiResult apiResult = studentService.queryStudentById(map);
 		logger.info(""+ apiResult.toString());
 		if(apiResult.getCode() == 9){
-			Student student = (Student)apiResult.getData();
-			map.put("student",student);
+			map.put("student",(Student)apiResult.getData());
 		}
-		 return "manager/student/student-detail";
+		 return map;
 	}
 	
 	
@@ -74,7 +74,12 @@ public class StudentController {
 		logger.info("controller updateStudent ");
 		return studentService.updateStudent(student);
 	}
-	
+	@RequestMapping(value={"rest/student/update/{id}","student/update/{id}"},method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public ApiResult updateStudentById(@PathVariable String id){
+		logger.info("controller updateStudent ");
+		return studentService.updateStrudentById(id);
+	}
 	@RequestMapping(value={"rest/student/delete","student/delete"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public ApiResult deleteStudent(@RequestParam String id){

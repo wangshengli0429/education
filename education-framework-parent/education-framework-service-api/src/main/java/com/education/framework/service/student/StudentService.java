@@ -39,7 +39,7 @@ public interface StudentService {
      * @return
      */
     ApiResult updateStudent(Student student);
-
+    ApiResult updateStrudentById(String id);
     /**
      * 删除学生
      * 

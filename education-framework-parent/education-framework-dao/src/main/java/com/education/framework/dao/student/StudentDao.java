@@ -31,6 +31,7 @@ public interface StudentDao {
 	int deleteStudentById(String id);
 	int insertStudent(Student student);
 	int updateStrudentById(Student student);
+	int updateStrudentById(String id);
 	Student queryStudentById(Map<String, Object> map);
 	
 }

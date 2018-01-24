@@ -43,4 +43,9 @@ public class StudentDaoImpl extends SqlSessionDaoSupport implements StudentDao{
 		return this.getSqlSession().selectOne("student.queryStudentById", map);
 	}
 
+	@Override
+	public int updateStrudentById(String id) {
+		return this.getSqlSession().update("student.updateStrudentById", id);
+	}
+
 }
