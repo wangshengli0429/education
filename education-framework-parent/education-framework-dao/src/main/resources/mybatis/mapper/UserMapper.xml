@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+    
+    <resultMap type="com.education.framework.model.user.User" id="queryUserResult">
+    	<result property="id" column="id"/>
+    	<result property="userName" column="user_name"/>
+    	<result property="userPwd" column="user_pwd"/>
+    	<result property="regTime" column="reg_time"/>
+    	<result property="lastTime" column="last_time"/>
+    	<result property="lastIp" column="last_ip"/>
+    	<result property="userType" column="user_type"/>
+    	<result property="status" column="status"/>
+    	<result property="cerStatus" column="cer_status"/>
+    	 
+    </resultMap>
+    
+    <select id="queryUserById" parameterType="com.education.framework.model.user.User" resultType="com.education.framework.model.user.User">
+    	select id,user_name as userName,user_pwd as userPwd,
+  				date_format(reg_time,'%Y-%m-%d %H:%i:%s') as regTime,  
+  				date_format(last_time,'%Y-%m-%d %H:%i:%s') as lastTime,
+  				last_ip as lastIp  , user_type as  userType,status,
+  				cer_status as cerStatus
+    	from t_user 
+    	
+    	<where>
+	    	 <if test="id!=null and id!=''"> AND id=#{id}</if>
+	    	 <if test="userName!=null and userName!=''"> AND user_name = #{userName}</if>
+    	</where> 
+    </select>
+    
+    <select id="findAllUser" parameterType="java.util.Map" resultType="com.education.framework.model.user.User">
+        select
+         	id,user_name as userName,user_pwd as userPwd,
+  				date_format(reg_time,'%Y-%m-%d %H:%i:%s') as regTime,  
+  				date_format(last_time,'%Y-%m-%d %H:%i:%s') as lastTime,
+  				last_ip as lastIp  , user_type as  userType,status,
+  				cer_status as cerStatus
+    	from t_user 
+		<where>
+	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
+	    	 <if test="userName!=null and userName!=''"> AND t.user_name = #{userName}</if>
+	    	 <if test="regTime!=null and regTime!=''"> AND u.reg_time = #{regTime}</if>
+    	</where> 
+        order by t.id asc
+        <if test="rowStart != null and pageSize != null">
+         limit ${rowStart}, ${pageSize}
+        </if>
+    </select>
+    
+     <select id="findUserCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+        select count(t.id)
+        from t_user t  
+       <where>
+	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
+	    	 <if test="userName!=null and userName!=''"> AND t.user_name = #{userName}</if>
+	    	 <if test="regTime!=null and regTime!=''"> AND u.reg_time = #{regTime}</if>
+    	</where> 
+    </select>
+    
+    <update id="updateUserById" parameterType="com.education.framework.model.user.User">
+    	update t_user 
+    	<set>
+    		 <if test="userName!= null and userName!=''" >  
+		       	 user_name = #{userName,jdbcType=VARCHAR},  
+		     </if>  
+		     <if test="lastTime!=null" >  
+		         last_time = date_format(#{lastTime},'%Y-%m-%d %H:%i:%s') ,  
+		     </if>
+		     <if test="lastIp!=null and lastIp!=''">
+		      	last_ip = #{lastIp,jdbcType=VARCHAR},  
+		     </if>
+		     <if test="userType!=null and userType!=''">
+		      	user_type = #{userType,jdbcType=VARCHAR},  
+		     </if>
+		     <if test="status!=null and status!=''">
+		      	status = #{status,jdbcType=VARCHAR},  
+		     </if>
+		     <if test="cerStatus!=null and cerStatus!=''">
+		      	cer_status = #{cerStatus,jdbcType=VARCHAR},  
+		     </if>
+		      
+    	</set>
+    	where id=#{id}
+    </update>
+    
+    <insert id="insertUser" parameterType="com.education.framework.model.user.User">
+    	insert into t_user
+    	(id
+    	<if test="userName">,user_name</if>
+    	<if test="gender">,user_pwd</if>
+    	<if test="age">,reg_time</if>
+    	<if test="nativePlace">,last_time</if>
+    	<if test="province">,last_ip</if>
+    	<if test="city">,user_type</if>
+    	<if test="district">,status</if>
+    	<if test="idCard">,cer_status</if>
+    	)
+    	values(#{id}
+    	<if test="userName">,#{userName}</if>
+    	<if test="userPwd">,#{userPwd}</if>
+    	<if test="regTime">,#{regTime}</if>
+    	<if test="lastTime">,#{lastTime}</if>
+    	<if test="lastIp">,#{lastIp}</if>
+    	<if test="userType">,#{userType}</if>
+    	<if test="status">,#{status}</if>
+    	<if test="cerStatus">,#{cerStatus}</if>
+    	)
+    </insert>
+    
+    
+</mapper>

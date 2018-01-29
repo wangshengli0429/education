@@ -72,7 +72,7 @@ public class StudentController {
 	public Map<String, Object> updateStudent(Student student){
 		logger.info("controller updateStudent ");
 		Map<String, Object> map = new HashMap<String, Object>();
-		ApiResult apiResult = studentService.updateStudent(student);
+		ApiResult apiResult = studentService.updateStudent(student,"Y");
 		
 		map.put("code", apiResult.getCode());
 		map.put("msg", apiResult.getMsg());

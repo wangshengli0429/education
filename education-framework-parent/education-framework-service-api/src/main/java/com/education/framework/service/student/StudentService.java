@@ -36,9 +36,10 @@ public interface StudentService {
      * 修改学生
      * 
      * @param student
+     * @param cerStatus Y:审批通过 N:审批未通过
      * @return
      */
-    ApiResult updateStudent(Student student);
+    ApiResult updateStudent(Student student,String cerStatus);
     ApiResult updateStrudentById(String id);
     /**
      * 删除学生

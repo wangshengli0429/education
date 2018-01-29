@@ -49,7 +49,7 @@
 			 LEFT JOIN t_authentication a on u.id = a.user_id
 			 LEFT JOIN t_bind_account b on u.id = b.user_id
 		<where>
-			
+			  u.user_type = 'T'
 	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
 	    	 <if test="userId!=null and userId!=''"> AND t.user_id = #{userId}</if>
 	    	 <if test="teacherName!=null and teacherName!=''"> AND t.teacher_name = #{teacherName}</if>
@@ -68,6 +68,7 @@
 			 LEFT JOIN t_authentication a on u.id = a.user_id
 			 LEFT JOIN t_bind_account b on u.id = b.user_id
        <where>
+       	 		u.user_type = 'T'
 	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
 	    	 <if test="userId!=null and userId!=''"> AND t.user_id = #{userId}</if>
 	    	 <if test="teacherName!=null and teacherName!=''"> AND t.teacher_name = #{teacherName}</if>
@@ -86,10 +87,10 @@
 		       	 gender = #{gender,jdbcType=VARCHAR},  
 		     </if>
 		     <if test="age" >  
-		       	age = #{age,jdbcType=int},  
+		       	age = #{age},  
 		     </if>
-		     <if test="native_place!=null and native_place!=''" >  
-		       	native_place!= = #{nativePlace,jdbcType=VARCHAR},  
+		     <if test="nativePlace!=null and nativePlace!=''" >  
+		       	native_place = #{nativePlace,jdbcType=VARCHAR},  
 		     </if>
 		     <if test="province!=null and province!=''" >  
 		         province = #{province,jdbcType=VARCHAR},  

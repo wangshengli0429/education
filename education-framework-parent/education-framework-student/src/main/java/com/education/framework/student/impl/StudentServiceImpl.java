@@ -11,6 +11,7 @@ import static com.education.framework.common.base.StatusCode.EDU_CODE_008;
 import static com.education.framework.common.base.StatusCode.EDU_CODE_009;
 import static com.education.framework.common.base.StatusCode.EDU_CODE_010;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -23,7 +24,9 @@ import com.education.framework.common.base.ApiResult;
 import com.education.framework.common.exception.BusinessException;
 import com.education.framework.common.service.LogFormatService;
 import com.education.framework.dao.student.StudentDao;
+import com.education.framework.dao.user.UserDao;
 import com.education.framework.model.student.Student;
+import com.education.framework.model.user.User;
 import com.education.framework.service.student.StudentService;
 
 @Service
@@ -32,6 +35,9 @@ public class StudentServiceImpl implements StudentService{
 	@Autowired
 	private StudentDao studentDao;
 	 
+	@Autowired
+	private UserDao userDao;
+	
 	private static Logger logger = Logger.getLogger(StudentServiceImpl.class);
 	
 
@@ -106,11 +112,22 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public ApiResult updateStudent(Student student) {
+	public ApiResult updateStudent(Student student,String cerStatus) {
 		logger.info(LogFormatService.logFormat("update student begin"));
 		int num = 0;
+		User user = null ;
 		try {
-			num = studentDao.updateStrudentById(student);
+//			num = studentDao.updateStrudentById(student);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("id", student.getUserId());
+			map.put("cerStatus", cerStatus);
+			user = userDao.queryUserById(map);
+			if(null != user){
+			   num = userDao.updateUserById(user);
+			}else{
+				logger.info("审批:"+student.getStudent()+",出现异常未能查到user表中数据");
+				return new ApiResult(EDU_CODE_008.getCode(), EDU_CODE_008.getMsg(), EDU_CODE_008.getShowMsg());
+			}
 		} catch (BusinessException e) {
 			logger.debug(LogFormatService.logFormat("修改学生异常：{}"), e);
 		    throw new BusinessException(EDU_CODE_004, EDU_CODE_004.getMsg());
