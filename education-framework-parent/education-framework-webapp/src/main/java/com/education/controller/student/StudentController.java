@@ -47,7 +47,7 @@ public class StudentController {
 	
 	@RequestMapping(value={"rest/query/student/{id}","query/student/{id}"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public   Map<String, Object> queryStudentById(@PathVariable String id){
+	public Map<String, Object> queryStudentById(@PathVariable String id){
 		logger.info("controller queryAllStudent begin ");
 		
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -67,12 +67,17 @@ public class StudentController {
 		logger.info("controller insertStudent ");
 		return studentService.insertStudent(student);
 	}
-	
-	@RequestMapping(value={"rest/student/update","student/update"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public ApiResult updateStudent(@RequestParam Student student){
+	@RequestMapping(value={"rest/student/update","student/update"},method={RequestMethod.GET,RequestMethod.POST})
+	public Map<String, Object> updateStudent(Student student){
 		logger.info("controller updateStudent ");
-		return studentService.updateStudent(student);
+		Map<String, Object> map = new HashMap<String, Object>();
+		ApiResult apiResult = studentService.updateStudent(student);
+		
+		map.put("code", apiResult.getCode());
+		map.put("msg", apiResult.getMsg());
+		
+		return map;
 	}
 	@RequestMapping(value={"rest/student/update/{id}","student/update/{id}"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody

@@ -69,40 +69,40 @@
     	update t_student 
     	<set>
     		 <if test="student!= null and student!=''" >  
-		       	 student = #{student,jdbcType=VARCHAR},  
+		       	 student = #{student,jdbcType=VARCHAR}  
 		     </if>  
 		     <if test="gender!= null and gender!=''" >  
-		       	 gender = #{gender,jdbcType=VARCHAR},  
+		       	 ,gender = #{gender,jdbcType=VARCHAR}  
 		     </if>
 		     <if test="age" >  
-		       	age = #{age,jdbcType=int},  
+		       	,age = #{age}  
 		     </if>
-		     <if test="native_place!=null and native_place!=''" >  
-		       	native_place!= = #{nativePlace,jdbcType=VARCHAR},  
+		     <if test="nativePlace!=null and nativePlace!=''" >  
+		       	,native_place = #{nativePlace,jdbcType=VARCHAR}  
 		     </if>
 		     <if test="province!=null and province!=''" >  
-		         province = #{province,jdbcType=VARCHAR},  
+		         ,province = #{province,jdbcType=VARCHAR}  
 		     </if>
 		     <if test="city!=null and city!=''">
-		      	city = #{city,jdbcType=VARCHAR},  
+		      	,city = #{city,jdbcType=VARCHAR}  
 		     </if>
 		     <if test="district!=null and district!=''">
-		      	district = #{district,jdbcType=VARCHAR},  
+		      	,district = #{district,jdbcType=VARCHAR}  
 		     </if>
 		     <if test="address!=null and address!=''">
-		      	address = #{address,jdbcType=VARCHAR},  
+		      	,address = #{address,jdbcType=VARCHAR}  
 		     </if>
 		     <if test="idCard!=null and idCard!=''">
-		      	id_card = #{idCard,jdbcType=VARCHAR},  
+		      	,id_card = #{idCard,jdbcType=VARCHAR}  
 		     </if>
 		     <if test="selfDescr!=null and selfDescr!=''">
-		      	self_descr = #{selfDescr,jdbcType=VARCHAR},  
+		      	,self_descr = #{selfDescr,jdbcType=VARCHAR}  
 		     </if>
 		     <if test="photo!=null and photo!=''">
-		      	photo = #{photo,jdbcType=VARCHAR},  
+		      	,photo = #{photo,jdbcType=VARCHAR}  
 		     </if>
 		     <if test="remark!=null and remark!=''">
-		      	remark = #{remark,jdbcType=VARCHAR},  
+		      	,remark = #{remark,jdbcType=VARCHAR} 
 		     </if>
 		      
     	</set>

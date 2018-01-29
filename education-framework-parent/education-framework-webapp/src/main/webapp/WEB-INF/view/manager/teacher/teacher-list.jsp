@@ -35,6 +35,7 @@
 		</div>
     	<table class="layui-hide" id="dataTable" lay-filter="teacher"></table>
     	<script type="text/html" id="barDemo">
+			<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
   			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 		</script>
     </div>
@@ -103,7 +104,110 @@ layui.use('table', function(){
   	// 监听操作	
   	table.on('tool(comment)',function(obj) {
   		var data = obj.data;
-  		alert(data.content);
+
+  		if(obj.event === 'detail'){
+  			
+ 			 $.ajax({
+ 	            url: '${path}/query/teacher/'+data.id,
+ 	            type: 'get',
+ 	            dataType:'json',
+ 	            contentType: 'application/json',
+ 	            async:false,
+ 	            success: function (data) {
+ 	            	
+ 	                if (data.teacher != null &&  data.teacher !== 'undefined') {
+						var gender = "-";
+ 	                    if(data.teacher.gender === 'M'){gender="男"}if(data.teacher.gender === 'W'){gender="女"}
+ 	                  layer.open({ 
+ 	  	       			  title: ['学生审核', 'background-color: #00bb9d;text-align:center;font-size:18px;'],
+ 	  	       			  type: 1,
+ 	  	       			  shade: false,  
+ 	  	       		      maxmin: true, 
+ 	  	       			  skin: 'layui-layer-rim', //加上边框
+ 	  	       			  area: ['750px', '500px'], //宽高
+ 	  	       			  content: '<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">'+
+ 	  	       		  					'<legend>学生审核</legend>'+
+ 	  	      	  					'</fieldset>'+
+ 	  	      	  			'<table class="layui-table" lay-size="sm" style="width: 500px;height: 120px;margin-left: 80px;">'+
+			  	      		  '<colgroup>'+
+			  	      		    '<col width="80" align="right" >'+
+			  	      		    '<col width="150" align="center">'+
+			  	      		    '<col width="80" align="right">'+
+			  	      		    '<col width="150" align="center">'+
+			  	      		  '</colgroup>'+
+			  	      		  '<tbody>'+
+			  	      		    '<tr>'+
+			  	      		      '<td>学生姓名：</td>'+
+			  	      		      '<td>'+ data.teacher.teacherName +'</td>'+
+				  	      		  '<td>性别：</td>'+
+			  	      		      '<td>'+ gender +'</td>'+
+			  	      		    '</tr>'+
+			  	      		    '<tr>'+
+			  	      		      '<td>年龄：</td>'+
+			  	      		      '<td>'+ data.teacher.age +'</td>'+
+				  	      		  '<td>身份证号：</td>'+
+			  	      		      '<td>'+ data.teacher.idNumber +'</td>'+
+			  	      		    '</tr>'+
+				  	      		'<tr>'+
+			  	      		      '<td>所在地区：</td>'+
+			  	      		      '<td colspan="3">'+ data.teacher.province +'-'+data.teacher.city+'-'+data.teacher.district+'</td>'+
+			  	      		    '</tr>'+
+				  	      		'<tr>'+
+			  	      		      '<td>详细住址：</td>'+
+			  	      		      '<td colspan="3">'+ data.teacher.address +'</td>'+
+			  	      		    '</tr>'+
+				  	      		'<tr>'+
+			  	      		      '<td>简介：</td>'+
+			  	      		      '<td colspan="3">'+ data.teacher.remark +'</td>'+
+			  	      		    '</tr>'+
+				  	      		'<tr>'+
+			  	      		      '<td>头像：</td>'+
+			  	      		      '<td colspan="3">'+ data.teacher.photo +'</td>'+
+			  	      		    '</tr>'+
+			  	      		  '</tbody>'+
+			  	      		'</table>'
+			  	      		
+				  	      	,btn: ['审核通过', '审核未通过'] //只是为了演示
+		  	                ,btn1:function(){
+		  	                	var teacher = data.teacher;
+		  	                	//审核状态
+		  	                	 $.ajax({
+		  	         	            url: '${path}/student/update',
+		  	         	            type: 'post',
+			  	         	        dataType:'json',
+			  	     	            contentType: 'application/json',
+		  	         	            data:{"teacher":teacher},
+		  	         	            async:false,
+		  	         	            success: function (data) {
+		  	         	            	alert("s"+data)
+			  	         	         },
+			  	     	            error: function (data) {
+			  	     	            	alert("e"+data)
+			  	     	            }
+		  	     	        	});
+		  	     	            	
+		  	                }
+		  	                ,btn2: function(){
+		  	                  layer.close();
+		  	                }
+		  	                
+ 	  	       			});
+ 	                } else {
+ 	                	layer.alert('提示','请求出错');
+ 	                }
+ 	            	
+
+ 	            },
+ 	            error: function (data) {
+ 	                if (data.responseJSON === 'undefined' || data.responseJSON.msg === 'undefined') {
+ 	                	layer.alert('请求出错');
+ 	                } else {
+ 	                	layer.alert(data.responseJSON.msg);
+ 	                }
+ 	            }
+ 	        });
+ 			
+ 		}
   		if(obj.event === 'del'){
   			layer.confirm('真的删除吗？', function(index){
   				<%--  $.ajax({

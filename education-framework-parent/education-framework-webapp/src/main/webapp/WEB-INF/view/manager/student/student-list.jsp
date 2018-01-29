@@ -173,7 +173,7 @@ layui.use('table', function(){
 			  	      		    '</tr>'+
 				  	      		'<tr>'+
 			  	      		      '<td>头像：</td>'+
-			  	      		      '<td colspan="3">'+ data.student.address +'</td>'+
+			  	      		      '<td colspan="3">'+ data.student.photo +'</td>'+
 			  	      		    '</tr>'+
 			  	      		  '</tbody>'+
 			  	      		'</table>'
@@ -186,17 +186,22 @@ layui.use('table', function(){
 		  	         	            url: '${path}/student/update',
 		  	         	            type: 'post',
 			  	         	        dataType:'json',
-			  	     	            contentType: 'application/json',
-		  	         	            data:{"student":student},
+		  	         	            data:student,
 		  	         	            async:false,
 		  	         	            success: function (data) {
-		  	         	            	alert("s"+data)
+		  	         	            	if(data != null && data!='undefined'){
+		  	         	            		if(data.code === 5){
+		  	         	            			layer.alert(data.msg+":审核通过");
+		  	         	            		}else{
+		  	         	            			layer.alert(data.msg);
+		  	         	            		}
+		  	         	            	}
 			  	         	         },
-			  	     	            error: function (data) {
-			  	     	            	alert("e"+data)
-			  	     	            }
-		  	     	        	});
-		  	     	            	
+			  	     	             error: function (data) {
+			  	     	            	alert("err"+data.code)
+			  	     	             }
+		  	     	        	  });
+		  	                	
 		  	                }
 		  	                ,btn2: function(){
 		  	                  layer.close();
@@ -204,7 +209,7 @@ layui.use('table', function(){
 		  	                
   	  	       			});
   	                } else {
-  	                	layer.alert('提示','请求出错');
+  	                	layer.alert('请求出错');
   	                }
   	            	
 

@@ -47,12 +47,15 @@ public class TeacherController {
 	
 	@RequestMapping(value={"rest/query/teacher/{id}","query/teacher/{id}"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public ApiResult queryTeacherById(@PathVariable String id){
+	public  Map<String, Object> queryTeacherById(@PathVariable String id){
 		logger.info("controller queryAllStudent "+ id );
 		Map<String, Object> map = Maps.newHashMap();
 		map.put("id",id);
-		
-		return teacherService.queryTeacherById(map);
+		ApiResult apiResult = teacherService.queryTeacherById(map);
+		if(apiResult.getCode() == 9){
+			map.put("teacher", (Teacher)apiResult.getData());
+		}
+		return map;
 	}
 	
 	@RequestMapping(value={"rest/teacher/insert","teacher/insert"},method={RequestMethod.GET,RequestMethod.POST})
