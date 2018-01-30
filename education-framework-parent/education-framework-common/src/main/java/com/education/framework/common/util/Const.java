@@ -164,6 +164,16 @@ public class Const {
     public final static String STATUS_N = "N";
     /**删除*/
     public final static String STATUS_D = "D";
+    /**
+     * 审核通过
+     */
+    public final static String CER_STATUS_Y = "Y";
+    /**
+     * 审核未通过
+     */
+    public final static String CER_STATUS_N = "N";
+    
+    
     /** 员工权限 */
     public final static String ADMIN = "admin";
     /** APP访问  */

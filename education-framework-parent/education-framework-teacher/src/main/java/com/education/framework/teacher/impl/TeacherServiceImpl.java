@@ -11,6 +11,7 @@ import static com.education.framework.common.base.StatusCode.EDU_CODE_008;
 import static com.education.framework.common.base.StatusCode.EDU_CODE_009;
 import static com.education.framework.common.base.StatusCode.EDU_CODE_010;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -23,7 +24,9 @@ import com.education.framework.common.base.ApiResult;
 import com.education.framework.common.exception.BusinessException;
 import com.education.framework.common.service.LogFormatService;
 import com.education.framework.dao.teacher.TeacherDao;
+import com.education.framework.dao.user.UserDao;
 import com.education.framework.model.teacher.Teacher;
+import com.education.framework.model.user.User;
 import com.education.framework.service.teacher.TeacherService;
 @Service
 @Transactional
@@ -31,6 +34,9 @@ public class TeacherServiceImpl implements TeacherService {
 	
 	@Autowired
 	TeacherDao teacherDao;
+	
+	@Autowired
+	UserDao userDao;
 	private static Logger logger = Logger.getLogger(TeacherServiceImpl.class);
 
 	@Override
@@ -55,15 +61,25 @@ public class TeacherServiceImpl implements TeacherService {
 	}
 
 	@Override
-	public ApiResult deleteTeacherById(String id) {
+	public ApiResult deleteTeacherById(String id,String status) {
 		logger.info(LogFormatService.logFormat("delete Teacher【"+ id +"】 begin"));
-		if(StringUtils.isNotBlank(id)){
+		if(StringUtils.isBlank(id)){
 			return  new ApiResult(EDU_CODE_010.getCode(), EDU_CODE_010.getMsg(), EDU_CODE_010.getShowMsg());
 		}
-		
+		User user = null;
 		int num = 0;
 		try {
-			 num = teacherDao.deleteTeacherById(id);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("id", id);
+			user = userDao.queryUserById(map);
+			if(null != user){
+				user.setStatus(status);
+			   num = userDao.updateUserById(user);
+			}else{
+				logger.info("删除出现异常未能查到user表中数据");
+				return new ApiResult(EDU_CODE_006.getCode(), EDU_CODE_006.getMsg(), EDU_CODE_006.getShowMsg());
+			}
 		} catch (BusinessException e) {
 			logger.debug(LogFormatService.logFormat("删除教师异常：{}"), e);
 		    throw new BusinessException(EDU_CODE_006, EDU_CODE_006.getMsg());
@@ -102,11 +118,21 @@ public class TeacherServiceImpl implements TeacherService {
 	}
 
 	@Override
-	public ApiResult updateTeacherById(Teacher teacher) {
+	public ApiResult updateTeacherById(Teacher teacher,String cerStatus) {
 		logger.info(LogFormatService.logFormat("update teacher begin"));
 		int num = 0;
+		User user = null;
 		try {
-			num = teacherDao.updateTeacherById(teacher);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("id", teacher.getUserId());
+			user = userDao.queryUserById(map);
+			if(null != user){
+					user.setCerStatus(cerStatus);
+					num = userDao.updateUserById(user);
+			}else{
+				logger.info("审批:"+teacher.getTeacherName()+",出现异常未能查到user表中数据");
+				return new ApiResult(EDU_CODE_008.getCode(), EDU_CODE_008.getMsg(), EDU_CODE_008.getShowMsg());
+			}
 		} catch (BusinessException e) {
 			logger.debug(LogFormatService.logFormat("修改教师异常：{}"), e);
 		    throw new BusinessException(EDU_CODE_004, EDU_CODE_004.getMsg());

@@ -9,12 +9,10 @@ import static com.education.framework.common.base.StatusCode.EDU_CODE_006;
 import static com.education.framework.common.base.StatusCode.EDU_CODE_007;
 import static com.education.framework.common.base.StatusCode.EDU_CODE_008;
 import static com.education.framework.common.base.StatusCode.EDU_CODE_009;
-import static com.education.framework.common.base.StatusCode.EDU_CODE_010;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -117,7 +115,6 @@ public class StudentServiceImpl implements StudentService{
 		int num = 0;
 		User user = null ;
 		try {
-//			num = studentDao.updateStrudentById(student);
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("id", student.getUserId());
 			user = userDao.queryUserById(map);

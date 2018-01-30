@@ -9,8 +9,8 @@ public interface TeacherService {
 	
 	ApiResult findAllTeacher(Map<String, Object> map);
 	 
-	ApiResult deleteTeacherById(String id);
+	ApiResult deleteTeacherById(String id,String status);
 	ApiResult insertTeacher(Teacher teacher);
-	ApiResult updateTeacherById(Teacher teacher);
+	ApiResult updateTeacherById(Teacher teacher,String cerStatus);
 	ApiResult queryTeacherById(Map<String, Object> map);
 }

@@ -102,11 +102,10 @@ layui.use('table', function(){
 	  });
   
   	// 监听操作	
-  	table.on('tool(comment)',function(obj) {
+  	table.on('tool(teacher)',function(obj) {
   		var data = obj.data;
 
   		if(obj.event === 'detail'){
-  			alert(data.id)
  			 $.ajax({
  	            url: '${path}/query/teacher/'+data.id,
  	            type: 'get',
@@ -126,7 +125,7 @@ layui.use('table', function(){
  	  	       			  skin: 'layui-layer-rim', //加上边框
  	  	       			  area: ['750px', '500px'], //宽高
  	  	       			  content: '<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">'+
- 	  	       		  					'<legend>学生审核</legend>'+
+ 	  	       		  					'<legend>教师审核</legend>'+
  	  	      	  					'</fieldset>'+
  	  	      	  			'<table class="layui-table" lay-size="sm" style="width: 500px;height: 120px;margin-left: 80px;">'+
 			  	      		  '<colgroup>'+
@@ -168,27 +167,55 @@ layui.use('table', function(){
 			  	      		'</table>'
 			  	      		
 				  	      	,btn: ['审核通过', '审核未通过'] //只是为了演示
-		  	                ,btn1:function(){
+		  	                ,btn1:function(index){
 		  	                	var teacher = data.teacher;
 		  	                	//审核状态
-// 		  	                	 $.ajax({
-// 		  	         	            url: '${path}/student/update',
-// 		  	         	            type: 'post',
-// 			  	         	        dataType:'json',
-// 			  	     	            contentType: 'application/json',
-// 		  	         	            data:{"teacher":teacher},
-// 		  	         	            async:false,
-// 		  	         	            success: function (data) {
-// 		  	         	            	alert("s"+data)
-// 			  	         	         },
-// 			  	     	            error: function (data) {
-// 			  	     	            	alert("e"+data)
-// 			  	     	            }
-// 		  	     	        	});
+		  	                	 $.ajax({
+		  	         	            url: '${path}/teacher/examine',
+		  	         	            type: 'post',
+			  	         	        dataType:'json',
+		  	         	            data:{"teacher":teacher},
+		  	         	            async:false,
+		  	         	            success: function (data) {
+		  	         	            	if(data.code === 5){
+	  	         	            			layer.msg(data.msg+":审核通过");
+	  	         	            			layer.close(index);
+	  	         	            		}else if(data.code === 8){
+	  	         	            			layer.msg("异常:没查到关联用户");
+	  	         	            		}else{
+	  	         	            			layer.alert(data.msg);
+	  	         	            		}
+			  	         	         },
+			  	     	            error: function (data) {
+			  	     	            	alert("请求异常")
+			  	     	            }
+		  	     	        	});
+		  	                	layer.close(index);
 		  	     	            	
 		  	                }
-		  	                ,btn2: function(){
-		  	                  layer.close();
+		  	                ,btn2: function(index){
+		  	                	var teacher = data.teacher;
+		  	              	//审核状态
+		  	                	 $.ajax({
+		  	         	            url: '${path}/teacher/unaudited',
+		  	         	            type: 'post',
+			  	         	        dataType:'json',
+		  	         	            data:{"teacher":teacher},
+		  	         	            async:false,
+		  	         	            success: function (data) {
+		  	         	            	if(data.code === 5){
+	  	         	            			layer.alert(data.msg+":审核未通过");
+	  	         	            		}else if(data.code === 8){
+	  	         	            			layer.alert("异常:没查到关联用户");
+	  	         	            		}else{
+	  	         	            			layer.alert(data.msg);
+	  	         	            		}
+			  	         	         },
+			  	     	            error: function (data) {
+			  	     	            	layer.alert("请求异常");
+			  	     	            }
+		  	     	        	});
+		  	                	layer.close(index);
 		  	                }
 		  	                
  	  	       			});
@@ -199,33 +226,32 @@ layui.use('table', function(){
 
  	            },
  	            error: function (data) {
- 	                if (data.responseJSON === 'undefined' || data.responseJSON.msg === 'undefined') {
- 	                	layer.alert('请求出错');
- 	                } else {
- 	                	layer.alert(data.responseJSON.msg);
- 	                }
+ 	                 layer.msg('请求异常')
  	            }
  	        });
  			
  		}
   		if(obj.event === 'del'){
   			layer.confirm('真的删除吗？', function(index){
-  				<%--  $.ajax({
-                    url: "<%=path%>/comment/",
+  				  $.ajax({
+                    url: "<%=path%>/teacher/del",
                     type: "POST",
-                    data:{"uvid":data.id,"memthodname":"deleteuv","aid":data.aid},
+                    data:{"id":data.userId},
                     dataType: "json",
                     success: function(data){
-                        if(data.state==1){
+                        if(data.code==7){
                             obj.del();
                             layer.close(index);
                             layer.msg("删除成功", {icon: 6});
                         }else{
                             layer.msg("删除失败", {icon: 5});
                         }
+                    },
+                    error:function(){
+                    	layer.msg('删除教师异常')
                     }
 
-                });  --%>
+                });  
   			})
   		}
   	});

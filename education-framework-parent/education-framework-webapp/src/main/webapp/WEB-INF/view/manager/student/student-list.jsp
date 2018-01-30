@@ -179,11 +179,11 @@ layui.use('table', function(){
 			  	      		'</table>'
 			  	      		
 				  	      	,btn: ['审核通过', '审核未通过'] //只是为了演示
-		  	                ,btn1:function(){
+		  	                ,btn1:function(index){
 		  	                	var student = data.student;
 		  	                	//审核状态
 		  	                	 $.ajax({
-		  	         	            url: '${path}/student/update',
+		  	         	            url: '${path}/student/examine',
 		  	         	            type: 'post',
 			  	         	        dataType:'json',
 		  	         	            data:student,
@@ -198,12 +198,34 @@ layui.use('table', function(){
 		  	         	            	}
 			  	         	         },
 			  	     	             error: function (data) {
-			  	     	            	alert("err"+data.code)
+			  	     	            	layer.alert("请求异常");
 			  	     	             }
 		  	     	        	  });
+		  	                	layer.close(index);
 		  	                	
 		  	                }
 		  	                ,btn2: function(){
+		  	                	var student = data.student;
+		  	                //审核状态
+		  	                	 $.ajax({
+		  	         	            url: '${path}/student/unaudited',
+		  	         	            type: 'post',
+			  	         	        dataType:'json',
+		  	         	            data:student,
+		  	         	            async:false,
+		  	         	            success: function (data) {
+		  	         	            	if(data != null && data!='undefined'){
+		  	         	            		if(data.code === 5){
+		  	         	            			layer.alert(data.msg+":审核未通过");
+		  	         	            		}else{
+		  	         	            			layer.alert(data.msg);
+		  	         	            		}
+		  	         	            	}
+			  	         	         },
+			  	     	             error: function (data) {
+			  	     	            	alert("err"+data.code)
+			  	     	             }
+		  	     	        	  });
 		  	                  layer.close();
 		  	                }
 		  	                

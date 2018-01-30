@@ -67,13 +67,34 @@ public class StudentController {
 		logger.info("controller insertStudent ");
 		return studentService.insertStudent(student);
 	}
-
-	@RequestMapping(value={"rest/student/update","student/update"},method={RequestMethod.GET,RequestMethod.POST})
+	/**
+	 * 审核通过
+	 * @param student
+	 * @return
+	 */
+	@RequestMapping(value={"rest/student/examine","student/examine"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public Map<String, Object> updateStudent(@RequestParam Student student){
+	public Map<String, Object> updateStudent(Student student){
 		logger.info("controller updateStudent ");
 		Map<String, Object> map = new HashMap<String, Object>();
-		ApiResult apiResult = studentService.updateStudent(student,"Y");
+		ApiResult apiResult = studentService.updateStudent(student,Const.CER_STATUS_Y);
+		
+		map.put("code", apiResult.getCode());
+		map.put("msg", apiResult.getMsg());
+		
+		return map;
+	}
+	/**
+	 * 审核未通过
+	 * @param student
+	 * @return
+	 */
+	@RequestMapping(value={"rest/student/unaudited","student/unaudited"},method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public Map<String, Object> unauditedStudent(Student student){
+		logger.info("controller updateStudent ");
+		Map<String, Object> map = new HashMap<String, Object>();
+		ApiResult apiResult = studentService.updateStudent(student,Const.CER_STATUS_N);
 		
 		map.put("code", apiResult.getCode());
 		map.put("msg", apiResult.getMsg());

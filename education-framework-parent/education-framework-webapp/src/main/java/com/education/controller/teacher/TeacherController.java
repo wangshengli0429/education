@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.education.framework.common.base.ApiResult;
+import com.education.framework.common.util.Const;
 import com.education.framework.model.teacher.Teacher;
 import com.education.framework.service.teacher.TeacherService;
 import com.google.common.collect.Maps;
@@ -64,19 +65,34 @@ public class TeacherController {
 		logger.info("controller insertTeacher ");
 		return teacherService.insertTeacher(teacher);
 	}
-	
-	@RequestMapping(value={"rest/teacher/update","teacher/update"},method={RequestMethod.GET,RequestMethod.POST})
+	/**
+	 * 审核通过
+	 * @param teacher
+	 * @return
+	 */
+	@RequestMapping(value={"rest/teacher/examine","teacher/examine"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public ApiResult updateTeacher(@RequestParam Teacher teacher){
+	public ApiResult updateTeacher( Teacher teacher){
 		logger.info("controller updateTeacher ");
-		return teacherService.updateTeacherById(teacher);
+		return teacherService.updateTeacherById(teacher,Const.CER_STATUS_Y);
+	}
+	/**
+	 * 审核未通过
+	 * @param teacher
+	 * @return
+	 */
+	@RequestMapping(value={"rest/teacher/unaudited","teacher/unaudited"},method={RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+	public ApiResult unauditedTeacher( Teacher teacher){
+		logger.info("controller updateTeacher ");
+		return teacherService.updateTeacherById(teacher,Const.CER_STATUS_N);
 	}
 	
-	@RequestMapping(value={"rest/teacher/delete","teacher/delete"},method={RequestMethod.GET,RequestMethod.POST})
+	@RequestMapping(value={"rest/teacher/del","teacher/del"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public ApiResult deleteTeacher(@RequestParam String id){
+	public ApiResult deleteTeacher(@RequestParam(required=true) String id){
 		logger.info("controller deleteTeacher ");
-		return teacherService.deleteTeacherById(id);
+		return teacherService.deleteTeacherById(id,Const.STATUS_D);
 	}
 	
 }
