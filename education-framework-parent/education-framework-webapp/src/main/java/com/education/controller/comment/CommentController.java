@@ -80,7 +80,7 @@ public class CommentController {
 		// 设置参数，主键
 		map.put("id", id);
 		// 设置参数， 评论状态位 Y-有效 N-无效
-		map.put("status", Const.STATUS_N);
+		map.put("status", Const.STATUS_D);
 		ApiResult apiResult = commentService.updateCommentStatusById(map);
 		return apiResult;
 	}

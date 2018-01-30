@@ -43,7 +43,7 @@
         	date_format(u.last_time,'%Y-%m-%d %H:%i:%s') as lastTime
         from t_student t INNER JOIN t_user u on t.user_id = u.id  
 		<where>
-			  u.user_type = 'S'
+			  u.user_type = 'S' and u.cer_status = 'Y' and u.status = 'N'
 	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
 	    	 <if test="userId!=null and userId!=''"> AND t.user_id = #{userId}</if>
 	    	 <if test="student!=null and student!=''"> AND t.student = #{student}</if>
@@ -59,7 +59,7 @@
         select count(t.id)
         from t_student t INNER JOIN t_user u on t.user_id = u.id 
        <where>
-       		   u.user_type = 'S'
+       		   u.user_type = 'S' and u.cer_status = 'Y' and u.status = 'N'
 	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
 	    	 <if test="userId!=null and userId!=''"> AND t.user_id = #{userId}</if>
 	    	 <if test="student!=null and student!=''"> AND t.student = #{student}</if>

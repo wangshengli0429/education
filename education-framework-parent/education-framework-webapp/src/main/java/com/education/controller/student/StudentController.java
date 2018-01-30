@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.education.framework.common.base.ApiResult;
+import com.education.framework.common.util.Const;
 import com.education.framework.model.student.Student;
 import com.education.framework.service.student.StudentService;
 import com.google.common.collect.Maps;
@@ -67,9 +67,10 @@ public class StudentController {
 		logger.info("controller insertStudent ");
 		return studentService.insertStudent(student);
 	}
-	@ResponseBody
+
 	@RequestMapping(value={"rest/student/update","student/update"},method={RequestMethod.GET,RequestMethod.POST})
-	public Map<String, Object> updateStudent(Student student){
+	@ResponseBody
+	public Map<String, Object> updateStudent(@RequestParam Student student){
 		logger.info("controller updateStudent ");
 		Map<String, Object> map = new HashMap<String, Object>();
 		ApiResult apiResult = studentService.updateStudent(student,"Y");
@@ -79,17 +80,18 @@ public class StudentController {
 		
 		return map;
 	}
-	@RequestMapping(value={"rest/student/update/{id}","student/update/{id}"},method={RequestMethod.GET,RequestMethod.POST})
+	/**
+	 * 删除学生
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value={"rest/student/del","student/del"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public ApiResult updateStudentById(@PathVariable String id){
+	public ApiResult updateStudentById(@RequestParam(required=true) String id){
 		logger.info("controller updateStudent ");
-		return studentService.updateStrudentById(id);
+		 
+		return studentService.updateStrudentById(id,Const.STATUS_D);
 	}
-	@RequestMapping(value={"rest/student/delete","student/delete"},method={RequestMethod.GET,RequestMethod.POST})
-	@ResponseBody
-	public ApiResult deleteStudent(@RequestParam String id){
-		logger.info("controller deleteStudent ");
-		return studentService.deleteStudent(id);
-	}
+	 
 	
 }

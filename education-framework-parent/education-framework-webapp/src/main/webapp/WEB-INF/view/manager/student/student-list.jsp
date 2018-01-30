@@ -226,22 +226,26 @@ layui.use('table', function(){
   		}
   		if(obj.event === 'del'){
   			layer.confirm('真的删除吗？', function(index){
-  				<%--  $.ajax({
-                    url: "<%=path%>/comment/",
-                    type: "POST",
-                    data:{"uvid":data.id,"memthodname":"deleteuv","aid":data.aid},
+  				   $.ajax({
+                    url: "<%=path%>/student/del",
+                    type: "post",
+                    data:{"id":data.userId},
                     dataType: "json",
+                    async:false,
                     success: function(data){
-                        if(data.state==1){
+                        if(data.code==7){
                             obj.del();
                             layer.close(index);
                             layer.msg("删除成功", {icon: 6});
                         }else{
                             layer.msg("删除失败", {icon: 5});
                         }
+                    },
+                    error:function(data){
+                    	 layer.msg("删除异常");
                     }
 
-                });  --%>
+                });   
   			})
   		}
   	});

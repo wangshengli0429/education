@@ -120,10 +120,10 @@ public class StudentServiceImpl implements StudentService{
 //			num = studentDao.updateStrudentById(student);
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("id", student.getUserId());
-			map.put("cerStatus", cerStatus);
 			user = userDao.queryUserById(map);
 			if(null != user){
-			   num = userDao.updateUserById(user);
+					user.setCerStatus(cerStatus);
+					num = userDao.updateUserById(user);
 			}else{
 				logger.info("审批:"+student.getStudent()+",出现异常未能查到user表中数据");
 				return new ApiResult(EDU_CODE_008.getCode(), EDU_CODE_008.getMsg(), EDU_CODE_008.getShowMsg());
@@ -143,52 +143,39 @@ public class StudentServiceImpl implements StudentService{
         }
 		return new ApiResult(EDU_CODE_004.getCode(), EDU_CODE_004.getMsg(), EDU_CODE_004.getShowMsg());
 	}
+ 
 
 	@Override
-	public ApiResult deleteStudent(String id) {
-		logger.info(LogFormatService.logFormat("delete student【"+ id +"】 begin"));
-		if(StringUtils.isNotBlank(id)){
-			return  new ApiResult(EDU_CODE_010.getCode(), EDU_CODE_010.getMsg(), EDU_CODE_010.getShowMsg());
-		}
-		int num = 0;
-		try {
-			 num = studentDao.deleteStudentById(id);
-		} catch (BusinessException e) {
-			logger.debug(LogFormatService.logFormat("删除学生异常：{}"), e);
-		    throw new BusinessException(EDU_CODE_006, EDU_CODE_006.getMsg());
-		}catch (Exception e) {
-			logger.debug(LogFormatService.logFormat("删除学生异常：{}"), e);
-		    throw new BusinessException(EDU_CODE_006, EDU_CODE_006.getMsg());
-		}
-		
-		logger.info(LogFormatService.logFormat("delete student "+(num > 0?"success":"fail") +"end."));    
-		if (num > 0) {
-            return new ApiResult(EDU_CODE_007.getCode(), EDU_CODE_007.getMsg(), EDU_CODE_007.getShowMsg());
-        }
-		return new ApiResult(EDU_CODE_006.getCode(), EDU_CODE_006.getMsg(), EDU_CODE_006.getShowMsg());
-	}
-
-
-	@Override
-	public ApiResult updateStrudentById(String id) {
+	public ApiResult updateStrudentById(String id,String status) {
 		logger.info(LogFormatService.logFormat("update student begin"));
 		int num = 0;
+		User user = null;
 		try {
-			num = studentDao.updateStrudentById(id);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("id", id);
+			user = userDao.queryUserById(map);
+			if(null != user){
+				user.setStatus(status);
+			   num = userDao.updateUserById(user);
+			}else{
+				logger.info("删除出现异常未能查到user表中数据");
+				return new ApiResult(EDU_CODE_006.getCode(), EDU_CODE_006.getMsg(), EDU_CODE_006.getShowMsg());
+			}
+			
 		} catch (BusinessException e) {
-			logger.debug(LogFormatService.logFormat("修改学生异常：{}"), e);
-		    throw new BusinessException(EDU_CODE_004, EDU_CODE_004.getMsg());
+			logger.debug(LogFormatService.logFormat("删除学生异常：{}"), e);
+		    throw new BusinessException(EDU_CODE_006, EDU_CODE_006.getMsg());
 		} catch (Exception e) {
-			logger.debug(LogFormatService.logFormat("修改学生异常：{}"), e);
-			throw new BusinessException(EDU_CODE_004, EDU_CODE_004.getMsg());
+			logger.debug(LogFormatService.logFormat("删除学生异常：{}"), e);
+			throw new BusinessException(EDU_CODE_006, EDU_CODE_006.getMsg());
 		}
 		
 		logger.info(LogFormatService.logFormat("update student "+(num > 0?"success":"fail") +"end."));    
 	       
 		if (num > 0) {
-            return new ApiResult(EDU_CODE_005.getCode(), EDU_CODE_005.getMsg(), EDU_CODE_005.getShowMsg());
+            return new ApiResult(EDU_CODE_007.getCode(), EDU_CODE_007.getMsg(), EDU_CODE_007.getShowMsg());
         }
-		return new ApiResult(EDU_CODE_004.getCode(), EDU_CODE_004.getMsg(), EDU_CODE_004.getShowMsg());
+		return new ApiResult(EDU_CODE_006.getCode(), EDU_CODE_006.getMsg(), EDU_CODE_006.getShowMsg());
 	}
 	
 }

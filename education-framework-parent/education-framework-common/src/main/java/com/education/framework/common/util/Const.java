@@ -158,10 +158,12 @@ public class Const {
         public static final int ERR_REQUEST_PARAM_ERROR = 2;
     }
 
-    /** 有效 */
-    public final static String STATUS_Y = "Y";
-    /** 无效 */
+    /** 冻结 */
+    public final static String STATUS_F = "F";
+    /** 正常 */
     public final static String STATUS_N = "N";
+    /**删除*/
+    public final static String STATUS_D = "D";
     /** 员工权限 */
     public final static String ADMIN = "admin";
     /** APP访问  */

@@ -106,7 +106,7 @@ layui.use('table', function(){
   		var data = obj.data;
 
   		if(obj.event === 'detail'){
-  			
+  			alert(data.id)
  			 $.ajax({
  	            url: '${path}/query/teacher/'+data.id,
  	            type: 'get',
@@ -119,7 +119,7 @@ layui.use('table', function(){
 						var gender = "-";
  	                    if(data.teacher.gender === 'M'){gender="男"}if(data.teacher.gender === 'W'){gender="女"}
  	                  layer.open({ 
- 	  	       			  title: ['学生审核', 'background-color: #00bb9d;text-align:center;font-size:18px;'],
+ 	  	       			  title: ['教师审核', 'background-color: #00bb9d;text-align:center;font-size:18px;'],
  	  	       			  type: 1,
  	  	       			  shade: false,  
  	  	       		      maxmin: true, 
@@ -171,20 +171,20 @@ layui.use('table', function(){
 		  	                ,btn1:function(){
 		  	                	var teacher = data.teacher;
 		  	                	//审核状态
-		  	                	 $.ajax({
-		  	         	            url: '${path}/student/update',
-		  	         	            type: 'post',
-			  	         	        dataType:'json',
-			  	     	            contentType: 'application/json',
-		  	         	            data:{"teacher":teacher},
-		  	         	            async:false,
-		  	         	            success: function (data) {
-		  	         	            	alert("s"+data)
-			  	         	         },
-			  	     	            error: function (data) {
-			  	     	            	alert("e"+data)
-			  	     	            }
-		  	     	        	});
+// 		  	                	 $.ajax({
+// 		  	         	            url: '${path}/student/update',
+// 		  	         	            type: 'post',
+// 			  	         	        dataType:'json',
+// 			  	     	            contentType: 'application/json',
+// 		  	         	            data:{"teacher":teacher},
+// 		  	         	            async:false,
+// 		  	         	            success: function (data) {
+// 		  	         	            	alert("s"+data)
+// 			  	         	         },
+// 			  	     	            error: function (data) {
+// 			  	     	            	alert("e"+data)
+// 			  	     	            }
+// 		  	     	        	});
 		  	     	            	
 		  	                }
 		  	                ,btn2: function(){

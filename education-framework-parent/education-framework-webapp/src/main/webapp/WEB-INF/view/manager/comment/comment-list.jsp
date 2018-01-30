@@ -92,7 +92,6 @@ layui.use('table', function(){
   	// 监听操作	
   	table.on('tool(comment)',function(obj) {
   		var data = obj.data;
-  		alert(data.id);
   		if(obj.event === 'del'){
   			layer.confirm('真的删除吗？', function(index){
   				 $.ajax({

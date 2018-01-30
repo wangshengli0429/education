@@ -40,14 +40,14 @@ public interface StudentService {
      * @return
      */
     ApiResult updateStudent(Student student,String cerStatus);
-    ApiResult updateStrudentById(String id);
     /**
      * 删除学生
-     * 
      * @param id
+     * @param stauts D删除
      * @return
      */
-    ApiResult deleteStudent(String id);
+    ApiResult updateStrudentById(String id,String stauts);
+  
 
    
 }
