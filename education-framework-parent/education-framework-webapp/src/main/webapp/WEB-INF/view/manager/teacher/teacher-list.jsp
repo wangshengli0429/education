@@ -174,7 +174,7 @@ layui.use('table', function(){
 		  	         	            url: '${path}/teacher/examine',
 		  	         	            type: 'post',
 			  	         	        dataType:'json',
-		  	         	            data:{"teacher":teacher},
+		  	         	            data:teacher,
 		  	         	            async:false,
 		  	         	            success: function (data) {
 		  	         	            	if(data.code === 5){
@@ -200,7 +200,7 @@ layui.use('table', function(){
 		  	         	            url: '${path}/teacher/unaudited',
 		  	         	            type: 'post',
 			  	         	        dataType:'json',
-		  	         	            data:{"teacher":teacher},
+		  	         	            data:teacher,
 		  	         	            async:false,
 		  	         	            success: function (data) {
 		  	         	            	if(data.code === 5){
