@@ -44,7 +44,7 @@ public class TeacherServiceImpl implements TeacherService {
 		logger.info(LogFormatService.logFormat("findAllTeacher begin"));
 		ApiResult apiResult = new ApiResult(EDU_CODE_000.getCode(),EDU_CODE_000.getMsg());		
         try {
-            // 设置总数
+            // 设置总数z
         	apiResult.setCount(teacherDao.findTeacherCount(map));
             // 设置用户列表信息
         	apiResult.setData(teacherDao.findAllTeacher(map));

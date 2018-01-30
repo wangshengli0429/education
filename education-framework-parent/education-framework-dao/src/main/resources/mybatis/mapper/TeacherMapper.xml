@@ -49,9 +49,10 @@
 			 LEFT JOIN t_authentication a on u.id = a.user_id
 			 LEFT JOIN t_bind_account b on u.id = b.user_id
 		<where>
-			  u.user_type = 'T' and u.cer_status = 'Y' and u.status = 'N'
+			  u.user_type = 'T'and u.status = 'N'
 	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
 	    	 <if test="userId!=null and userId!=''"> AND t.user_id = #{userId}</if>
+	    	 <if test="cerStatus!=null and cerStatus!=''"> AND  u.cer_status = #{cerStatus} </if>
 	    	 <if test="teacherName!=null and teacherName!=''"> AND t.teacher_name = #{teacherName}</if>
 	    	 <if test="regTime!=null and regTime!=''"> AND u.reg_time = #{regTime}</if>
 	    	 <if test="phone!=null and phone!=''"> AND u.user_name = #{phone}</if>
@@ -71,6 +72,7 @@
        	 		u.user_type = 'T' and u.cer_status = 'Y' and u.status = 'N'
 	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
 	    	 <if test="userId!=null and userId!=''"> AND t.user_id = #{userId}</if>
+	    	 <if test="cerStatus!=null and cerStatus!=''"> AND  u.cer_status = #{cerStatus} </if>
 	    	 <if test="teacherName!=null and teacherName!=''"> AND t.teacher_name = #{teacherName}</if>
 	    	 <if test="regTime!=null and regTime!=''"> AND u.reg_time = #{regTime}</if>
 	    	 <if test="phone!=null and phone!=''"> AND u.user_name = #{phone}</if>

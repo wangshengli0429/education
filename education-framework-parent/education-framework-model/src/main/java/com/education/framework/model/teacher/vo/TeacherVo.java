@@ -85,6 +85,10 @@ public class TeacherVo implements Serializable{
 	private String regTime;
 	
 	private String status;
+	/**
+	 * 审核状态
+	 */
+	private String cerStatus;
 	public String getId() {
 		return id;
 	}
@@ -206,6 +210,13 @@ public class TeacherVo implements Serializable{
 	}
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	public String getCerStatus() {
+		return cerStatus;
+	}
+	public void setCerStatus(String cerStatus) {
+		this.cerStatus = cerStatus;
 	}
 	@Override
 	public String toString() {

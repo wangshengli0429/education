@@ -29,18 +29,17 @@ public class TeacherController {
 	@RequestMapping(value={"rest/query/teacher","query/teacher"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public ApiResult findAllTeacher(
-            @RequestParam(required=false) String keyword, @RequestParam Integer page, @RequestParam Integer limit){
+            @RequestParam(required=false) String keyword,@RequestParam(required=false) String cerStatus, @RequestParam Integer page, @RequestParam Integer limit){
 		logger.info("controller queryAllTeacher ");
 		Map<String,Object> map = Maps.newHashMap();
 		// 检索条件
 		map.put("keyword", keyword);
 		map.put("rowStart", page-1);
 		map.put("pageSize",limit);
-		
+		map.put("cerStatus", cerStatus);
 		return teacherService.findAllTeacher(map);
 	}
-	
-
+ 
 	@RequestMapping(value={"rest/to/query/teacher","to/query/teacher"},method={RequestMethod.GET,RequestMethod.POST})
 	public String toAllTeacher() {
 		return "manager/teacher/teacher-list";
