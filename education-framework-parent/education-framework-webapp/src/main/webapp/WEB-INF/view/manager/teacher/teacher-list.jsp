@@ -34,7 +34,7 @@
 		  <div class="layui-tab-content">
 		    <div class="layui-tab-item layui-show">
 			        <!-- 内容主体区域 -->
-					<div style="padding: 15px;">
+					<div style="padding: 10px;" id="examine">
 						  <div class="demoTable">
 						  <div class="layui-inline">
 						    <input class="layui-input" name="keyword" id="demoReload" autocomplete="off">
@@ -50,7 +50,7 @@
 		    </div>
 		    <div class="layui-tab-item">
 		    		 <!-- 内容主体区域 -->
-					<div style="padding: 15px;">
+					<div style="padding: 10px;" id="unaudited">
 						  <div class="demoTable">
 						  <div class="layui-inline">
 						    <input class="layui-input" name="keyword" id="demoReload2" autocomplete="off">
@@ -85,29 +85,24 @@
 <!-- 下面写业务相关的JS脚本 -->
 <script type type="text/javascript">
 //JavaScript代码区域
-layui.use('table', function(){
-  var table = layui.table;
+layui.use(['layer', 'table','laypage', 'element'], function(){
+  var layer = layui.layer
+  ,table = layui.table
+  ,laypage = layui.laypage //分页
+  ,element = layui.element;
   // 获取dataTable 
   // alert($("input[name='keyword']").val());
-  
-  var $ = layui.$, active = {
-	        reload: function(){
-	            var demoReload = $('#demoReload');
-	            table.reload('testReload', {
-	                where: {
-	                	keyword: demoReload.val()
-	                }
-	            });
-	           
-	        }
-	    }; 
+
+ 
   // 加载表格数据
   table.render({
 	    elem: '#dataTable',
-    	data:{"cerStatus":"Y"},
+    	where:{"cerStatus":"Y"},
 	    height: 450,
 	    url: '${path}/query/teacher',    //数据接口
-	    page: true, //开启分页
+	    skin: 'row', //表格风格
+	    even: true,
+	    page: true , //是否显示分页
 	    cols: [[ //表头
 	      {field: 'teacherName', title: '教师姓名', align:'center',width:140}
 	      ,{field: 'phone', title: '电话', align:'center',width:120}
@@ -132,6 +127,21 @@ layui.use('table', function(){
 	    ]]
   		,id: 'testReload'
 	  });
+  
+  var $ = layui.$, active = {
+	        reload: function(){
+	            var demoReload = $('#demoReload');
+	            table.reload('testReload', {
+	                where: {
+// 	                	key: {
+		                	keyword: demoReload.val(),
+		                	"cerStatus":"Y"
+// 	                	}
+	                }
+	            });
+	           
+	        }
+	    }; 
   
   	// 监听操作	
   	table.on('tool(teacher)',function(obj) {
@@ -300,21 +310,11 @@ layui.use('table', function(){
   // 获取dataTable 
   // alert($("input[name='keyword']").val());
   
-  var $ = layui.$, active = {
-	        reload: function(){
-	            var demo_Reload = $('#demoReload2');
-	            table.reload('test_Reload', {
-	                where: {
-	                	keyword: demo_Reload.val()
-	                }
-	            });
-	           
-	        }
-	    }; 
+
   // 加载表格数据
   table.render({
 	    elem: '#dataTable2',
-	    data:{"cerStatus":"N"},
+	    where:{"cerStatus":"N"},
 	    height: 450,
 	    url: '${path}/query/teacher',    //数据接口
 	    page: true, //开启分页
@@ -342,6 +342,19 @@ layui.use('table', function(){
 	    ]]
   		,id: 'test_Reload'
 	  });
+  
+  var $ = layui.$, active = {
+	        reload: function(){
+	            var demo_Reload = $('#demoReload2');
+	            table.reload('test_Reload', {
+	                where: {
+	                	keyword: demo_Reload.val(),
+	                	"cerStatus":"N"
+	                }
+	            });
+	           
+	        }
+	    }; 
   
   	// 监听操作	
   	table.on('tool(teacher2)',function(obj) {
@@ -498,7 +511,6 @@ layui.use('table', function(){
   		}
   		
   		
-  		/************************* 审核未通过 **************************************/
   	
   
   	});
