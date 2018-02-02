@@ -232,6 +232,7 @@ layui.use(['layer', 'table','laypage', 'element'], function(){
 			  	     	            	layer.alert("请求异常")
 			  	     	            }
 		  	     	        	});
+		  	                	obj.del();
 		  	                	layer.close(index);
 		  	     	            	
 		  	                }
@@ -257,6 +258,7 @@ layui.use(['layer', 'table','laypage', 'element'], function(){
 			  	     	            	layer.alert("请求异常");
 			  	     	            }
 		  	     	        	});
+		  	                	obj.del();
 		  	                	layer.close(index);
 		  	                }
 		  	                
@@ -445,6 +447,7 @@ layui.use('table', function(){
 			  	     	            	layer.alert("请求异常")
 			  	     	            }
 		  	     	        	});
+		  	                	obj.del();
 		  	                	layer.close(index);
 		  	     	            	
 		  	                }
@@ -470,6 +473,7 @@ layui.use('table', function(){
 			  	     	            	layer.alert("请求异常");
 			  	     	            }
 		  	     	        	});
+		  	                	obj.del();
 		  	                	layer.close(index);
 		  	                }
 		  	                

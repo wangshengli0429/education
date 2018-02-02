@@ -13,14 +13,14 @@
     	<result property="city" column="city"/>
     	<result property="district" column="district"/>
     	<result property="address" column="address"/>
-    	<result property="idCard" column="id_card"/>
+    	<result property="idNumber" column="id_number"/>
     	<result property="selfDescr" column="self_descr"/>
     	<result property="photo" column="photo"/>
     	<result property="remark" column="remark"/>
     </resultMap>
     
     <select id="queryStudentById" parameterType="com.education.framework.model.student.Student" resultType="com.education.framework.model.student.Student">
-    	select id,user_id as userId,student,gender,age,native_place as nativePlace,province,city,district,address,id_card as idCard,self_descr as selfDescr,photo,remark
+    	select id,user_id as userId,student,gender,age,native_place as nativePlace,province,city,district,address,id_number as idNumber,self_descr as selfDescr,photo,remark
     	
 <!--     时间格式化	 date_format(created_at,'%Y-%m-%d %H:%i:%s') as created_at, -->
     	from t_student 
@@ -37,7 +37,7 @@
         	t.id,t.user_id as userId,t.student,
         	u.user_name as phone,gender,age,
         	native_place as nativePlace,province,
-        	city,district,address,id_card as idCard,
+        	city,district,address,id_number as idNumber,
         	self_descr as selfDescr,photo,remark,
         	date_format(u.reg_time ,'%Y-%m-%d %H:%i:%s') as regTime,
         	date_format(u.last_time,'%Y-%m-%d %H:%i:%s') as lastTime
@@ -94,8 +94,8 @@
 		     <if test="address!=null and address!=''">
 		      	,address = #{address,jdbcType=VARCHAR}  
 		     </if>
-		     <if test="idCard!=null and idCard!=''">
-		      	,id_card = #{idCard,jdbcType=VARCHAR}  
+		     <if test="idNumber!=null and idNumber!=''">
+		      	,id_number = #{idNumber,jdbcType=VARCHAR}  
 		     </if>
 		     <if test="selfDescr!=null and selfDescr!=''">
 		      	,self_descr = #{selfDescr,jdbcType=VARCHAR}  
@@ -122,7 +122,7 @@
     	<if test="province">,province</if>
     	<if test="city">,city</if>
     	<if test="district">,district</if>
-    	<if test="idCard">,id_card</if>
+    	<if test="idNumber">,id_number</if>
     	<if test="selfDescr">,self_descr</if>
     	<if test="photo">,photo</if>
     	<if test="remark">,remark</if>
@@ -136,7 +136,7 @@
     	<if test="province">,#{province}</if>
     	<if test="city">,#{city}</if>
     	<if test="district">,#{district}</if>
-    	<if test="idCard">,#{idCard}</if>
+    	<if test="idNumber">,#{idNumber}</if>
     	<if test="selfDescr">,#{selfDescr}</if>
     	<if test="photo">,#{photo}</if>
     	<if test="remark">,#{remark}</if>

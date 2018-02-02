@@ -100,7 +100,7 @@ layui.use('table', function(){
 	      ,{field: 'city', title: '所在城市', align:'center',width:120}
 	      ,{field: 'district', title: '所在区县', align:'center',width:140}
 	      ,{field: 'address', title: '现在住址', align:'center',width:140}
-	      ,{field: 'idCard', title: '身份证号', align:'center',width:140}
+	      ,{field: 'idNumber', title: '身份证号', align:'center',width:140}
 	      ,{field: 'selfDescr', title: '自我介绍', align:'center',width:140}
 	      ,{field: 'remark', title: '备注', align:'center',width:140}
 // 	      ,{field: 'regTime', title: '注册时间', align:'center',width:180,
@@ -157,7 +157,7 @@ layui.use('table', function(){
 			  	      		      '<td>年龄：</td>'+
 			  	      		      '<td>'+ data.student.age +'</td>'+
 				  	      		  '<td>身份证号：</td>'+
-			  	      		      '<td>'+ data.student.idCard +'</td>'+
+			  	      		      '<td>'+ data.student.idNumber +'</td>'+
 			  	      		    '</tr>'+
 				  	      		'<tr>'+
 			  	      		      '<td>所在地区：</td>'+
