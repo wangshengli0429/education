@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+"education-framework-webapp/src/main/webapp/WEB-INF/view/manager/index.jsp"<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="com.education.framework.authority.login.model.LoginUser" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -27,7 +27,6 @@
   <div class="layui-body">
     <!-- 内容主体区域 -->
 	<div style="padding:15px;" align="center">
-		  <h1>阿忠，周林抓紧写代码，少看黄色图片</h1>
 		  <img style="height:450px;width:500px;" src="<%=path%>/static/img/index.jpg"></img>
     </div>
   </div>

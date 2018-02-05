@@ -27,8 +27,8 @@
   <div class="layui-body">
 		  <div class="layui-tab">
 		  <ul class="layui-tab-title">
-		    <li class="layui-this">审核通过</li>
-		    <li>审核未通过</li>
+		    <li class="layui-this" id="t_examine">审核通过</li>
+		    <li id="t_unaudited">审核未通过</li>
 		    
 		  </ul>
 		  <div class="layui-tab-content">
@@ -92,8 +92,21 @@ layui.use(['layer', 'table','laypage', 'element'], function(){
   ,element = layui.element;
   // 获取dataTable 
   // alert($("input[name='keyword']").val());
-
- 
+	var $ = layui.$, active = {
+	        reload: function(){
+	            var demoReload = $('#demoReload');
+	            table.reload('testReload', {
+	                where: {
+		                	keyword: demoReload.val(),
+		                	"cerStatus":"Y"
+	                }
+	            });
+	           
+	        }
+	    }; 
+	
+  
+   function loadDataTable(){	  
   // 加载表格数据
   table.render({
 	    elem: '#dataTable',
@@ -127,21 +140,15 @@ layui.use(['layer', 'table','laypage', 'element'], function(){
 	    ]]
   		,id: 'testReload'
 	  });
-  
-  var $ = layui.$, active = {
-	        reload: function(){
-	            var demoReload = $('#demoReload');
-	            table.reload('testReload', {
-	                where: {
-// 	                	key: {
-		                	keyword: demoReload.val(),
-		                	"cerStatus":"Y"
-// 	                	}
-	                }
-	            });
-	           
-	        }
-	    }; 
+   }
+    
+	  $(function(){
+		  loadDataTable();
+	  });  
+	  
+	$(document).on("click","#t_examine",function(){  
+		  loadDataTable();
+	  });	  
   
   	// 监听操作	
   	table.on('tool(teacher)',function(obj) {
@@ -220,6 +227,7 @@ layui.use(['layer', 'table','laypage', 'element'], function(){
 		  	         	            async:false,
 		  	         	            success: function (data) {
 		  	         	            	if(data.code === 5){
+		  	         	            		
 	  	         	            			layer.alert(data.msg+":审核通过");
 	  	         	            			layer.close(index);
 	  	         	            		}else if(data.code === 8){
@@ -305,13 +313,33 @@ layui.use(['layer', 'table','laypage', 'element'], function(){
   	    var type = $(this).data('type');
   	    active[type] ? active[type].call(this) : '';
   	});
+  
 });
   		/************************* 审核未通过 **************************************/
-layui.use('table', function(){
-  var table = layui.table;
+layui.use(['layer', 'table','laypage', 'element'], function(){
+  var layer = layui.layer
+  ,table = layui.table
+  ,laypage = layui.laypage //分页
+  ,element = layui.element;
+  
   // 获取dataTable 
   // alert($("input[name='keyword']").val());
   
+  var $ = layui.$, active = {
+	        reload: function(){
+	            var demo_Reload = $('#demoReload2');
+	            table.reload('test_Reload', {
+	                where: {
+	                	keyword: demo_Reload.val(),
+	                	"cerStatus":"N"
+	                }
+	            });
+	           
+	        }
+	    }; 
+  
+  
+	$(document).on("click","#t_unaudited",function(){  
 
   // 加载表格数据
   table.render({
@@ -344,19 +372,7 @@ layui.use('table', function(){
 	    ]]
   		,id: 'test_Reload'
 	  });
-  
-  var $ = layui.$, active = {
-	        reload: function(){
-	            var demo_Reload = $('#demoReload2');
-	            table.reload('test_Reload', {
-	                where: {
-	                	keyword: demo_Reload.val(),
-	                	"cerStatus":"N"
-	                }
-	            });
-	           
-	        }
-	    }; 
+	});  
   
   	// 监听操作	
   	table.on('tool(teacher2)',function(obj) {
@@ -435,6 +451,7 @@ layui.use('table', function(){
 		  	         	            async:false,
 		  	         	            success: function (data) {
 		  	         	            	if(data.code === 5){
+		  	         	            		obj.del();
 	  	         	            			layer.alert(data.msg+":审核通过");
 	  	         	            			layer.close(index);
 	  	         	            		}else if(data.code === 8){
@@ -447,7 +464,6 @@ layui.use('table', function(){
 			  	     	            	layer.alert("请求异常")
 			  	     	            }
 		  	     	        	});
-		  	                	obj.del();
 		  	                	layer.close(index);
 		  	     	            	
 		  	                }
@@ -473,7 +489,6 @@ layui.use('table', function(){
 			  	     	            	layer.alert("请求异常");
 			  	     	            }
 		  	     	        	});
-		  	                	obj.del();
 		  	                	layer.close(index);
 		  	                }
 		  	                
@@ -514,8 +529,6 @@ layui.use('table', function(){
   			})
   		}
   		
-  		
-  	
   
   	});
   	
@@ -523,6 +536,9 @@ layui.use('table', function(){
   	    var type = $(this).data('type');
   	    active[type] ? active[type].call(this) : '';
   	});
+  	
+  
+  	
 });
 </script>
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_30088308'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "w.cnzz.com/c.php%3Fid%3D30088308' type='text/javascript'%3E%3C/script%3E"));</script>
