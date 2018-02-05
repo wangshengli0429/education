@@ -71,6 +71,10 @@ public class StudentVo  implements Serializable{
 	private String regTime;
 	
 	private String lastTime;
+	/**
+	 * 审核状态
+	 */
+	private String cerStatus;
 	public String getId() {
 		return id;
 	}
@@ -173,6 +177,13 @@ public class StudentVo  implements Serializable{
 	}
 	public void setLastTime(String lastTime) {
 		this.lastTime = lastTime;
+	}
+	
+	public String getCerStatus() {
+		return cerStatus;
+	}
+	public void setCerStatus(String cerStatus) {
+		this.cerStatus = cerStatus;
 	}
 	@Override
 	public String toString() {

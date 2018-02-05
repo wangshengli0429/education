@@ -29,7 +29,7 @@ public class TeacherController {
 	@RequestMapping(value={"rest/query/teacher","query/teacher"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public ApiResult findAllTeacher(
-            @RequestParam(required=false) String keyword,@RequestParam(required=false) String cerStatus, @RequestParam Integer page, @RequestParam Integer limit){
+            @RequestParam(required=false) String keyword,@RequestParam(required=true) String cerStatus, @RequestParam Integer page, @RequestParam Integer limit){
 		logger.info("controller queryAllTeacher ");
 		Map<String,Object> map = Maps.newHashMap();
 		// 检索条件

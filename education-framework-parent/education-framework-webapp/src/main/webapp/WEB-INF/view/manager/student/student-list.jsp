@@ -25,21 +25,52 @@
 	<!-- _menu 作为公共模版分离出去-->
   
   <div class="layui-body">
-    <!-- 内容主体区域 -->
-		<div style="padding: 15px;">
-		  <div class="demoTable">
-		  <div class="layui-inline">
-		    <input class="layui-input" name="keyword" id="demoReload" autocomplete="off">
+  
+		 <div class="layui-tab">
+		  <ul class="layui-tab-title">
+		    <li class="layui-this" id="s_examine">审核通过</li>
+		    <li id="s_unaudited" >审核未通过</li>
+		    
+		  </ul>
+		  <div class="layui-tab-content">
+		  	<input type="text" value="Y" id="cerStatus"/>
+		    <div class="layui-tab-item layui-show">  
+		    	<!-- 内容主体区域 -->
+				<div style="padding: 15px;">
+				  <div class="demoTable">
+				  <div class="layui-inline">
+				    <input class="layui-input" name="keyword" id="demoReload_Y" autocomplete="off">
+				  </div>
+				  <button class="layui-btn" data-type="reload">搜索</button>
+				</div>
+		    	<table class="layui-hide" id="dataTable_Y" lay-filter="student_Y"></table>
+		    	<script type="text/html" id="barDemo_Y">
+			 		<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail_Y">查看</a>
+  					<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del_Y">删除</a>
+				</script>
+		    	</div>
+    		</div>
+		    <div class="layui-tab-item">
+		    	<!-- 内容主体区域 -->
+		    	<div style="padding: 15px;">
+				  <div class="demoTable">
+				  <div class="layui-inline">
+				    <input class="layui-input" name="keyword" id="demoReload_N" autocomplete="off">
+				  </div>
+				  <button class="layui-btn" data-type="reload">搜索</button>
+				</div>
+		    	<table class="layui-hide" id="dataTable_N" lay-filter="student_N"></table>
+		    	<script type="text/html" id="barDemo_N">
+			 		<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail_N">查看</a>
+  					<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del_N">删除</a>
+				</script>
+		    	</div>
+		    </div>
+		   
 		  </div>
-		  <button class="layui-btn" data-type="reload">搜索</button>
 		</div>
-    	<table class="layui-hide" id="dataTable" lay-filter="student"></table>
-    	<script type="text/html" id="barDemo">
-			 <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
-  			<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-		</script>
-    </div>
-    
+		    
+		    
   </div>
   
   <div class="layui-footer">
@@ -56,67 +87,89 @@
 <script type type="text/javascript">
 
 //JavaScript代码区域
-layui.use('table', function(){
-  var table = layui.table;
+layui.use(['layer', 'table','laypage', 'element'], function(){
+  var layer = layui.layer
+  ,table = layui.table
+  ,laypage = layui.laypage //分页
+  ,element = layui.element;
   // 获取dataTable 
   // alert($("input[name='keyword']").val());
-  
-  var $ = layui.$, active = {
+  var cerStatus = 'Y';
+  var $ = layui.$,active = {
 	        reload: function(){
-	            var demoReload = $('#demoReload');
-	            table.reload('testReload', {
+	        	cerStatus = $('#cerStatus').val();
+	            var demoReload = $('#demoReload_'+cerStatus);
+	            table.reload('testReload_'+cerStatus, {
 	                where: {
-	                	keyword: demoReload.val()
+	                	keyword: demoReload.val(),
+	                	"cerStatus":cerStatus
 	                }
 	            });
 	        }
 	    }; 
   
-	 
-	
   // 加载表格数据
-  table.render({
-	    elem: '#dataTable',
-	    /* params:{keyword:$("input[name='keyword']").val()}, */
-	    height: 450,
-	    url: '${path}/query/student',    //数据接口
-	    page: true, //开启分页
-	    cols: [[ //表头
-	      {field: 'id', title: 'ID', align:'center',width:30}
-	      ,{field: 'student', title: '学生姓名', align:'center',width:80}
-	      ,{field: 'gender', title: '性别', align:'center',width:50,
-	    	  templet:function(row){
-	    		  if(row.gender === 'M'){
-	    			  return "男";
-	    		  }
-	    		  if(row.gender === 'W'){
-	    			  return "女";
-	    		  }
-	    	  }
-	      }
-	      ,{field: 'age', title: '年龄', align:'center',width:50}
-	      ,{field: 'nativePlace', title: '籍贯', align:'center',width:120}
-	      ,{field: 'province', title: '所在省份', align:'center',width:120}
-	      ,{field: 'city', title: '所在城市', align:'center',width:120}
-	      ,{field: 'district', title: '所在区县', align:'center',width:140}
-	      ,{field: 'address', title: '现在住址', align:'center',width:140}
-	      ,{field: 'idNumber', title: '身份证号', align:'center',width:140}
-	      ,{field: 'selfDescr', title: '自我介绍', align:'center',width:140}
-	      ,{field: 'remark', title: '备注', align:'center',width:140}
-// 	      ,{field: 'regTime', title: '注册时间', align:'center',width:180,
-// 	    	  templet:function(row){
-// 	    		  return DateFormat(row.commentTime,'yyyy-MM-dd HH:mm:ss');
-// 	    	 }  
-// 	      } 
-	      ,{fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}
-	    ]]
-  		,id: 'testReload'
-	  });
+  function loadDataTable(cerStatus){	  
+	  table.render({
+		    elem: '#dataTable_'+cerStatus,
+		    where:{"cerStatus":cerStatus,keyword:$("input[name='keyword']").val()},
+		    height: 450,
+		    url: '${path}/query/student',    //数据接口
+		    page: true, //开启分页
+		    cols: [[ //表头
+		      {field: 'id', title: 'ID', align:'center',width:30}
+		      ,{field: 'student', title: '学生姓名', align:'center',width:80}
+		      ,{field: 'gender', title: '性别', align:'center',width:50,
+		    	  templet:function(row){
+		    		  if(row.gender === 'M'){
+		    			  return "男";
+		    		  }
+		    		  if(row.gender === 'W'){
+		    			  return "女";
+		    		  }
+		    	  }
+		      }
+		      ,{field: 'age', title: '年龄', align:'center',width:50}
+		      ,{field: 'nativePlace', title: '籍贯', align:'center',width:120}
+		      ,{field: 'province', title: '所在省份', align:'center',width:120}
+		      ,{field: 'city', title: '所在城市', align:'center',width:120}
+		      ,{field: 'district', title: '所在区县', align:'center',width:140}
+		      ,{field: 'address', title: '现在住址', align:'center',width:140}
+		      ,{field: 'idNumber', title: '身份证号', align:'center',width:140}
+		      ,{field: 'selfDescr', title: '自我介绍', align:'center',width:140}
+		      ,{field: 'remark', title: '备注', align:'center',width:140}
+	// 	      ,{field: 'regTime', title: '注册时间', align:'center',width:180,
+	// 	    	  templet:function(row){
+	// 	    		  return DateFormat(row.commentTime,'yyyy-MM-dd HH:mm:ss');
+	// 	    	 }  
+	// 	      } 
+		      ,{fixed: 'right', width: 165, align:'center', toolbar: '#barDemo_'+cerStatus}
+		    ]]
+	  		,id: 'testReload_'+cerStatus
+		  });
+  	}
   
-  	// 监听操作	
-  	table.on('tool(student)',function(obj) {
+	  $(function(){
+		  cerStatus = $('#cerStatus').val();
+		  loadDataTable(cerStatus);
+	  });  
+	  
+	  $(document).on("click","#s_examine",function(){
+		  var cerStatus = $('#cerStatus').val('Y');
+		  loadDataTable(cerStatus.val());
+	  });	  
+	  
+	  $(document).on("click","#s_unaudited",function(){  
+		    var cerStatus = $('#cerStatus').val('N');
+			loadDataTable(cerStatus.val());
+	  });	  
+	   
+	  cerStatus='N';
+  	// 监听操作
+  	table.on('tool(student_'+ cerStatus + ')',function(obj) {
   		var data = obj.data;
-  		if(obj.event === 'detail'){
+  		var detail = 'detail_' + cerStatus;
+  		if(obj.event === detail){
   			
   			 $.ajax({
   	            url: '${path}/query/student/'+data.id,
@@ -246,7 +299,8 @@ layui.use('table', function(){
   	        });
   			
   		}
-  		if(obj.event === 'del'){
+  		var del = 'del_' + cerStatus;
+  		if(obj.event === del){
   			layer.confirm('真的删除吗？', function(index){
   				   $.ajax({
                     url: "<%=path%>/student/del",

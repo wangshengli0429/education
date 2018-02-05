@@ -43,9 +43,10 @@
         	date_format(u.last_time,'%Y-%m-%d %H:%i:%s') as lastTime
         from t_student t INNER JOIN t_user u on t.user_id = u.id  
 		<where>
-			  u.user_type = 'S' and u.cer_status = 'Y' and u.status = 'N'
+			  u.user_type = 'S' and u.status = 'N'
 	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
 	    	 <if test="userId!=null and userId!=''"> AND t.user_id = #{userId}</if>
+	    	 <if test="cerStatus!=null and cerStatus!=''"> AND  u.cer_status = #{cerStatus} </if>
 	    	 <if test="student!=null and student!=''"> AND t.student = #{student}</if>
 	    	 <if test="regTime!=null"> AND u.reg_time = date_format(#{regTime} ,'%Y-%m-%d %H:%i:%s')</if>
     	</where> 
@@ -59,9 +60,10 @@
         select count(t.id)
         from t_student t INNER JOIN t_user u on t.user_id = u.id 
        <where>
-       		   u.user_type = 'S' and u.cer_status = 'Y' and u.status = 'N'
+       		   u.user_type = 'S'  and u.status = 'N'
 	    	 <if test="id!=null and id!=''"> AND t.id=#{id}</if>
 	    	 <if test="userId!=null and userId!=''"> AND t.user_id = #{userId}</if>
+	    	 <if test="cerStatus!=null and cerStatus!=''"> AND  u.cer_status = #{cerStatus} </if>
 	    	 <if test="student!=null and student!=''"> AND t.student = #{student}</if>
 	    	 <if test="regTime!=null"> AND u.reg_time = date_format(#{regTime} ,'%Y-%m-%d %H:%i:%s')</if>
     	</where> 

@@ -32,8 +32,8 @@ public class StudentController {
 	
 	@RequestMapping(value={"rest/query/student","query/student"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-	public ApiResult queryAllStudent(
-            @RequestParam(required=false) String keyword, @RequestParam Integer page, @RequestParam Integer limit){
+	public ApiResult queryAllStudent(@RequestParam(required=false) String keyword, 
+			@RequestParam(required=true) String cerStatus,@RequestParam Integer page, @RequestParam Integer limit){
 		logger.info("controller queryAllStudent begin ");
 		 
 		Map<String,Object> map = Maps.newHashMap();
@@ -41,6 +41,7 @@ public class StudentController {
 		map.put("keyword", keyword);
 		map.put("rowStart", page-1);
 		map.put("pageSize",limit);
+		map.put("cerStatus", cerStatus);
 		
 		return  studentService.findAllStudent(map);
 	}
