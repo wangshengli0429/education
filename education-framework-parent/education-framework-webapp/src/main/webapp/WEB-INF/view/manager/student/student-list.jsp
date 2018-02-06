@@ -33,7 +33,7 @@
 		    
 		  </ul>
 		  <div class="layui-tab-content">
-		  	<input type="text" value="Y" id="cerStatus"/>
+		  	<input type="hidden" value="Y" id="cerStatus"/>
 		    <div class="layui-tab-item layui-show">  
 		    	<!-- 内容主体区域 -->
 				<div style="padding: 15px;">
@@ -43,10 +43,10 @@
 				  </div>
 				  <button class="layui-btn" data-type="reload">搜索</button>
 				</div>
-		    	<table class="layui-hide" id="dataTable_Y" lay-filter="student_Y"></table>
+		    	<table class="layui-hide" id="dataTable_Y" lay-filter="student"></table>
 		    	<script type="text/html" id="barDemo_Y">
-			 		<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail_Y">查看</a>
-  					<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del_Y">删除</a>
+			 		<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+  					<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 				</script>
 		    	</div>
     		</div>
@@ -59,10 +59,10 @@
 				  </div>
 				  <button class="layui-btn" data-type="reload">搜索</button>
 				</div>
-		    	<table class="layui-hide" id="dataTable_N" lay-filter="student_N"></table>
+		    	<table class="layui-hide" id="dataTable_N" lay-filter="student"></table>
 		    	<script type="text/html" id="barDemo_N">
-			 		<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail_N">查看</a>
-  					<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del_N">删除</a>
+			 		<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+  					<a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
 				</script>
 		    	</div>
 		    </div>
@@ -164,12 +164,11 @@ layui.use(['layer', 'table','laypage', 'element'], function(){
 			loadDataTable(cerStatus.val());
 	  });	  
 	   
-	  cerStatus='N';
+	  
   	// 监听操作
-  	table.on('tool(student_'+ cerStatus + ')',function(obj) {
+  	table.on('tool(student)',function(obj) {
   		var data = obj.data;
-  		var detail = 'detail_' + cerStatus;
-  		if(obj.event === detail){
+  		if(obj.event === 'detail'){
   			
   			 $.ajax({
   	            url: '${path}/query/student/'+data.id,
@@ -244,6 +243,9 @@ layui.use(['layer', 'table','laypage', 'element'], function(){
 		  	         	            success: function (data) {
 		  	         	            	if(data != null && data!='undefined'){
 		  	         	            		if(data.code === 5){
+		  	         	            			if($("#cerStatus").val() === 'N'){
+		  	         	            				obj.del();
+		  	         	            			}
 		  	         	            			layer.alert(data.msg+":审核通过");
 		  	         	            		}else{
 		  	         	            			layer.alert(data.msg);
@@ -269,6 +271,9 @@ layui.use(['layer', 'table','laypage', 'element'], function(){
 		  	         	            success: function (data) {
 		  	         	            	if(data != null && data!='undefined'){
 		  	         	            		if(data.code === 5){
+		  	         	            			if($("#cerStatus").val() === 'Y'){
+		  	         	            				obj.del();
+		  	         	            			}
 		  	         	            			layer.alert(data.msg+":审核未通过");
 		  	         	            		}else{
 		  	         	            			layer.alert(data.msg);
@@ -299,8 +304,7 @@ layui.use(['layer', 'table','laypage', 'element'], function(){
   	        });
   			
   		}
-  		var del = 'del_' + cerStatus;
-  		if(obj.event === del){
+  		if(obj.event === 'del'){
   			layer.confirm('真的删除吗？', function(index){
   				   $.ajax({
                     url: "<%=path%>/student/del",
@@ -325,6 +329,7 @@ layui.use(['layer', 'table','laypage', 'element'], function(){
   			})
   		}
   	});
+  	
   	
   	$('.demoTable .layui-btn').on('click', function(){
   	    var type = $(this).data('type');
