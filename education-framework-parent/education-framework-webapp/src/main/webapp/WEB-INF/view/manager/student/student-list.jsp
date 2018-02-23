@@ -281,7 +281,7 @@ layui.use(['layer', 'table','laypage', 'element'], function(){
 		  	         	            	}
 			  	         	         },
 			  	     	             error: function (data) {
-			  	     	            	alert("err"+data.code)
+			  	     	            	layer.alert("请求异常");
 			  	     	             }
 		  	     	        	  });
 		  	                  layer.close();
