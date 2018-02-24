@@ -24,6 +24,11 @@ public class NoteController {
 	@Autowired
 	private NoteService noteService;
 	
+	@RequestMapping(value={"rest/note/toGetAllNote","note/toGetAllNote"},method={RequestMethod.GET,RequestMethod.POST})
+	public String toGetAllComment() {
+		return "manager/note/note-list";
+	}
+	
 	@RequestMapping(value={"rest/query/note","query/note"},method={RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
 	public ApiResult queryAllNote(Note note, @RequestParam(defaultValue = "1") int page,

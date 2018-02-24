@@ -21,8 +21,12 @@
         <li class="layui-nav-item">
           <a href="javascript:;">课程管理</a>
         </li>
-        <li class="layui-nav-item"><a href="${path}/comment/toGetAllComment">评论管理</a></li>
-        <li class="layui-nav-item"><a href="">留言管理</a></li>
+        <li class="layui-nav-item">
+        	<a href="${path}/comment/toGetAllComment">评论管理</a>
+        </li>
+        <li class="layui-nav-item">
+        	<a href="${path}/note/toGetAllNote">留言管理</a>
+        </li>
         <li class="layui-nav-item layui-nav-itemed">
           <a class="" href="javascript:;">系统设置</a>
           <dl class="layui-nav-child">
