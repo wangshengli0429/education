@@ -22,6 +22,12 @@
             <artifactId>education-framework-model</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+      <dependency>
+          <groupId>${project.groupId}</groupId>
+          <artifactId>education-framework-repo</artifactId>
+          <version>${project.version}</version>
+      </dependency>
        
         <dependency>
             <groupId>${project.groupId}</groupId>
@@ -196,7 +202,7 @@
         <dependency>  
             <groupId>log4j</groupId>  
             <artifactId>log4j</artifactId>  
-        </dependency>  
+        </dependency>
          
         <!-- log end -->  
         <dependency>  

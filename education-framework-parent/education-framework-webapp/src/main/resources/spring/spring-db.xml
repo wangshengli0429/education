@@ -41,7 +41,19 @@
 <!--    		</property> -->
    		<property name="dataSource" ref="dataSource"></property>
  	</bean>
-    
+
+
+
+    <!--   新加的数据库底层   -->
+
+    <bean id="commonMysqlClient" class="com.education.framework.repo.base.CommonMysqlClient">
+        <property name="myJdbcTemplate" ref="hxxJdbcTemplate"></property>
+    </bean>
+    <bean id="hxxJdbcTemplate" class="com.education.framework.repo.jdbc.MyJdbcTemplate">
+        <constructor-arg ref="dataSource"/>
+    </bean>
+    <!--   新加的数据库底层   -->
+
      <!-- 集成Hibernate -->
 <!--     <bean id="sessionFactory" -->
 <!--         class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"> -->

@@ -18,6 +18,7 @@
     <module>education-framework-authority</module>
     <module>education-framework-teacher</module>
     <module>education-framework-order</module>
+	  <module>education-framework-repo</module>
   </modules>
   
   
@@ -60,7 +61,8 @@
 			<plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
-                <configuration>
+				<version>2.2</version>
+				<configuration>
                     <url>http://localhost:8080/education-framework-webapp/</url>
                     <server>tomcat</server>
                     <username>tomcat</username>

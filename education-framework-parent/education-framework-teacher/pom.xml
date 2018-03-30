@@ -23,6 +23,13 @@
             <artifactId>education-framework-dao</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+      <dependency>
+          <groupId>${project.groupId}</groupId>
+          <artifactId>education-framework-repo</artifactId>
+          <version>${project.version}</version>
+      </dependency>
+
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>education-framework-common</artifactId>
