@@ -19,6 +19,7 @@
     <module>education-framework-teacher</module>
     <module>education-framework-order</module>
 	  <module>education-framework-repo</module>
+	  <module>education-framework-service</module>
   </modules>
   
   

@@ -34,6 +34,12 @@
             <artifactId>education-framework-common</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+      <dependency>
+          <groupId>${project.groupId}</groupId>
+          <artifactId>education-framework-service</artifactId>
+          <version>${project.version}</version>
+      </dependency>
         
         <dependency>
             <groupId>${project.groupId}</groupId>
