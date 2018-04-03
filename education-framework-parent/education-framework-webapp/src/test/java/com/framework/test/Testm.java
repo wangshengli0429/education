@@ -5,7 +5,6 @@ import com.education.framework.service.TestService;
 import javax.annotation.Resource;
 
 import com.education.framework.model.Test;
-import com.education.framework.service.TestServiceImpl;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -25,13 +24,13 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @WebAppConfiguration
 public class Testm {
 
-    @Resource
-    private TestService testService;
-
-    @org.junit.Test
-    public void test(){
-        Test test = testService.getById(1);
-        System.out.println(test);
-    }
+//    @Resource
+//    private TestService testService;
+//
+//    @org.junit.Test
+//    public void test(){
+//        Test test = testService.getById(1);
+//        System.out.println(test);
+//    }
 
 }
