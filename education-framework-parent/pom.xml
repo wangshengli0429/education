@@ -14,10 +14,7 @@
     <module>education-framework-common</module> 
     <module>education-framework-webapp</module>
     <module>education-framework-service-api</module>
-    <module>education-framework-student</module>
     <module>education-framework-authority</module>
-    <module>education-framework-teacher</module>
-    <module>education-framework-order</module>
 	  <module>education-framework-repo</module>
 	  <module>education-framework-service</module>
   </modules>

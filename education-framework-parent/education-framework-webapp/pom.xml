@@ -53,24 +53,6 @@
             <version>${project.version}</version>
         </dependency>
         
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>education-framework-student</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>education-framework-teacher</artifactId>
-            <version>${project.version}</version>
-        </dependency> 
-        
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>education-framework-order</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        
         <!-- spring相关的jar -->  
         <dependency>  
             <groupId>${spring.groupId}</groupId>  
