@@ -1,10 +1,12 @@
 package com.education.framework.dao.teacher;
 
+import com.education.framework.model.bo.TeacherBo;
+import com.education.framework.model.po.Teacher;
+
 import java.util.List;
 import java.util.Map;
 
-import com.education.framework.model.teacher.Teacher;
-import com.education.framework.model.teacher.vo.TeacherVo;
+
 
 /**
  * 
@@ -18,7 +20,7 @@ import com.education.framework.model.teacher.vo.TeacherVo;
  */
 public interface TeacherDao {
 	
-	List<TeacherVo> findAllTeacher(Map<String, Object> map);
+	List<TeacherBo> findAllTeacher(Map<String, Object> map);
 	int findTeacherCount(Map<String, Object> map);
 	 
 	int deleteTeacherById(String id);

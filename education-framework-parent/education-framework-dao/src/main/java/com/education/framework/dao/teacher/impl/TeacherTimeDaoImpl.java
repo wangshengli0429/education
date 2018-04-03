@@ -3,11 +3,11 @@ package com.education.framework.dao.teacher.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.education.framework.model.po.TeacherTime;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.education.framework.dao.teacher.TeacherTimeDao;
-import com.education.framework.model.teacher.TeacherTime;
 @Repository
 public class TeacherTimeDaoImpl extends SqlSessionDaoSupport implements
 		TeacherTimeDao {

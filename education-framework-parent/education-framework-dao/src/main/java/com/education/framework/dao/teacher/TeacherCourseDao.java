@@ -3,7 +3,7 @@ package com.education.framework.dao.teacher;
 import java.util.List;
 import java.util.Map;
 
-import com.education.framework.model.teacher.TeacherCourse;
+import com.education.framework.model.po.TeacherSubject;
 
 /**
  * 
@@ -17,7 +17,7 @@ import com.education.framework.model.teacher.TeacherCourse;
  */
 public interface TeacherCourseDao {
 	
-	List<TeacherCourse> findAllTeacherCourse(Map<String, Object> map);
+	List<TeacherSubject> findAllTeacherCourse(Map<String, Object> map);
 	int findTeacherCourseCount(Map<String, Object> map);
 	/**
 	 * 删除学生
@@ -25,7 +25,7 @@ public interface TeacherCourseDao {
 	 * @return
 	 */
 	int deleteTeacherCourseById(String id);
-	int insertTeacherCourse(TeacherCourse teacherCourse);
-	int updateStrudentById(TeacherCourse teacherCourse);
-	TeacherCourse queryTeacherCourseById(Map<String, Object> map);
+	int insertTeacherCourse(TeacherSubject teacherCourse);
+	int updateStrudentById(TeacherSubject teacherCourse);
+	TeacherSubject queryTeacherCourseById(Map<String, Object> map);
 }

@@ -1,15 +1,16 @@
 package com.education.framework.dao.comment;
 
+import com.education.framework.model.bo.CommentBo;
+import com.education.framework.model.po.Comment;
+
 import java.util.List;
 import java.util.Map;
 
-import com.education.framework.model.comment.Comment;
-import com.education.framework.model.comment.vo.CommentVo;
 
 public interface CommentDao {
-	List<CommentVo> findAllComment(Map<String, Object> map);
+	List<CommentBo> findAllComment(Map<String, Object> map);
 	int findCommentCount(Map<String, Object> map);
 	int updateCommentStatusById(Map<String, Object> map);
 	int insertComment(Comment comment);
-	CommentVo queryCommentById(Map<String, Object> map);
+	CommentBo queryCommentById(Map<String, Object> map);
 }

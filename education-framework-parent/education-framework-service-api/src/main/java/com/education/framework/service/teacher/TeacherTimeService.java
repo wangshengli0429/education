@@ -3,7 +3,7 @@ package com.education.framework.service.teacher;
 import java.util.Map;
 
 import com.education.framework.common.base.ApiResult;
-import com.education.framework.model.teacher.TeacherTime;
+
 
 /**
  * 
@@ -16,11 +16,6 @@ import com.education.framework.model.teacher.TeacherTime;
  * <p>修改者姓名 修改内容说明</p>
  */
 public interface TeacherTimeService {
-	
-	ApiResult findAllTeacherTime(Map<String, Object> map);
-	 
-	ApiResult deleteTeacherTimeById(String id);
-	ApiResult insertTeacherTime(TeacherTime teacherTime);
-	ApiResult updateTeacherTimeById(TeacherTime teacherTime);
-	ApiResult queryTeacherTimeById(Map<String, Object> map);
+
+
 }

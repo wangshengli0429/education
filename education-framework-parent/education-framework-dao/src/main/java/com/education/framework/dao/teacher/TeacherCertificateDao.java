@@ -1,9 +1,10 @@
 package com.education.framework.dao.teacher;
 
+import com.education.framework.model.po.TeacherCertificate;
+
 import java.util.List;
 import java.util.Map;
 
-import com.education.framework.model.teacher.TeacherCertificate;
 
 /**
  * 

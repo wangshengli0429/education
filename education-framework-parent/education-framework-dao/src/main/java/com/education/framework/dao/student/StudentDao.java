@@ -1,10 +1,11 @@
 package com.education.framework.dao.student;
 
+import com.education.framework.model.bo.StudentBo;
+import com.education.framework.model.po.Student;
+
 import java.util.List;
 import java.util.Map;
 
-import com.education.framework.model.student.Student;
-import com.education.framework.model.student.vo.StudentVo;
 /**
  * 
  * <p>StudentDao.java</p>
@@ -21,7 +22,7 @@ public interface StudentDao {
 	 * @param map
 	 * @return
 	 */
-	List<StudentVo> findAllStudent(Map<String, Object> map);
+	List<StudentBo> findAllStudent(Map<String, Object> map);
 	int findStudentCount(Map<String, Object> map);
 	/**
 	 * 删除学生

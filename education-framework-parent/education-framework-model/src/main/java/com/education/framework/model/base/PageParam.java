@@ -1,4 +1,4 @@
-package com.education.framework.repo.base;
+package com.education.framework.model.base;
 
 import java.io.Serializable;
 import java.util.Map;

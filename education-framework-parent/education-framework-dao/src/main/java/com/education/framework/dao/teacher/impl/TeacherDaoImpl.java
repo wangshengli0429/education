@@ -3,17 +3,17 @@ package com.education.framework.dao.teacher.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.education.framework.model.bo.TeacherBo;
+import com.education.framework.model.po.Teacher;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.education.framework.dao.teacher.TeacherDao;
-import com.education.framework.model.teacher.Teacher;
-import com.education.framework.model.teacher.vo.TeacherVo;
 @Repository
 public class TeacherDaoImpl extends SqlSessionDaoSupport implements TeacherDao{
 
 	@Override
-	public List<TeacherVo> findAllTeacher(Map<String, Object> map) {
+	public List<TeacherBo> findAllTeacher(Map<String, Object> map) {
 		return this.getSqlSession().selectList("teacher.findAllTeacher", map);
 	}
 

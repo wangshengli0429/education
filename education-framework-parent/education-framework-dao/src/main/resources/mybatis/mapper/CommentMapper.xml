@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="comment">
     
-    <resultMap type="com.education.framework.model.comment.Comment" id="queryCommentResult">
+    <resultMap type="com.education.framework.model.po.Comment" id="queryCommentResult">
     	<result property="id" column="id"/>
     	<result property="teacherId" column="teacher_id"/>
     	<result property="content" column="comment_content"/>
@@ -11,7 +11,7 @@
     	<result property="status" column="status"/>
     </resultMap>
     
-    <select id="queryCommentById" parameterType="com.education.framework.model.comment.vo.CommentVo" resultType="com.education.framework.model.comment.vo.CommentVo">
+    <select id="queryCommentById" parameterType="com.education.framework.model.bo.CommentBo" resultType="com.education.framework.model.bo.CommentBo">
     	select  t.id,
 				t.teacher_id as teacherId,
 				t.comment_content as commentContent,
@@ -30,7 +30,7 @@
     	</where> 
     </select>
     
-    <select id="findAllComment" parameterType="java.util.Map" resultType="com.education.framework.model.comment.vo.CommentVo">
+    <select id="findAllComment" parameterType="java.util.Map" resultType="com.education.framework.model.bo.CommentBo">
         select  t.id,
         	    t.teacher_id as teacherId,
 				t.comment_content as content,
@@ -70,7 +70,7 @@
  		</where> 
     </select>
     
-    <insert id="insertComment" parameterType="com.education.framework.model.comment.Comment">
+    <insert id="insertComment" parameterType="com.education.framework.model.po.Comment">
     	insert into t_comment
     	(id
     	<if test="teacherId">,teacher_id</if>

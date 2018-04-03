@@ -3,12 +3,13 @@ package com.education.framework.dao.order.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.education.framework.model.bo.OrderBo;
+import com.education.framework.model.po.Order;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.education.framework.dao.order.OrderDao;
-import com.education.framework.model.order.Order;
-import com.education.framework.model.order.vo.OrderVo;
+
 
 /**
  * <p>订单DAOIMPL</p>
@@ -26,7 +27,7 @@ public class OrderDaoImpl extends SqlSessionDaoSupport implements OrderDao {
 	}
 
 	@Override
-	public List<OrderVo> getAllOrders(Map<String, Object> map) {
+	public List<OrderBo> getAllOrders(Map<String, Object> map) {
 		return this.getSqlSession().selectList("order.getAllOrders", map);
 	}
 

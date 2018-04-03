@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="order">
     
-    <resultMap type="com.education.framework.model.order.Order" id="queryOrderResult">
+    <resultMap type="com.education.framework.model.po.Order" id="queryOrderResult">
     	<result property="id" column="id"/>
     	<result property="orderNumber" column="order_number"/>
     	<result property="payAccount" column="pay_account"/>
@@ -19,7 +19,7 @@
 
     </resultMap>
     
-    <select id="queryOrderById" parameterType="com.education.framework.model.order.Order" resultType="com.education.framework.model.order.Order">
+    <select id="queryOrderById" parameterType="com.education.framework.model.po.Order" resultType="com.education.framework.model.po.Order">
     	select t.id,t.user_id as userId,t.order,
         	u.user_name as phone,gender,age,
         	native_place as nativePlace,province,
@@ -37,7 +37,7 @@
     	</where> 
     </select>
     
-    <select id="findAllOrder" parameterType="java.util.Map" resultType="com.education.framework.model.order.Order">
+    <select id="findAllOrder" parameterType="java.util.Map" resultType="com.education.framework.model.po.Order">
         select
         	t.id,t.user_id as userId,t.order,
         	u.user_name as phone,gender,age,
@@ -72,7 +72,7 @@
     
   
   
-    <insert id="insertOrder" parameterType="com.education.framework.model.order.Order">
+    <insert id="insertOrder" parameterType="com.education.framework.model.po.Order">
     	insert into t_order
     	(id
     	<if test="orderNumber">,order_number</if>

@@ -7,13 +7,13 @@ import com.education.framework.model.po.Dictionary;
  */
 public class DictionaryCo extends Dictionary {
 
-    private static final Integer ORDER_BY_ID_ASC = 1; // 排序规则：order by id asc
+    public static final Integer ORDER_BY_ID_ASC = 1; // 排序规则：order by id asc
 
-    private static final Integer ORDER_BY_ID_DESC = 2; // 排序规则：order by id desc
+    public static final Integer ORDER_BY_ID_DESC = 2; // 排序规则：order by id desc
 
-    private static final Integer ORDER_BY_UPDATE_TIME_ASC = 3; // 排序规则：order by update_time asc
+    public static final Integer ORDER_BY_UPDATE_TIME_ASC = 3; // 排序规则：order by update_time asc
 
-    private static final Integer ORDER_BY_UPDATE_TIME_DESC = 4; // 排序规则：order by update_time desc
+    public static final Integer ORDER_BY_UPDATE_TIME_DESC = 4; // 排序规则：order by update_time desc
 
 
     /**

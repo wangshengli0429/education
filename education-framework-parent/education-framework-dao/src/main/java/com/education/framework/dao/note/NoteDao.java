@@ -1,9 +1,10 @@
 package com.education.framework.dao.note;
 
+import com.education.framework.model.po.Note;
+
 import java.util.List;
 import java.util.Map;
 
-import com.education.framework.model.note.Note;
 /**
  * 
  * <p>NoteDao.java</p>

@@ -5,9 +5,9 @@ import com.education.framework.model.base.ModelTemplet;
 import java.util.Date;
 
 /**
- * Created by zhoulin on 2018/4/2.
+ * Created by zhoulin on 2018/4/3.
  */
-public class TeachTime extends ModelTemplet{
+public class TeacherTime extends ModelTemplet{
 
     /**
      * 教师id

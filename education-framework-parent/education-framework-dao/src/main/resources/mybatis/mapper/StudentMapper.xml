@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="student">
     
-    <resultMap type="com.education.framework.model.student.Student" id="queryStudentResult">
+    <resultMap type="com.education.framework.model.po.Student" id="queryStudentResult">
     	<result property="id" column="id"/>
     	<result property="userId" column="user_id"/>
     	<result property="student" column="student"/>
@@ -19,7 +19,7 @@
     	<result property="remark" column="remark"/>
     </resultMap>
     
-    <select id="queryStudentById" parameterType="com.education.framework.model.student.Student" resultType="com.education.framework.model.student.Student">
+    <select id="queryStudentById" parameterType="com.education.framework.model.po.Student" resultType="com.education.framework.model.po.Student">
     	select id,user_id as userId,student,gender,age,native_place as nativePlace,province,city,district,address,id_number as idNumber,self_descr as selfDescr,photo,remark
     	
 <!--     时间格式化	 date_format(created_at,'%Y-%m-%d %H:%i:%s') as created_at, -->
@@ -32,7 +32,7 @@
     	</where> 
     </select>
     
-    <select id="findAllStudent" parameterType="java.util.Map" resultType="com.education.framework.model.student.vo.StudentVo">
+    <select id="findAllStudent" parameterType="java.util.Map" resultType="com.education.framework.model.bo.StudentBo">
         select
         	t.id,t.user_id as userId,t.student,
         	u.user_name as phone,gender,age,
@@ -69,7 +69,7 @@
     	</where> 
     </select>
     
-    <update id="updateStrudentById" parameterType="com.education.framework.model.student.Student">
+    <update id="updateStrudentById" parameterType="com.education.framework.model.po.Student">
     	update t_student 
     	<set>
     		 <if test="student!= null and student!=''" >  
@@ -113,7 +113,7 @@
     	where id=#{id}
     </update>
     
-    <insert id="insertStudent" parameterType="com.education.framework.model.student.Student">
+    <insert id="insertStudent" parameterType="com.education.framework.model.po.Student">
     	insert into t_student
     	(id
     	<if test="userId">,user_id</if>

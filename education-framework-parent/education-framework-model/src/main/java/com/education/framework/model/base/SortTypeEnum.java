@@ -1,14 +1,10 @@
-package com.education.framework.repo.base;
+package com.education.framework.model.base;
 
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author Yang Dong
- * @createTime 2017/7/20  11:13
- * @lastUpdater Yang Dong
- * @lastUpdateTime 2017/7/20  11:13
- * @note
+ * 排序
  */
 public enum SortTypeEnum {
     ID_ASC(1, "id asc"),

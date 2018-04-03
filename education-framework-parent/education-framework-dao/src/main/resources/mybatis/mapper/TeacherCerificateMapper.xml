@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="teacherCertificate">
     
-    <resultMap type="com.education.framework.model.teacher.TeacherCertificate" id="queryTeacherCertificateResult">
+    <resultMap type="com.education.framework.model.po.TeacherCertificate" id="queryTeacherCertificateResult">
     	<result property="id" column="id"/>
     	<result property="userId" column="user_id"/>
     	<result property="certificateType" column="certificate_type"/>
@@ -11,7 +11,7 @@
     	
     </resultMap>
     
-    <select id="queryTeacherCertificateById" parameterType="com.education.framework.model.teacher.TeacherCertificate" resultType="com.education.framework.model.teacher.TeacherCertificate">
+    <select id="queryTeacherCertificateById" parameterType="com.education.framework.model.po.TeacherCertificate" resultType="com.education.framework.model.po.TeacherCertificate">
     	select id,user_id,certificate_type,
     		   date_format(certificate_reg_date,'%Y-%m-%d %H:%i:%s') as certificateRegDate,
     		   descr
@@ -26,7 +26,7 @@
     	</where> 
     </select>
     
-    <select id="findAllTeacherCertificate" parameterType="java.util.Map" resultType="com.education.framework.model.teacher.TeacherCertificate">
+    <select id="findAllTeacherCertificate" parameterType="java.util.Map" resultType="com.education.framework.model.po.TeacherCertificate">
         select
         	   id,user_id,certificate_type,
     		   date_format(certificate_reg_date,'%Y-%m-%d %H:%i:%s') as certificateRegDate,
@@ -57,7 +57,7 @@
     	</where> 
     </select>
     
-    <update id="updateTeacherCertificateById" parameterType="com.education.framework.model.teacher.TeacherCertificate">
+    <update id="updateTeacherCertificateById" parameterType="com.education.framework.model.po.TeacherCertificate">
     	update t_teacher_certificate 
     	<set>
 	    	 <if test="certificateType!=null and certificateType!=''">
@@ -73,7 +73,7 @@
     	where id=#{id}
     </update>
     
-    <insert id="insertTeacherCertificate" parameterType="com.education.framework.model.teacher.TeacherCertificate">
+    <insert id="insertTeacherCertificate" parameterType="com.education.framework.model.po.TeacherCertificate">
     	insert into t_teacher_certificate
     	(id
     	<if test="userId">,user_id</if>

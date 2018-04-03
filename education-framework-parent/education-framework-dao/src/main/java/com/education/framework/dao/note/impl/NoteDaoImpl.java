@@ -3,11 +3,11 @@ package com.education.framework.dao.note.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.education.framework.model.po.Note;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.education.framework.dao.note.NoteDao;
-import com.education.framework.model.note.Note;
 
 @Repository
 public class NoteDaoImpl extends SqlSessionDaoSupport implements NoteDao{

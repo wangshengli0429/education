@@ -1,5 +1,8 @@
 package com.education.framework.repo.base;
 
+import com.education.framework.model.base.Page;
+import com.education.framework.model.base.PageParam;
+import com.education.framework.model.base.SortTypeEnum;
 import com.google.common.collect.Lists;
 
 
@@ -918,7 +921,7 @@ public abstract class BaseDao<PO, CO extends PO, BO extends PO> {
         if (pageInfo.getOrderBy() == null
                 || SortTypeEnum.valueOf(pageInfo.getOrderBy()) == null) {
             if (pageInfo.getSortOrder() == null
-                    || (sortSql=SortTypeEnum.getSqlBySortId(pageInfo.getSortOrder())) == null) {
+                    || (sortSql= SortTypeEnum.getSqlBySortId(pageInfo.getSortOrder())) == null) {
                 sortSql = SortTypeEnum.getSqlBySortId(defaultSortOrder);
             }
         } else {

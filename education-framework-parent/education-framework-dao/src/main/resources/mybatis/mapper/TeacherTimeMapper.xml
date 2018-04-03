@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="teacherTime">
     
-    <resultMap type="com.education.framework.model.teacher.TeacherTime" id="queryTeacherTimeResult">
+    <resultMap type="com.education.framework.model.po.TeacherTime" id="queryTeacherTimeResult">
     	<result property="id" column="id"/>
     	<result property="userId" column="user_id"/>
     	<result property="grade" column="grade"/>
@@ -12,7 +12,7 @@
     	
     </resultMap>
     
-    <select id="queryTeacherTimeById" parameterType="com.education.framework.model.teacher.TeacherTime" resultType="com.education.framework.model.teacher.TeacherTime">
+    <select id="queryTeacherTimeById" parameterType="com.education.framework.model.po.TeacherTime" resultType="com.education.framework.model.po.TeacherTime">
     	select id,user_id,grade,course,
     	 date_format(begin_time,'%Y-%m-%d %H:%i:%s') as beginTime,
     	 date_format(end_time,'%Y-%m-%d %H:%i:%s') as endTime
@@ -28,7 +28,7 @@
     	</where> 
     </select>
     
-    <select id="findAllTeacherTime" parameterType="java.util.Map" resultType="com.education.framework.model.teacher.TeacherTime">
+    <select id="findAllTeacherTime" parameterType="java.util.Map" resultType="com.education.framework.model.po.TeacherTime">
         select
         id,user_id,grade,course,
     	 date_format(begin_time,'%Y-%m-%d %H:%i:%s') as beginTime,
@@ -61,7 +61,7 @@
     	</where> 
     </select>
     
-    <update id="updateTeacherTimeById" parameterType="com.education.framework.model.teacher.TeacherTime">
+    <update id="updateTeacherTimeById" parameterType="com.education.framework.model.po.TeacherTime">
     	update t_teach_time 
     	<set>
 	    	 <if test="grade!=null and grade!=''">
@@ -82,7 +82,7 @@
     	
     </update>
     
-    <insert id="insertTeacherTime" parameterType="com.education.framework.model.teacher.TeacherTime">
+    <insert id="insertTeacherTime" parameterType="com.education.framework.model.po.TeacherTime">
     	insert into t_teach_time
     	(id
     	<if test="userId">,user_id</if>

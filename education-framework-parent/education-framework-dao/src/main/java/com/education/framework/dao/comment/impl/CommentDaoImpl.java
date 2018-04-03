@@ -3,18 +3,19 @@ package com.education.framework.dao.comment.impl;
 import java.util.List;
 import java.util.Map;
 
+import com.education.framework.model.bo.CommentBo;
+import com.education.framework.model.po.Comment;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.education.framework.dao.comment.CommentDao;
-import com.education.framework.model.comment.Comment;
-import com.education.framework.model.comment.vo.CommentVo;
+
 
 @Repository
 public class CommentDaoImpl extends SqlSessionDaoSupport implements CommentDao{
 
 	@Override
-	public List<CommentVo> findAllComment(Map<String, Object> map) {
+	public List<CommentBo> findAllComment(Map<String, Object> map) {
 		return this.getSqlSession().selectList("comment.findAllComment", map);
 	}
 
@@ -29,7 +30,7 @@ public class CommentDaoImpl extends SqlSessionDaoSupport implements CommentDao{
 	}
 
 	@Override
-	public CommentVo queryCommentById(Map<String, Object> map) {
+	public CommentBo queryCommentById(Map<String, Object> map) {
 		return this.getSqlSession().selectOne("comment.queryCommentById", map);
 	}
 

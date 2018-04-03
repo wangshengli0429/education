@@ -2,11 +2,11 @@ package com.education.framework.dao.user.impl;
 
 import java.util.Map;
 
+import com.education.framework.model.po.User;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 
 import com.education.framework.dao.user.UserDao;
-import com.education.framework.model.user.User;
 @Repository
 public class UserDaoImpl extends SqlSessionDaoSupport implements UserDao {
 

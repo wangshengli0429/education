@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="teacherCourse">
     
-    <resultMap type="com.education.framework.model.teacher.TeacherCourse" id="queryTeacherCourseResult">
+    <resultMap type="com.education.framework.model.po.TeacherCourse" id="queryTeacherCourseResult">
     	<result property="id" column="id"/>
     	<result property="userId" column="user_id"/>
     	<result property="grade" column="grade"/>
@@ -10,7 +10,7 @@
     	
     </resultMap>
     
-    <select id="queryTeacherCourseById" parameterType="com.education.framework.model.teacher.TeacherCourse" resultType="com.education.framework.model.teacher.TeacherCourse">
+    <select id="queryTeacherCourseById" parameterType="com.education.framework.model.po.TeacherSubject" resultType="com.education.framework.model.po.TeacherSubject">
     	select id,user_id,grade,course
     	
 <!--     时间格式化	 date_format(created_at,'%Y-%m-%d %H:%i:%s') as created_at, -->
@@ -24,7 +24,7 @@
     	</where> 
     </select>
     
-    <select id="findAllTeacherCourse" parameterType="java.util.Map" resultType="com.education.framework.model.teacher.TeacherCourse">
+    <select id="findAllTeacherCourse" parameterType="java.util.Map" resultType="com.education.framework.model.po.TeacherSubject">
         select
         id,user_id,grade,course
         from t_course t
@@ -51,7 +51,7 @@
     	</where> 
     </select>
     
-    <update id="updateTeacherCourseById" parameterType="com.education.framework.model.teacher.TeacherCourse">
+    <update id="updateTeacherCourseById" parameterType="com.education.framework.model.po.TeacherSubject">
     	update t_course 
     	<set>
 	    	 <if test="grade!=null and grade!=''">
@@ -64,7 +64,7 @@
     	where id=#{id}
     </update>
     
-    <insert id="insertTeacherCourse" parameterType="com.education.framework.model.teacher.TeacherCourse">
+    <insert id="insertTeacherCourse" parameterType="com.education.framework.model.po.TeacherSubject">
     	insert into t_course
     	(id
     	<if test="userId">,user_id</if>

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="teacher">
     
-    <resultMap type="com.education.framework.model.teacher.Teacher" id="queryTeacherResult">
+    <resultMap type="com.education.framework.model.po.Teacher" id="queryTeacherResult">
     	<result property="id" column="id"/>
     	<result property="userId" column="user_id"/>
     	<result property="teacharName" column="teachar_name"/>
@@ -21,7 +21,7 @@
     	<result property="remark" column="remark"/>
     </resultMap>
     
-    <select id="queryTeacherById" parameterType="com.education.framework.model.teacher.Teacher" resultType="com.education.framework.model.teacher.Teacher">
+    <select id="queryTeacherById" parameterType="com.education.framework.model.po.Teacher" resultType="com.education.framework.model.po.Teacher">
     	select id,user_id as userId,teacher_name as teacherName,gender,age,native_place as nativePlace,province,city,district,address,id_number as idNumber,education,major,self_descr as selfDescr,photo,remark
     	
 <!--     时间格式化	 date_format(created_at,'%Y-%m-%d %H:%i:%s') as created_at, -->
@@ -34,7 +34,7 @@
     	</where> 
     </select>
     
-    <select id="findAllTeacher" parameterType="java.util.Map" resultType="com.education.framework.model.teacher.vo.TeacherVo">
+    <select id="findAllTeacher" parameterType="java.util.Map" resultType="com.education.framework.model.bo.TeacherBo">
         select
          	t.id,t.user_id as userId,t.teacher_name as teacherName,
          	u.user_name as phone,
@@ -79,7 +79,7 @@
     	</where> 
     </select>
     
-    <update id="updateTeacherById" parameterType="com.education.framework.model.teacher.Teacher">
+    <update id="updateTeacherById" parameterType="com.education.framework.model.po.Teacher">
     	update t_teacher 
     	<set>
     		 <if test="teacherName!= null and teacherName!=''" >  
@@ -123,7 +123,7 @@
     	where id=#{id}
     </update>
     
-    <insert id="insertTeacher" parameterType="com.education.framework.model.teacher.Teacher">
+    <insert id="insertTeacher" parameterType="com.education.framework.model.po.Teacher">
     	insert into t_teacher
     	(id
     	<if test="userId">,user_id</if>

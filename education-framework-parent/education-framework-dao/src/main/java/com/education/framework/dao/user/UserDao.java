@@ -1,8 +1,9 @@
 package com.education.framework.dao.user;
 
+import com.education.framework.model.po.User;
+
 import java.util.Map;
 
-import com.education.framework.model.user.User;
 
 
 public interface UserDao {
