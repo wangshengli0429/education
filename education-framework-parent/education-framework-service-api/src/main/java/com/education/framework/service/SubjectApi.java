@@ -16,10 +16,10 @@ public interface SubjectApi {
 
     /**
      * 保存
-     * @param subject
+     * @param subjectBo
      * @return
      */
-    ApiResponse<Integer> save(Subject subject);
+    ApiResponse<Integer> save(SubjectBo subjectBo);
 
     /**
      * 批量保存
@@ -30,10 +30,10 @@ public interface SubjectApi {
 
     /**
      * 根据id修改
-     * @param subject
+     * @param subjectBo
      * @return
      */
-    ApiResponse<Integer> updateById(Subject subject);
+    ApiResponse<Integer> updateById(SubjectBo subjectBo);
 
     /**
      * 逻辑删除

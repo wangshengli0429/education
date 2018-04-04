@@ -16,10 +16,10 @@ public interface OrderApi {
 
     /**
      * 保存
-     * @param order
+     * @param orderBo
      * @return
      */
-    ApiResponse<Integer> save(Order order);
+    ApiResponse<Integer> save(OrderBo orderBo);
 
     /**
      * 批量保存
@@ -30,10 +30,10 @@ public interface OrderApi {
 
     /**
      * 根据id修改
-     * @param order
+     * @param orderBo
      * @return
      */
-    ApiResponse<Integer> updateById(Order order);
+    ApiResponse<Integer> updateById(OrderBo orderBo);
 
     /**
      * 逻辑删除

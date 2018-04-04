@@ -24,9 +24,9 @@ public class OrderServiceImpl implements OrderApi{
     private OrderRepo orderRepo;
 
     @Override
-    public ApiResponse<Integer> save(Order order) {
-        if (null==order){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"order不能为空!");}
-        int result = orderRepo.save(order);
+    public ApiResponse<Integer> save(OrderBo orderBo) {
+        if (null==orderBo){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"orderBo不能为空!");}
+        int result = orderRepo.save(orderBo);
         return ApiResponse.success(result,"保存成功");
     }
 
@@ -39,10 +39,10 @@ public class OrderServiceImpl implements OrderApi{
     }
 
     @Override
-    public ApiResponse<Integer> updateById(Order order) {
-        if (null==order){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"order不能为空!");}
-        if (null==order.getId()){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"order.getId()不能为空!");}
-        int result = orderRepo.updateById(order);
+    public ApiResponse<Integer> updateById(OrderBo orderBo) {
+        if (null==orderBo){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"orderBo不能为空!");}
+        if (null==orderBo.getId()){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"orderBo.getId()不能为空!");}
+        int result = orderRepo.updateById(orderBo);
         return ApiResponse.success(result,"修改成功");
     }
 

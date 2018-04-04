@@ -16,10 +16,10 @@ public interface ManageApi {
 
     /**
      * 保存
-     * @param manage
+     * @param manageBo
      * @return
      */
-    ApiResponse<Integer> save(Manage manage);
+    ApiResponse<Integer> save(ManageBo manageBo);
 
     /**
      * 批量保存
@@ -30,10 +30,10 @@ public interface ManageApi {
 
     /**
      * 根据id修改
-     * @param manage
+     * @param manageBo
      * @return
      */
-    ApiResponse<Integer> updateById(Manage manage);
+    ApiResponse<Integer> updateById(ManageBo manageBo);
 
     /**
      * 逻辑删除

@@ -23,9 +23,9 @@ public class TeacherCertificateServiceImpl implements TeacherCertificateApi{
     private TeacherCertificateRepo teacherCertificateRepo;
 
     @Override
-    public ApiResponse<Integer> save(TeacherCertificate teacherCertificate) {
-        if (null==teacherCertificate){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherCertificate不能为空!");}
-        int result = teacherCertificateRepo.save(teacherCertificate);
+    public ApiResponse<Integer> save(TeacherCertificateBo teacherCertificateBo) {
+        if (null==teacherCertificateBo){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherCertificateBo不能为空!");}
+        int result = teacherCertificateRepo.save(teacherCertificateBo);
         return ApiResponse.success(result,"保存成功");
     }
 
@@ -38,10 +38,10 @@ public class TeacherCertificateServiceImpl implements TeacherCertificateApi{
     }
 
     @Override
-    public ApiResponse<Integer> updateById(TeacherCertificate teacherCertificate) {
-        if (null==teacherCertificate){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherCertificate不能为空!");}
-        if (null==teacherCertificate.getId()){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherCertificate.getId()不能为空!");}
-        int result = teacherCertificateRepo.updateById(teacherCertificate);
+    public ApiResponse<Integer> updateById(TeacherCertificateBo teacherCertificateBo) {
+        if (null==teacherCertificateBo){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherCertificateBo不能为空!");}
+        if (null==teacherCertificateBo.getId()){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherCertificateBo.getId()不能为空!");}
+        int result = teacherCertificateRepo.updateById(teacherCertificateBo);
         return ApiResponse.success(result,"修改成功");
     }
 

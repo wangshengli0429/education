@@ -16,10 +16,10 @@ public interface OrderAppointmentApi {
 
     /**
      * 保存
-     * @param orderAppointment
+     * @param orderAppointmentBo
      * @return
      */
-    ApiResponse<Integer> save(OrderAppointment orderAppointment);
+    ApiResponse<Integer> save(OrderAppointmentBo orderAppointmentBo);
 
     /**
      * 批量保存
@@ -30,10 +30,10 @@ public interface OrderAppointmentApi {
 
     /**
      * 根据id修改
-     * @param orderAppointment
+     * @param orderAppointmentBo
      * @return
      */
-    ApiResponse<Integer> updateById(OrderAppointment orderAppointment);
+    ApiResponse<Integer> updateById(OrderAppointmentBo orderAppointmentBo);
 
     /**
      * 逻辑删除

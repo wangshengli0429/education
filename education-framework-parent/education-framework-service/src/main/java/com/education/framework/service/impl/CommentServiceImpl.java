@@ -24,9 +24,9 @@ public class CommentServiceImpl implements CommentApi{
     private CommentRepo commentRepo;
 
     @Override
-    public ApiResponse<Integer> save(Comment comment) {
-        if (null==comment){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"comment不能为空!");}
-        int result = commentRepo.save(comment);
+    public ApiResponse<Integer> save(CommentBo commentBo) {
+        if (null==commentBo){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"commentBo不能为空!");}
+        int result = commentRepo.save(commentBo);
         return ApiResponse.success(result,"保存成功");
     }
 
@@ -39,10 +39,10 @@ public class CommentServiceImpl implements CommentApi{
     }
 
     @Override
-    public ApiResponse<Integer> updateById(Comment comment) {
-        if (null==comment){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"comment不能为空!");}
-        if (null==comment.getId()){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"comment.getId()不能为空!");}
-        int result = commentRepo.updateById(comment);
+    public ApiResponse<Integer> updateById(CommentBo commentBo) {
+        if (null==commentBo){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"commentBo不能为空!");}
+        if (null==commentBo.getId()){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"commentBo.getId()不能为空!");}
+        int result = commentRepo.updateById(commentBo);
         return ApiResponse.success(result,"修改成功");
     }
 

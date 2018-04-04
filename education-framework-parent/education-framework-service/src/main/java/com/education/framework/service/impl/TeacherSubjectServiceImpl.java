@@ -24,9 +24,9 @@ public class TeacherSubjectServiceImpl implements TeacherSubjectApi{
     private TeacherSubjectRepo teacherSubjectRepo;
 
     @Override
-    public ApiResponse<Integer> save(TeacherSubject teacherSubject) {
-        if (null==teacherSubject){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherSubject不能为空!");}
-        int result = teacherSubjectRepo.save(teacherSubject);
+    public ApiResponse<Integer> save(TeacherSubjectBo teacherSubjectBo) {
+        if (null==teacherSubjectBo){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherSubjectBo不能为空!");}
+        int result = teacherSubjectRepo.save(teacherSubjectBo);
         return ApiResponse.success(result,"保存成功");
     }
 
@@ -39,10 +39,10 @@ public class TeacherSubjectServiceImpl implements TeacherSubjectApi{
     }
 
     @Override
-    public ApiResponse<Integer> updateById(TeacherSubject teacherSubject) {
-        if (null==teacherSubject){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherSubject不能为空!");}
-        if (null==teacherSubject.getId()){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherSubject.getId()不能为空!");}
-        int result = teacherSubjectRepo.updateById(teacherSubject);
+    public ApiResponse<Integer> updateById(TeacherSubjectBo teacherSubjectBo) {
+        if (null==teacherSubjectBo){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherSubjectBo不能为空!");}
+        if (null==teacherSubjectBo.getId()){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherSubjectBo.getId()不能为空!");}
+        int result = teacherSubjectRepo.updateById(teacherSubjectBo);
         return ApiResponse.success(result,"修改成功");
     }
 

@@ -24,9 +24,9 @@ public class StudentServiceImpl implements StudentApi{
     private StudentRepo studentRepo;
 
     @Override
-    public ApiResponse<Integer> save(Student student) {
-        if (null==student){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"student不能为空!");}
-        int result = studentRepo.save(student);
+    public ApiResponse<Integer> save(StudentBo studentBo) {
+        if (null==studentBo){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"studentBo不能为空!");}
+        int result = studentRepo.save(studentBo);
         return ApiResponse.success(result,"保存成功");
     }
 
@@ -39,10 +39,10 @@ public class StudentServiceImpl implements StudentApi{
     }
 
     @Override
-    public ApiResponse<Integer> updateById(Student student) {
-        if (null==student){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"student不能为空!");}
-        if (null==student.getId()){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"student.getId()不能为空!");}
-        int result = studentRepo.updateById(student);
+    public ApiResponse<Integer> updateById(StudentBo studentBo) {
+        if (null==studentBo){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"studentBo不能为空!");}
+        if (null==studentBo.getId()){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"studentBo.getId()不能为空!");}
+        int result = studentRepo.updateById(studentBo);
         return ApiResponse.success(result,"修改成功");
     }
 

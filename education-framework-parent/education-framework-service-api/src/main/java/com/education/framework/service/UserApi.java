@@ -16,10 +16,10 @@ public interface UserApi {
 
     /**
      * 保存
-     * @param user
+     * @param userBo
      * @return
      */
-    ApiResponse<Integer> save(User user);
+    ApiResponse<Integer> save(UserBo userBo);
 
     /**
      * 批量保存
@@ -30,10 +30,10 @@ public interface UserApi {
 
     /**
      * 根据id修改
-     * @param user
+     * @param userBo
      * @return
      */
-    ApiResponse<Integer> updateById(User user);
+    ApiResponse<Integer> updateById(UserBo userBo);
 
     /**
      * 逻辑删除

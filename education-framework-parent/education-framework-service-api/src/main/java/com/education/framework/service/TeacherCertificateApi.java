@@ -16,10 +16,10 @@ public interface TeacherCertificateApi {
 
     /**
      * 保存
-     * @param teacherCertificate
+     * @param teacherCertificateBo
      * @return
      */
-    ApiResponse<Integer> save(TeacherCertificate teacherCertificate);
+    ApiResponse<Integer> save(TeacherCertificateBo teacherCertificateBo);
 
     /**
      * 批量保存
@@ -30,10 +30,10 @@ public interface TeacherCertificateApi {
 
     /**
      * 根据id修改
-     * @param teacherCertificate
+     * @param teacherCertificateBo
      * @return
      */
-    ApiResponse<Integer> updateById(TeacherCertificate teacherCertificate);
+    ApiResponse<Integer> updateById(TeacherCertificateBo teacherCertificateBo);
 
     /**
      * 逻辑删除

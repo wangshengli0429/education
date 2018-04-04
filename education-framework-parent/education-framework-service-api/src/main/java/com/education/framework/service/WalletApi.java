@@ -16,10 +16,10 @@ public interface WalletApi {
 
     /**
      * 保存
-     * @param wallet
+     * @param walletBo
      * @return
      */
-    ApiResponse<Integer> save(Wallet wallet);
+    ApiResponse<Integer> save(WalletBo walletBo);
 
     /**
      * 批量保存
@@ -30,10 +30,10 @@ public interface WalletApi {
 
     /**
      * 根据id修改
-     * @param wallet
+     * @param walletBo
      * @return
      */
-    ApiResponse<Integer> updateById(Wallet wallet);
+    ApiResponse<Integer> updateById(WalletBo walletBo);
 
     /**
      * 逻辑删除

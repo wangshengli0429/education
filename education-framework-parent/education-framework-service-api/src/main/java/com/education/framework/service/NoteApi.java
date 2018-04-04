@@ -16,10 +16,10 @@ public interface NoteApi {
 
     /**
      * 保存
-     * @param note
+     * @param noteBo
      * @return
      */
-    ApiResponse<Integer> save(Note note);
+    ApiResponse<Integer> save(NoteBo noteBo);
 
     /**
      * 批量保存
@@ -30,10 +30,10 @@ public interface NoteApi {
 
     /**
      * 根据id修改
-     * @param note
+     * @param noteBo
      * @return
      */
-    ApiResponse<Integer> updateById(Note note);
+    ApiResponse<Integer> updateById(NoteBo noteBo);
 
     /**
      * 逻辑删除

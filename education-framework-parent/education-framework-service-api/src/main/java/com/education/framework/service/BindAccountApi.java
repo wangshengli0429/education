@@ -16,10 +16,10 @@ public interface BindAccountApi {
 
     /**
      * 保存
-     * @param bindAccount
+     * @param bindAccountBo
      * @return
      */
-    ApiResponse<Integer> save(BindAccount bindAccount);
+    ApiResponse<Integer> save(BindAccountBo bindAccountBo);
 
     /**
      * 批量保存
@@ -30,10 +30,10 @@ public interface BindAccountApi {
 
     /**
      * 根据id修改
-     * @param bindAccount
+     * @param bindAccountBo
      * @return
      */
-    ApiResponse<Integer> updateById(BindAccount bindAccount);
+    ApiResponse<Integer> updateById(BindAccountBo bindAccountBo);
 
     /**
      * 逻辑删除

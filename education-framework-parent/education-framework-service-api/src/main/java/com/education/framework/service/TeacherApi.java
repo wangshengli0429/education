@@ -16,10 +16,10 @@ public interface TeacherApi {
 
     /**
      * 保存
-     * @param teacher
+     * @param teacherBo
      * @return
      */
-    ApiResponse<Integer> save(Teacher teacher);
+    ApiResponse<Integer> save(TeacherBo teacherBo);
 
     /**
      * 批量保存
@@ -30,10 +30,10 @@ public interface TeacherApi {
 
     /**
      * 根据id修改
-     * @param teacher
+     * @param teacherBo
      * @return
      */
-    ApiResponse<Integer> updateById(Teacher teacher);
+    ApiResponse<Integer> updateById(TeacherBo teacherBo);
 
     /**
      * 逻辑删除

@@ -16,10 +16,10 @@ public interface GradeApi {
 
     /**
      * 保存
-     * @param grade
+     * @param gradeBo
      * @return
      */
-    ApiResponse<Integer> save(Grade grade);
+    ApiResponse<Integer> save(GradeBo gradeBo);
 
     /**
      * 批量保存
@@ -30,10 +30,10 @@ public interface GradeApi {
 
     /**
      * 根据id修改
-     * @param grade
+     * @param gradeBo
      * @return
      */
-    ApiResponse<Integer> updateById(Grade grade);
+    ApiResponse<Integer> updateById(GradeBo gradeBo);
 
     /**
      * 逻辑删除

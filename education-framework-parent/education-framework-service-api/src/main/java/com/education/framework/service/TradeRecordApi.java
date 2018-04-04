@@ -16,10 +16,10 @@ public interface TradeRecordApi {
 
     /**
      * 保存
-     * @param tradeRecord
+     * @param tradeRecordBo
      * @return
      */
-    ApiResponse<Integer> save(TradeRecord tradeRecord);
+    ApiResponse<Integer> save(TradeRecordBo tradeRecordBo);
 
     /**
      * 批量保存
@@ -30,10 +30,10 @@ public interface TradeRecordApi {
 
     /**
      * 根据id修改
-     * @param tradeRecord
+     * @param tradeRecordBo
      * @return
      */
-    ApiResponse<Integer> updateById(TradeRecord tradeRecord);
+    ApiResponse<Integer> updateById(TradeRecordBo tradeRecordBo);
 
     /**
      * 逻辑删除

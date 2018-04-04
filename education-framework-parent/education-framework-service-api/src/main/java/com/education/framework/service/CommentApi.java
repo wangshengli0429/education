@@ -16,10 +16,10 @@ public interface CommentApi {
 
     /**
      * 保存
-     * @param comment
+     * @param commentBo
      * @return
      */
-    ApiResponse<Integer> save(Comment comment);
+    ApiResponse<Integer> save(CommentBo commentBo);
 
     /**
      * 批量保存
@@ -30,10 +30,10 @@ public interface CommentApi {
 
     /**
      * 根据id修改
-     * @param comment
+     * @param commentBo
      * @return
      */
-    ApiResponse<Integer> updateById(Comment comment);
+    ApiResponse<Integer> updateById(CommentBo commentBo);
 
     /**
      * 逻辑删除

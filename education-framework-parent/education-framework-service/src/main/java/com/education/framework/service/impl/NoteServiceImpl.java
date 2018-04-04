@@ -24,9 +24,9 @@ public class NoteServiceImpl implements NoteApi{
     private NoteRepo noteRepo;
 
     @Override
-    public ApiResponse<Integer> save(Note note) {
-        if (null==note){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"note不能为空!");}
-        int result = noteRepo.save(note);
+    public ApiResponse<Integer> save(NoteBo noteBo) {
+        if (null==noteBo){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"noteBo不能为空!");}
+        int result = noteRepo.save(noteBo);
         return ApiResponse.success(result,"保存成功");
     }
 
@@ -39,10 +39,10 @@ public class NoteServiceImpl implements NoteApi{
     }
 
     @Override
-    public ApiResponse<Integer> updateById(Note note) {
-        if (null==note){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"note不能为空!");}
-        if (null==note.getId()){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"note.getId()不能为空!");}
-        int result = noteRepo.updateById(note);
+    public ApiResponse<Integer> updateById(NoteBo noteBo) {
+        if (null==noteBo){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"noteBo不能为空!");}
+        if (null==noteBo.getId()){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"noteBo.getId()不能为空!");}
+        int result = noteRepo.updateById(noteBo);
         return ApiResponse.success(result,"修改成功");
     }
 

@@ -24,9 +24,9 @@ public class TeacherTimeServiceImpl implements TeacherTimeApi{
     private TeacherTimeRepo teacherTimeRepo;
 
     @Override
-    public ApiResponse<Integer> save(TeacherTime teacherTime) {
-        if (null==teacherTime){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherTime不能为空!");}
-        int result = teacherTimeRepo.save(teacherTime);
+    public ApiResponse<Integer> save(TeacherTimeBo teacherTimeBo) {
+        if (null==teacherTimeBo){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherTime不能为空!");}
+        int result = teacherTimeRepo.save(teacherTimeBo);
         return ApiResponse.success(result,"保存成功");
     }
 
@@ -39,10 +39,10 @@ public class TeacherTimeServiceImpl implements TeacherTimeApi{
     }
 
     @Override
-    public ApiResponse<Integer> updateById(TeacherTime teacherTime) {
-        if (null==teacherTime){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherTime不能为空!");}
-        if (null==teacherTime.getId()){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherTime.getId()不能为空!");}
-        int result = teacherTimeRepo.updateById(teacherTime);
+    public ApiResponse<Integer> updateById(TeacherTimeBo teacherTimeBo) {
+        if (null==teacherTimeBo){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherTimeBo不能为空!");}
+        if (null==teacherTimeBo.getId()){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherTimeBo.getId()不能为空!");}
+        int result = teacherTimeRepo.updateById(teacherTimeBo);
         return ApiResponse.success(result,"修改成功");
     }
 

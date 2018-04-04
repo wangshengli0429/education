@@ -16,10 +16,10 @@ public interface DictionaryApi {
 
     /**
      * 保存
-     * @param dictionary
+     * @param dictionaryBo
      * @return
      */
-    ApiResponse<Integer> save(Dictionary dictionary);
+    ApiResponse<Integer> save(DictionaryBo dictionaryBo);
 
     /**
      * 批量保存
@@ -30,10 +30,10 @@ public interface DictionaryApi {
 
     /**
      * 根据id修改
-     * @param dictionary
+     * @param dictionaryBo
      * @return
      */
-    ApiResponse<Integer> updateById(Dictionary dictionary);
+    ApiResponse<Integer> updateById(DictionaryBo dictionaryBo);
 
     /**
      * 逻辑删除

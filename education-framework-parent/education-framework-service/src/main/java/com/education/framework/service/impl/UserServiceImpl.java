@@ -24,9 +24,9 @@ public class UserServiceImpl implements UserApi{
     private UserRepo userRepo;
 
     @Override
-    public ApiResponse<Integer> save(User user) {
-        if (null==user){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"user不能为空!");}
-        int result = userRepo.save(user);
+    public ApiResponse<Integer> save(UserBo userBo) {
+        if (null==userBo){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"user不能为空!");}
+        int result = userRepo.save(userBo);
         return ApiResponse.success(result,"保存成功");
     }
 
@@ -39,10 +39,10 @@ public class UserServiceImpl implements UserApi{
     }
 
     @Override
-    public ApiResponse<Integer> updateById(User user) {
-        if (null==user){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"user不能为空!");}
-        if (null==user.getId()){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"user.getId()不能为空!");}
-        int result = userRepo.updateById(user);
+    public ApiResponse<Integer> updateById(UserBo userBo) {
+        if (null==userBo){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"userBo不能为空!");}
+        if (null==userBo.getId()){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"userBo.getId()不能为空!");}
+        int result = userRepo.updateById(userBo);
         return ApiResponse.success(result,"修改成功");
     }
 
