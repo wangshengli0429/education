@@ -9,6 +9,7 @@ import com.education.framework.model.co.ManageCo;
 import com.education.framework.model.po.Manage;
 import com.education.framework.repo.ManageRepo;
 import com.education.framework.service.ManageApi;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 /**
  * Created by zhoulin on 2018/4/4.
  */
+@Service
 public class ManageServiceImpl implements ManageApi{
 
     @Resource

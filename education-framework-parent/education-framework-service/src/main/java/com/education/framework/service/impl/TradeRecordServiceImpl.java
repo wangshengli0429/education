@@ -10,6 +10,7 @@ import com.education.framework.model.co.TradeRecordCo;
 import com.education.framework.model.po.TradeRecord;
 import com.education.framework.repo.TradeRecordRepo;
 import com.education.framework.service.TradeRecordApi;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 /**
  * Created by zhoulin on 2018/4/4.
  */
+@Service
 public class TradeRecordServiceImpl implements TradeRecordApi {
 
     @Resource

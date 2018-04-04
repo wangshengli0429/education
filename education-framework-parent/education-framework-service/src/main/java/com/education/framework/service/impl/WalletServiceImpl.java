@@ -9,6 +9,7 @@ import com.education.framework.model.co.WalletCo;
 import com.education.framework.model.po.Wallet;
 import com.education.framework.repo.WalletRepo;
 import com.education.framework.service.WalletApi;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 /**
  * Created by zhoulin on 2018/4/4.
  */
+@Service
 public class WalletServiceImpl implements WalletApi{
 
     @Resource

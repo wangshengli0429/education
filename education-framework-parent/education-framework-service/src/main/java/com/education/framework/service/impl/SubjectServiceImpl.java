@@ -9,6 +9,7 @@ import com.education.framework.model.co.SubjectCo;
 import com.education.framework.model.po.Subject;
 import com.education.framework.repo.SubjectRepo;
 import com.education.framework.service.SubjectApi;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 /**
  * Created by zhoulin on 2018/4/4.
  */
+@Service
 public class SubjectServiceImpl implements SubjectApi{
 
     @Resource
