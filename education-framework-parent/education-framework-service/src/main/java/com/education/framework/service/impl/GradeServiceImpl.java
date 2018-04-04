@@ -67,6 +67,13 @@ public class GradeServiceImpl implements GradeApi{
     }
 
     @Override
+    public ApiResponse<List<GradeBo>> getListByCodes(List<String> codes) {
+        if (null==codes){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"codes不能为空!");}
+        List<GradeBo> list = gradeRepo.listByCodes(codes);
+        return ApiResponse.success(list,"查询成功");
+    }
+
+    @Override
     public ApiResponse<Integer> countByCondition(Grade grade) {
         if (null==grade){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"grade不能为空!");}
         int count = gradeRepo.countByCondition(grade);

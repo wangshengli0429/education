@@ -17,4 +17,7 @@ public class AuthenticationRepo extends BaseDao<Authentication,AuthenticationCo,
 
     @Resource
     private CommonMysqlClient mysqlClient;
+
+
+
 }

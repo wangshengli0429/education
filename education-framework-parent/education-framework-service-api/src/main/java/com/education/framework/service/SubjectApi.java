@@ -57,6 +57,14 @@ public interface SubjectApi {
      */
     ApiResponse<List<SubjectBo>> getListByIds(List<Integer> ids);
 
+
+    /**
+     * 根据code集合查询
+     * @param codes
+     * @return
+     */
+    ApiResponse<List<SubjectBo>> getListByCodes(List<String> codes);
+
     /**
      * 根据条件统计总数
      * @param subject

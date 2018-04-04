@@ -67,6 +67,13 @@ public class SubjectServiceImpl implements SubjectApi{
     }
 
     @Override
+    public ApiResponse<List<SubjectBo>> getListByCodes(List<String> codes) {
+        if (null==codes){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"codes不能为空!");}
+        List<SubjectBo> subjectBoList = subjectRepo.listByCodes(codes);
+        return ApiResponse.success(subjectBoList,"查询成功");
+    }
+
+    @Override
     public ApiResponse<Integer> countByCondition(Subject subject) {
         if (null==subject){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"subject不能为空!");}
         int count = subjectRepo.countByCondition(subject);

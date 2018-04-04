@@ -58,6 +58,13 @@ public interface GradeApi {
     ApiResponse<List<GradeBo>> getListByIds(List<Integer> ids);
 
     /**
+     * 根据 code集合查询
+     * @param codes
+     * @return
+     */
+    ApiResponse<List<GradeBo>> getListByCodes(List<String> codes);
+
+    /**
      * 根据条件统计总数
      * @param grade
      * @return

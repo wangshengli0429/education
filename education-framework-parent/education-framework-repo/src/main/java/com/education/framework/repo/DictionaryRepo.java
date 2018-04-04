@@ -6,6 +6,7 @@ import com.education.framework.model.po.Dictionary;
 import com.education.framework.repo.base.CommonMysqlClient;
 import com.education.framework.repo.base.SQLUtil;
 import com.google.common.base.Optional;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.MapUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -171,6 +172,22 @@ public class DictionaryRepo {
         return mysqlClient.query(querySql, ids.toArray(), new DictionaryBoRowMapper());
     }
 
+
+    /**
+     *  根据code集合集合查询
+     * @param codes
+     * @return
+     */
+    public List<DictionaryBo> listByCodes(List<String> codes) {
+        if (CollectionUtils.isEmpty(codes)){
+            return new ArrayList<DictionaryBo>();
+        }
+        StringBuilder sql = new StringBuilder("SELECT " + BASE_COLUMN + " FROM dictionary t WHERE t.deleted = 0 ");
+        sql.append(" and t.code in('");
+        sql.append(StringUtils.join(codes,"','"));
+        sql.append("');");
+        return mysqlClient.query(sql.toString(), new Object[]{}, new DictionaryBoRowMapper());
+    }
 
     /**
      * 根据条件查询

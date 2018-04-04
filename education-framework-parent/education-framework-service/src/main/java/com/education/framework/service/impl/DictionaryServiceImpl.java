@@ -72,6 +72,13 @@ public class DictionaryServiceImpl implements DictionaryApi{
     }
 
     @Override
+    public ApiResponse<List<DictionaryBo>> getListByCodes(List<String> codes) {
+        if (null==codes){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"codes不能为空!");}
+        List<DictionaryBo> list = dictionaryRepo.listByCodes(codes);
+        return ApiResponse.success(list,"查询成功");
+    }
+
+    @Override
     public ApiResponse<Integer> countByCondition(Dictionary dictionary) {
         if (null==dictionary){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"dictionary不能为空!");}
         // Dictionary 转换 DictionaryCo
