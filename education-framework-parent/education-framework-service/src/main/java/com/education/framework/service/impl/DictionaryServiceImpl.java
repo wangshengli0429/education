@@ -2,6 +2,7 @@ package com.education.framework.service.impl;
 
 import com.education.framework.common.response.ApiResponse;
 import com.education.framework.common.response.constants.ApiRetCode;
+import com.education.framework.common.util.BaseMapper;
 import com.education.framework.model.base.Page;
 import com.education.framework.model.base.PageParam;
 import com.education.framework.model.bo.DictionaryBo;
@@ -9,6 +10,7 @@ import com.education.framework.model.co.DictionaryCo;
 import com.education.framework.model.po.Dictionary;
 import com.education.framework.repo.DictionaryRepo;
 import com.education.framework.service.DictionaryApi;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -20,6 +22,9 @@ public class DictionaryServiceImpl implements DictionaryApi{
 
     @Resource
     private DictionaryRepo dictionaryRepo;
+
+    @Autowired
+    private BaseMapper baseMapper;
 
     @Override
     public ApiResponse<Integer> save(DictionaryBo dictionaryBo) {
@@ -69,14 +74,18 @@ public class DictionaryServiceImpl implements DictionaryApi{
     @Override
     public ApiResponse<Integer> countByCondition(Dictionary dictionary) {
         if (null==dictionary){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"dictionary不能为空!");}
-        int count = dictionaryRepo.countByCondition(dictionary);
+        // Dictionary 转换 DictionaryCo
+        DictionaryCo dictionaryCo = baseMapper.map(dictionary,DictionaryCo.class);
+        int count = dictionaryRepo.countByCondition(dictionaryCo);
         return ApiResponse.success(count,"查询成功");
     }
 
     @Override
     public ApiResponse<List<DictionaryBo>> getListByCondition(Dictionary dictionary) {
         if (null==dictionary){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"dictionary不能为空!");}
-        List<DictionaryBo> result = dictionaryRepo.listByCondition(dictionary);
+        // Dictionary 转换 DictionaryCo
+        DictionaryCo dictionaryCo = baseMapper.map(dictionary,DictionaryCo.class);
+        List<DictionaryBo> result = dictionaryRepo.listByCondition(dictionaryCo);
         return ApiResponse.success(result,"查询成功");
     }
 
