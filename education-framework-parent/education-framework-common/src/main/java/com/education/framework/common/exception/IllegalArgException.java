@@ -1,7 +1,6 @@
 package com.education.framework.common.exception;
 
-import com.aixuexi.thor.except.BaseException;
-import com.aixuexi.thor.except.ExceptionCode;
+
 
 /**
  * Created by dingqihui on 2016/11/12.
