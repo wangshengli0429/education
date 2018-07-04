@@ -2,6 +2,8 @@ package com.education.framework.model.po;
 
 import com.education.framework.model.base.ModelTemplet;
 
+import java.util.Date;
+
 /**
  * Created by zhoulin on 2018/4/2.
  */
@@ -13,7 +15,12 @@ public class Teacher extends ModelTemplet {
     private Integer user_id;
 
     /**
-     * 姓名
+     * 姓
+     */
+    private String surname;
+
+    /**
+     * 名
      */
     private String name;
 
@@ -23,9 +30,9 @@ public class Teacher extends ModelTemplet {
     private Integer sex;
 
     /**
-     * 年龄
+     * 出生日期（年月）
      */
-    private Integer age;
+    private Date birthday;
 
     /**
      * 籍惯
@@ -52,10 +59,6 @@ public class Teacher extends ModelTemplet {
      */
     private String address;
 
-    /**
-     * 身份证号
-     */
-    private String idNumber;
 
     /**
      * 最高学历
@@ -82,6 +85,19 @@ public class Teacher extends ModelTemplet {
      */
     private String remark;
 
+    /**
+     * 身份认证状态
+     */
+    private Integer idCardStatus;
+
+    public Integer getIdCardStatus() {
+        return idCardStatus;
+    }
+
+    public void setIdCardStatus(Integer idCardStatus) {
+        this.idCardStatus = idCardStatus;
+    }
+
     public Integer getUser_id() {
         return user_id;
     }
@@ -106,12 +122,20 @@ public class Teacher extends ModelTemplet {
         this.sex = sex;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public String getNativePlace() {
@@ -154,13 +178,6 @@ public class Teacher extends ModelTemplet {
         this.address = address;
     }
 
-    public String getIdNumber() {
-        return idNumber;
-    }
-
-    public void setIdNumber(String idNumber) {
-        this.idNumber = idNumber;
-    }
 
     public String getEducaion() {
         return educaion;
@@ -211,7 +228,6 @@ public class Teacher extends ModelTemplet {
                 ", creatorId=" + creatorId +
                 ", sex=" + sex +
                 ", createTime=" + createTime +
-                ", age=" + age +
                 ", updaterId=" + updaterId +
                 ", nativePlace='" + nativePlace + '\'' +
                 ", updateTime=" + updateTime +
@@ -220,7 +236,6 @@ public class Teacher extends ModelTemplet {
                 ", deleted=" + deleted +
                 ", dictrict='" + dictrict + '\'' +
                 ", address='" + address + '\'' +
-                ", idNumber='" + idNumber + '\'' +
                 ", educaion='" + educaion + '\'' +
                 ", major='" + major + '\'' +
                 ", selfDescr='" + selfDescr + '\'' +

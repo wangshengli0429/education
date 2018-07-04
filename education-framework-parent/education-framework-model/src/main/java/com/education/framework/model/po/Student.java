@@ -2,6 +2,8 @@ package com.education.framework.model.po;
 
 import com.education.framework.model.base.ModelTemplet;
 
+import java.util.Date;
+
 /**
  * Created by zhoulin on 2018/4/2.
  */
@@ -13,9 +15,14 @@ public class Student extends ModelTemplet {
     private Integer user_id;
 
     /**
-     * 姓名
+     * 名
      */
     private String name;
+
+    /**
+     * 姓
+     */
+    private String surname;
 
     /**
      * 性别 1男，2女
@@ -23,9 +30,9 @@ public class Student extends ModelTemplet {
     private Integer sex;
 
     /**
-     * 年龄
+     * 出生日期（年月）
      */
-    private Integer age;
+    private Date birthday;
 
     /**
      * 籍惯
@@ -97,12 +104,20 @@ public class Student extends ModelTemplet {
         this.sex = sex;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getSurname() {
+        return surname;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public String getNativePlace() {
@@ -186,7 +201,6 @@ public class Student extends ModelTemplet {
                 ", creatorId=" + creatorId +
                 ", sex=" + sex +
                 ", createTime=" + createTime +
-                ", age=" + age +
                 ", updaterId=" + updaterId +
                 ", nativePlace='" + nativePlace + '\'' +
                 ", updateTime=" + updateTime +

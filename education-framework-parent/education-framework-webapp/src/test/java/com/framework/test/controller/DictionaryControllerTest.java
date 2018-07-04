@@ -7,13 +7,17 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 /**
- * Created by zhoulin on 2018/4/4.
+ * @author zhoulin
+ * @createTime 2018/7/4.
+ * @lastUpdater zhoulin
+ * @lastUpdateTime 2018/7/4.
+ * @note
  */
-public class TeacherControllerTest extends BaseTest{
+public class DictionaryControllerTest extends BaseTest {
 
     @Test
     public void testGetById() throws Exception{
-        mockMvc.perform(MockMvcRequestBuilders.get("/teacher/getById?id=1"));
+        mockMvc.perform(MockMvcRequestBuilders.get("/dictionary/getById?id=2"));
     }
 
     @Test
