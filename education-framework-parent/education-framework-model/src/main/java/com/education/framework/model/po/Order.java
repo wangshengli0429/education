@@ -55,7 +55,7 @@ public class Order extends ModelTemplet{
     /**
      * 课程ID
      */
-    private Integer courseId;
+    private Integer teacherSubjectId;
 
     public String getOrderNumber() {
         return orderNumber;
@@ -129,12 +129,12 @@ public class Order extends ModelTemplet{
         this.teacherId = teacherId;
     }
 
-    public Integer getCourseId() {
-        return courseId;
+    public Integer getTeacherSubjectId() {
+        return teacherSubjectId;
     }
 
-    public void setCourseId(Integer courseId) {
-        this.courseId = courseId;
+    public void setTeacherSubjectId(Integer teacherSubjectId) {
+        this.teacherSubjectId = teacherSubjectId;
     }
 
     @Override
@@ -155,7 +155,7 @@ public class Order extends ModelTemplet{
                 ", orderTime=" + orderTime +
                 ", studentId=" + studentId +
                 ", teacherId=" + teacherId +
-                ", courseId=" + courseId +
+                ", teacherSubjectId=" + teacherSubjectId +
                 '}';
     }
 

@@ -8,9 +8,9 @@ import com.education.framework.model.base.ModelTemplet;
 public class Dictionary extends ModelTemplet{
 
     /**
-     * 数据字典类型表类型
+     * 类型
      */
-    private Integer dictionaryTypeType;
+    private String type;
 
     /**
      * 编码
@@ -18,36 +18,42 @@ public class Dictionary extends ModelTemplet{
     private String code;
 
     /**
-     * 父id
+     * 名称
+     */
+    private String name;
+
+    /**
+     * 等级，从1开始
+     */
+    private Integer level;
+
+    /**
+     * 父id，从0开始
      */
     private Integer parentId;
 
     /**
-     * 中文名称
+     * 排序
      */
-    private String cnName;
+    private Integer order;
 
     /**
-     * 英文名称
+     * 描述
      */
-    private String enName;
+    private String description;
 
     /**
-     * 序号
+     * 有效标志 0禁用，1启用
      */
-    private Integer idx;
+    private Integer status;
 
-    /**
-     * 有效标志 1:有效，0无效
-     */
-    private Integer validFlag;
 
-    public Integer getDictionaryTypeType() {
-        return dictionaryTypeType;
+    public String getType() {
+        return type;
     }
 
-    public void setDictionaryTypeType(Integer dictionaryTypeType) {
-        this.dictionaryTypeType = dictionaryTypeType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getCode() {
@@ -58,6 +64,22 @@ public class Dictionary extends ModelTemplet{
         this.code = code;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
     public Integer getParentId() {
         return parentId;
     }
@@ -66,54 +88,27 @@ public class Dictionary extends ModelTemplet{
         this.parentId = parentId;
     }
 
-    public String getCnName() {
-        return cnName;
+    public Integer getOrder() {
+        return order;
     }
 
-    public void setCnName(String cnName) {
-        this.cnName = cnName;
+    public void setOrder(Integer order) {
+        this.order = order;
     }
 
-    public String getEnName() {
-        return enName;
+    public String getDescription() {
+        return description;
     }
 
-    public void setEnName(String enName) {
-        this.enName = enName;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public Integer getIdx() {
-        return idx;
+    public Integer getStatus() {
+        return status;
     }
 
-    public void setIdx(Integer idx) {
-        this.idx = idx;
-    }
-
-    public Integer getValidFlag() {
-        return validFlag;
-    }
-
-    public void setValidFlag(Integer validFlag) {
-        this.validFlag = validFlag;
-    }
-
-    @Override
-    public String toString() {
-        return "Dictionary{" +
-                "dictionaryTypeType=" + dictionaryTypeType +
-                ", id=" + id +
-                ", code='" + code + '\'' +
-                ", creatorId=" + creatorId +
-                ", parentId=" + parentId +
-                ", createTime=" + createTime +
-                ", cnName='" + cnName + '\'' +
-                ", updaterId=" + updaterId +
-                ", enName='" + enName + '\'' +
-                ", updateTime=" + updateTime +
-                ", idx=" + idx +
-                ", deleted=" + deleted +
-                ", validFlag=" + validFlag +
-                '}';
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

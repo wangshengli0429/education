@@ -4,6 +4,8 @@ import com.education.framework.common.response.ApiResponse;
 import com.education.framework.common.response.ResultData;
 import com.education.framework.common.response.constants.ApiRetCode;
 import com.education.framework.model.bo.TeacherBo;
+import com.education.framework.model.co.TeacherCo;
+import com.education.framework.model.vo.TeacherVo;
 import com.education.framework.service.TeacherApi;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 @Controller
@@ -50,14 +54,29 @@ public class TeacherController {
 		teacherBo.setMajor("计算机科学与技术");
 		teacherBo.setSelfDescr("本人武汉大学毕业，多年从事教育工作...");
 		teacherBo.setPhoto("http：//a/s.jpg");
-		teacherBo.setIdCardStatus(1);
+		teacherBo.setAuthentication(1);
 		teacherBo.setCreateTime(new Date());
 		teacherBo.setCreatorId(1);
 		teacherBo.setUpdateTime(new Date());
 		teacherBo.setUpdaterId(1);
 		return ResultData.successed(teacherBo);
 	}
-	
 
+	@RequestMapping(value = "/list",method = RequestMethod.GET)
+	public ResultData list(TeacherCo teacherCo){
+		TeacherVo teacherVo = new TeacherVo();
+		teacherVo.setId(1);
+		teacherVo.setUserId(1);
+		teacherVo.setArea("北京市");
+		teacherVo.setGender("男");
+		teacherVo.setName("周老师");
+		teacherVo.setSubjects("小学语文、小学数学");
+		teacherVo.setAttentionCount(10);
+		teacherVo.setCommentCount(10);
+		teacherVo.setOrderCount(10);
+		List<TeacherVo> list = new ArrayList<TeacherVo>();
+		list.add(teacherVo);
+		return ResultData.successed(list);
+	}
 	
 }

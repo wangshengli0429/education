@@ -86,4 +86,12 @@ public interface GradeApi {
      */
     ApiResponse<Page<GradeBo>> getPageByCondition(GradeCo condition, PageParam pageParam);
 
+
+    /**
+     * 根据学部编码查询
+     * @param departmentCode
+     * @return
+     */
+    ApiResponse<List<GradeBo>> listByDepartmentCode(String departmentCode);
+
 }

@@ -77,7 +77,7 @@ public interface SubjectApi {
      * @param subject
      * @return
      */
-    public ApiResponse<List<SubjectBo>> getListByCondition(Subject subject);
+    ApiResponse<List<SubjectBo>> getListByCondition(Subject subject);
 
     /**
      * 分页查询
@@ -86,5 +86,13 @@ public interface SubjectApi {
      * @return
      */
     ApiResponse<Page<SubjectBo>> getPageByCondition(SubjectCo condition, PageParam pageParam);
+
+
+    /**
+     * 根据学部编码查询
+     * @param departmentCode
+     * @return
+     */
+    ApiResponse<List<SubjectBo>> listByDepartmentCode(String departmentCode);
 
 }

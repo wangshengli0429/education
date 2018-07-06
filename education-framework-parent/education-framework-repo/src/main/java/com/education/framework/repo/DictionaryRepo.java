@@ -29,13 +29,13 @@ public class DictionaryRepo {
     private CommonMysqlClient mysqlClient;
 
 
-    static final String INSERT_SQL = "INSERT into dictionary (dictionary_type_type,code,parent_id,cn_name,en_name,idx,valid_flag,create_time,creator_id,update_time,updater_id,deleted)" +
-            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+    static final String INSERT_SQL = "INSERT into dictionary (`type`,code,`name`,`level`,parent_id,`order`,description,status,create_time,creator_id,update_time,updater_id,deleted)" +
+            "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-    static final String BASE_COLUMN =  " t.id AS id,t.dictionary_type_type AS dictionaryTypeType," +
-            " t.`code` AS code, t.parent_id AS parentId, " +
-            " t.cn_name AS cnName,t.en_name AS enName, " +
-            " t.idx AS idx, t.valid_flag AS validFlag, " +
+    static final String BASE_COLUMN =  " t.id AS id,t.`type` AS type,t.code AS code," +
+            " t.`name` AS name, t.parent_id AS parentId, " +
+            " t.`order` AS `order`,t.description AS description, " +
+            " t.status AS status, t.level AS level, " +
             " t.create_time AS createTime,t.creator_id AS creatorId, " +
             " t.update_time AS updateTime, t.updater_id AS updaterId ";
 
@@ -50,18 +50,19 @@ public class DictionaryRepo {
             @Override
             public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
                 PreparedStatement ps = con.prepareStatement(insertSql, Statement.RETURN_GENERATED_KEYS);
-                ps.setInt(1, Optional.fromNullable(dictionary.getDictionaryTypeType()).or(-1));
+                ps.setString(1, Optional.fromNullable(dictionary.getType()).or(""));
                 ps.setString(2,Optional.fromNullable(dictionary.getCode()).or(""));
-                ps.setInt(3,Optional.fromNullable(dictionary.getParentId()).or(-1));
-                ps.setString(4,Optional.fromNullable(dictionary.getCnName()).or(""));
-                ps.setString(5,Optional.fromNullable(dictionary.getEnName()).or(""));
-                ps.setInt(6,Optional.fromNullable(dictionary.getIdx()).or(0));
-                ps.setInt(7,Optional.fromNullable(dictionary.getValidFlag()).or(1));
-                ps.setTimestamp(8,new Timestamp(new java.util.Date().getTime()));
-                ps.setInt(9,Optional.fromNullable(dictionary.getCreatorId()).or(-1));
-                ps.setTimestamp(10,new Timestamp(new java.util.Date().getTime()));
-                ps.setInt(11,Optional.fromNullable(dictionary.getUpdaterId()).or(-1));
-                ps.setInt(12,0);
+                ps.setString(3,Optional.fromNullable(dictionary.getName()).or(""));
+                ps.setInt(4,Optional.fromNullable(dictionary.getLevel()).or(1));
+                ps.setInt(5,Optional.fromNullable(dictionary.getParentId()).or(0));
+                ps.setInt(6,Optional.fromNullable(dictionary.getOrder()).or(1));
+                ps.setString(7,Optional.fromNullable(dictionary.getDescription()).or(""));
+                ps.setInt(8,Optional.fromNullable(dictionary.getStatus()).or(1));
+                ps.setTimestamp(9,new Timestamp(new java.util.Date().getTime()));
+                ps.setInt(10,Optional.fromNullable(dictionary.getCreatorId()).or(-1));
+                ps.setTimestamp(11,new Timestamp(new java.util.Date().getTime()));
+                ps.setInt(12,Optional.fromNullable(dictionary.getUpdaterId()).or(-1));
+                ps.setInt(13,0);
                 return ps;
             }
         });
@@ -77,7 +78,7 @@ public class DictionaryRepo {
         List<Object[]> paramsList = new ArrayList<>();
         for (Dictionary dictionary : dictionaryList) {
             handleDefaultValue(dictionary);
-            Object[] params = {dictionary.getDictionaryTypeType(),dictionary.getCode(),dictionary.getParentId(),dictionary.getCnName(),dictionary.getEnName(),dictionary.getIdx(),dictionary.getValidFlag(),
+            Object[] params = {dictionary.getType(),dictionary.getCode(),dictionary.getName(),dictionary.getLevel(),dictionary.getParentId(),dictionary.getOrder(),dictionary.getStatus(),dictionary.getDescription(),
                     new Timestamp(new java.util.Date().getTime()),dictionary.getCreatorId(),new Timestamp(new java.util.Date().getTime()),dictionary.getUpdaterId(),0};
             paramsList.add(params);
         }
@@ -101,22 +102,22 @@ public class DictionaryRepo {
         return mysqlClient.update(sql.toString(), param.toArray());
     }
 
-    /**
-     * 批量修改
-     * @param dictionaryList
-     * @return
-     */
-    public int batchUpdateById(List<Dictionary> dictionaryList) {
-        String updateDirectorySql = "UPDATE dictionary SET dictionary_type_type=?, code=?, parent_id=?, cn_name=?, en_name=?,idx=?, valid_flag=?,updater_id=?,update_time=? WHERE id = ?;";
-        List<Object[]> paramsList = new ArrayList<>();
-        for (Dictionary dictionary : dictionaryList) {
-            Object[] params = {dictionary.getDictionaryTypeType(),dictionary.getCode(),dictionary.getParentId(),dictionary.getCnName(),dictionary.getCnName(),
-                    dictionary.getIdx(),dictionary.getValidFlag(),dictionary.getUpdaterId(),new Timestamp(new java.util.Date().getTime()),dictionary.getId()};
-            paramsList.add(params);
-        }
-        int effectedRows = mysqlClient.batchUpdate(updateDirectorySql, paramsList).length;
-        return effectedRows;
-    }
+//    /**
+//     * 批量修改
+//     * @param dictionaryList
+//     * @return
+//     */
+//    public int batchUpdateById(List<Dictionary> dictionaryList) {
+//        String updateDirectorySql = "UPDATE dictionary SET dictionary_type_type=?, code=?, parent_id=?, cn_name=?, en_name=?,idx=?, valid_flag=?,updater_id=?,update_time=? WHERE id = ?;";
+//        List<Object[]> paramsList = new ArrayList<>();
+//        for (Dictionary dictionary : dictionaryList) {
+//            Object[] params = {dictionary.getDictionaryTypeType(),dictionary.getCode(),dictionary.getParentId(),dictionary.getCnName(),dictionary.getCnName(),
+//                    dictionary.getIdx(),dictionary.getValidFlag(),dictionary.getUpdaterId(),new Timestamp(new java.util.Date().getTime()),dictionary.getId()};
+//            paramsList.add(params);
+//        }
+//        int effectedRows = mysqlClient.batchUpdate(updateDirectorySql, paramsList).length;
+//        return effectedRows;
+//    }
 
     /**
      * 根据id删除
@@ -240,7 +241,9 @@ public class DictionaryRepo {
      *
      */
     private void handleSort(StringBuilder sql, DictionaryCo dictionaryCo) {
-        if (dictionaryCo.getSortOrder() == null) return;
+        if (dictionaryCo.getSortOrder() == null) {
+            sql.append(" ORDER BY t.order ASC ");
+        }
         if (DictionaryCo.ORDER_BY_ID_ASC.equals(dictionaryCo.getSortOrder())) { //按id升序排序
             sql.append(" ORDER BY t.id ASC ");
         } else if (DictionaryCo.ORDER_BY_ID_DESC.equals(dictionaryCo.getSortOrder())) { //按id降序排序
@@ -259,26 +262,29 @@ public class DictionaryRepo {
      */
     private void handleDefaultValue(Dictionary dictionary){
 
-        if (null == dictionary.getDictionaryTypeType()){
-            dictionary.setDictionaryTypeType(-1);
+        if (null == dictionary.getType()){
+            dictionary.setType("");
         }
         if (null == dictionary.getCode()){
             dictionary.setCode("");
         }
         if (null == dictionary.getParentId()){
-            dictionary.setParentId(-1);
+            dictionary.setParentId(0);
         }
-        if (null == dictionary.getEnName()){
-            dictionary.setEnName("");
+        if (null == dictionary.getName()){
+            dictionary.setName("");
         }
-        if (null == dictionary.getCnName()){
-            dictionary.setCnName("");
+        if (null == dictionary.getLevel()){
+            dictionary.setLevel(1);
         }
-        if (null == dictionary.getIdx()){
-            dictionary.setIdx(0);
+        if (null == dictionary.getOrder()){
+            dictionary.setOrder(0);
         }
-        if (null == dictionary.getValidFlag()){
-            dictionary.setValidFlag(1);
+        if (null == dictionary.getStatus()){
+            dictionary.setStatus(1);
+        }
+        if (null == dictionary.getDescription()){
+            dictionary.setDescription("");
         }
         if (null == dictionary.getCreatorId()){
             dictionary.setCreatorId(-1);
@@ -303,32 +309,36 @@ public class DictionaryRepo {
             sql.append(" and t.id = ? ");
             parm.add(dictionaryCo.getId());
         }
-        if (StringUtils.isNotBlank(dictionaryCo.getCnName())){
-            sql.append(" and t.cn_name like '%" + dictionaryCo.getCnName() + "%'");
+        if(null != dictionaryCo.getType()){
+            sql.append(" and t.type = ? ");
+            parm.add(dictionaryCo.getType());
         }
-        if (null != dictionaryCo.getDictionaryTypeType()){
-            sql.append(" dictionary_type_type = ?,");
-            parm.add(dictionaryCo.getDictionaryTypeType());
-        }
-        if (null != dictionaryCo.getCode()){
-            sql.append(" and t.code = ?,");
+        if(null != dictionaryCo.getCode()){
+            sql.append(" and t.code = ? ");
             parm.add(dictionaryCo.getCode());
         }
+        if (StringUtils.isNotBlank(dictionaryCo.getName())){
+            sql.append(" and t.cn_name like '%" + dictionaryCo.getName() + "%'");
+        }
+        if (null != dictionaryCo.getLevel()){
+            sql.append(" and t.level = ? ");
+            parm.add(dictionaryCo.getLevel());
+        }
         if (null != dictionaryCo.getParentId()){
-            sql.append(" and t.parent_id = ?,");
+            sql.append(" and t.parent_id = ? ");
             parm.add(dictionaryCo.getParentId());
         }
-        if (null != dictionaryCo.getEnName()){
-            sql.append(" and t.en_name = ?,");
-            parm.add(dictionaryCo.getEnName());
+        if (null != dictionaryCo.getOrder()){
+            sql.append(" and t.order = ? ");
+            parm.add(dictionaryCo.getOrder());
         }
-        if (null != dictionaryCo.getIdx()){
-            sql.append(" and t.idx = ?,");
-            parm.add(dictionaryCo.getIdx());
+        if (null != dictionaryCo.getDescription()){
+            sql.append(" and t.description = ? ");
+            parm.add(dictionaryCo.getDescription());
         }
-        if (null != dictionaryCo.getValidFlag()){
-            sql.append(" and t.valid_flag = ?,");
-            parm.add(dictionaryCo.getValidFlag());
+        if (null != dictionaryCo.getStatus()){
+            sql.append(" and t.status = ? ");
+            parm.add(dictionaryCo.getStatus());
         }
 
     }
@@ -340,33 +350,37 @@ public class DictionaryRepo {
      * @param parm
      */
     private void handleUpdateInfo(StringBuilder sql,Dictionary dictionary, List<Object> parm){
-        if (null != dictionary.getDictionaryTypeType()){
-            sql.append(" dictionary_type_type = ?,");
-            parm.add(dictionary.getDictionaryTypeType());
-        }
         if (null != dictionary.getCode()){
             sql.append(" code = ?,");
             parm.add(dictionary.getCode());
+        }
+        if(null != dictionary.getType()){
+            sql.append(" type = ?, ");
+            parm.add(dictionary.getType());
+        }
+        if(null != dictionary.getName()){
+            sql.append(" code = ?, ");
+            parm.add(dictionary.getName());
+        }
+        if (null != dictionary.getLevel()){
+            sql.append(" level = ?,");
+            parm.add(dictionary.getLevel());
         }
         if (null != dictionary.getParentId()){
             sql.append(" parent_id = ?,");
             parm.add(dictionary.getParentId());
         }
-        if (null != dictionary.getEnName()){
-            sql.append(" en_name = ?,");
-            parm.add(dictionary.getEnName());
+        if (null != dictionary.getOrder()){
+            sql.append(" order = ?,");
+            parm.add(dictionary.getOrder());
         }
-        if (null != dictionary.getCnName()){
-            sql.append(" cn_name = ?,");
-            parm.add(dictionary.getCnName());
+        if (null != dictionary.getDescription()){
+            sql.append(" description = ?,");
+            parm.add(dictionary.getDescription());
         }
-        if (null != dictionary.getIdx()){
-            sql.append(" idx = ?,");
-            parm.add(dictionary.getIdx());
-        }
-        if (null != dictionary.getValidFlag()){
-            sql.append(" valid_flag = ?,");
-            parm.add(dictionary.getValidFlag());
+        if (null != dictionary.getStatus()){
+            sql.append(" status = ?,");
+            parm.add(dictionary.getStatus());
         }
         sql.append(" update_time = ? ");
         parm.add(new Timestamp(new java.util.Date().getTime()));
@@ -393,13 +407,14 @@ public class DictionaryRepo {
      */
     public static void DictionaryMapping(ResultSet resultSet, DictionaryBo dictionaryBo) throws SQLException {
         dictionaryBo.setId(resultSet.getInt("id"));
-        dictionaryBo.setDictionaryTypeType(resultSet.getInt("dictionaryTypeType"));
+        dictionaryBo.setType(resultSet.getString("type"));
         dictionaryBo.setCode(resultSet.getString("code"));
         dictionaryBo.setParentId(resultSet.getInt("parentId"));
-        dictionaryBo.setCnName(resultSet.getString("cnName"));
-        dictionaryBo.setEnName(resultSet.getString("enName"));
-        dictionaryBo.setIdx(resultSet.getInt("idx"));
-        dictionaryBo.setValidFlag(resultSet.getInt("validFlag"));
+        dictionaryBo.setName(resultSet.getString("name"));
+        dictionaryBo.setLevel(resultSet.getInt("level"));
+        dictionaryBo.setOrder(resultSet.getInt("order"));
+        dictionaryBo.setStatus(resultSet.getInt("status"));
+        dictionaryBo.setDescription(resultSet.getString("description"));
         dictionaryBo.setCreateTime(resultSet.getTimestamp("createTime"));
         dictionaryBo.setCreatorId(resultSet.getInt("creatorId"));
         dictionaryBo.setUpdateTime(resultSet.getTimestamp("updateTime"));

@@ -20,6 +20,11 @@ public class TeacherCertificate extends ModelTemplet{
     private Integer certificateType;
 
     /**
+     * 证书标题
+     */
+    private String certificateTitle;
+
+    /**
      * 证书图片
      */
     private String certificateImg;
@@ -30,9 +35,30 @@ public class TeacherCertificate extends ModelTemplet{
     private Date regDate;
 
     /**
-     * 描述
+     * 反馈描述
      */
     private String descr;
+
+    /**
+     * 0待审核，1审核通过，2不通过
+     */
+    private Integer status;
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public String getCertificateTitle() {
+        return certificateTitle;
+    }
+
+    public void setCertificateTitle(String certificateTitle) {
+        this.certificateTitle = certificateTitle;
+    }
 
     public Integer getTeacherId() {
         return teacherId;

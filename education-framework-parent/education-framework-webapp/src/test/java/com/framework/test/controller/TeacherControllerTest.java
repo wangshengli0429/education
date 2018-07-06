@@ -17,6 +17,11 @@ public class TeacherControllerTest extends BaseTest{
     }
 
     @Test
+    public void testList() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders.get("/teacher/list"));
+    }
+
+    @Test
     public void testPage() throws Exception{
         TeacherBo bo = new TeacherBo();
         bo.setName("aa");

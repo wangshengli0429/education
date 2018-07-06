@@ -12,7 +12,7 @@ public class Student extends ModelTemplet {
     /**
      * 用户id
      */
-    private Integer user_id;
+    private Integer userId;
 
     /**
      * 名
@@ -80,12 +80,12 @@ public class Student extends ModelTemplet {
     private String remark;
 
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -195,7 +195,7 @@ public class Student extends ModelTemplet {
     @Override
     public String toString() {
         return "Student{" +
-                "user_id=" + user_id +
+                "userId=" + userId +
                 ", id=" + id +
                 ", name='" + name + '\'' +
                 ", creatorId=" + creatorId +

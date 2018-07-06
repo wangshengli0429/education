@@ -97,4 +97,11 @@ public class GradeServiceImpl implements GradeApi{
         return ApiResponse.success(result,"查询成功");
     }
 
+    @Override
+    public ApiResponse<List<GradeBo>> listByDepartmentCode(String departmentCode) {
+        if (null==departmentCode){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"departmentCode不能为空!");}
+        List<GradeBo> subjectBos = gradeRepo.getListByKeyValue("department_code",1,"deleted",0);
+        return ApiResponse.success(subjectBos);
+    }
+
 }

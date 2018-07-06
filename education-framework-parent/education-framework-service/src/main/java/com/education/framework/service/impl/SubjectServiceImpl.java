@@ -96,5 +96,12 @@ public class SubjectServiceImpl implements SubjectApi{
         Page<SubjectBo> result = subjectRepo.getPageByCondition(condition,pageParam);
         return ApiResponse.success(result,"查询成功");
     }
-    
+
+    @Override
+    public ApiResponse<List<SubjectBo>> listByDepartmentCode(String departmentCode) {
+        if (null==departmentCode){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"departmentCode不能为空!");}
+        List<SubjectBo> subjectBos = subjectRepo.getListByKeyValue("department_code",1,"deleted",0);
+        return ApiResponse.success(subjectBos);
+    }
+
 }

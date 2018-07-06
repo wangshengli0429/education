@@ -12,7 +12,7 @@ public class Teacher extends ModelTemplet {
     /**
      * 用户id
      */
-    private Integer user_id;
+    private Integer userId;
 
     /**
      * 姓
@@ -88,22 +88,22 @@ public class Teacher extends ModelTemplet {
     /**
      * 身份认证状态
      */
-    private Integer idCardStatus;
+    private Integer authentication;
 
-    public Integer getIdCardStatus() {
-        return idCardStatus;
+    public Integer getAuthentication() {
+        return authentication;
     }
 
-    public void setIdCardStatus(Integer idCardStatus) {
-        this.idCardStatus = idCardStatus;
+    public void setAuthentication(Integer authentication) {
+        this.authentication = authentication;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getName() {
@@ -222,7 +222,7 @@ public class Teacher extends ModelTemplet {
     @Override
     public String toString() {
         return "Teacher{" +
-                "user_id=" + user_id +
+                "userId=" + userId +
                 ", id=" + id +
                 ", name='" + name + '\'' +
                 ", creatorId=" + creatorId +

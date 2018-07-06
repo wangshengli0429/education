@@ -10,7 +10,7 @@ public class Grade extends ModelTemplet{
     /**
      * 年级编码
      */
-    private Integer code;
+    private String code;
 
     /**
      * 年级名称
@@ -32,11 +32,11 @@ public class Grade extends ModelTemplet{
      */
     private Integer sort;
 
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
     }
 

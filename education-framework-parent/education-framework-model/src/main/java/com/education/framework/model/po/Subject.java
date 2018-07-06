@@ -27,6 +27,19 @@ public class Subject extends ModelTemplet {
      */
     private Integer sort;
 
+    /**
+     * 学部编码
+     */
+    private String departmentCode;
+
+    public String getDepartmentCode() {
+        return departmentCode;
+    }
+
+    public void setDepartmentCode(String departmentCode) {
+        this.departmentCode = departmentCode;
+    }
+
     public String getCode() {
         return code;
     }
