@@ -59,10 +59,6 @@ public class Student extends ModelTemplet {
      */
     private String address;
 
-    /**
-     * 身份证号
-     */
-    private String idNumber;
 
     /**
      * 简介
@@ -160,14 +156,6 @@ public class Student extends ModelTemplet {
         this.address = address;
     }
 
-    public String getIdNumber() {
-        return idNumber;
-    }
-
-    public void setIdNumber(String idNumber) {
-        this.idNumber = idNumber;
-    }
-
     public String getSelfDescr() {
         return selfDescr;
     }
@@ -209,7 +197,6 @@ public class Student extends ModelTemplet {
                 ", deleted=" + deleted +
                 ", dictrict='" + dictrict + '\'' +
                 ", address='" + address + '\'' +
-                ", idNumber='" + idNumber + '\'' +
                 ", selfDescr='" + selfDescr + '\'' +
                 ", photo='" + photo + '\'' +
                 ", remark='" + remark + '\'' +

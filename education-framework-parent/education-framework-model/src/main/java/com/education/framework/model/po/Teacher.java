@@ -90,6 +90,19 @@ public class Teacher extends ModelTemplet {
      */
     private Integer authentication;
 
+    /**
+     * 大学
+     */
+    private String university;
+
+    public String getUniversity() {
+        return university;
+    }
+
+    public void setUniversity(String university) {
+        this.university = university;
+    }
+
     public Integer getAuthentication() {
         return authentication;
     }

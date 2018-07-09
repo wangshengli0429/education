@@ -15,6 +15,16 @@ public class Comment extends ModelTemplet{
     private Integer teacherId;
 
     /**
+     * 订单id
+     */
+    private Integer orderId;
+
+    /**
+     * 评星
+     */
+    private Integer commentValue;
+
+    /**
      * 评论内容
      */
     private String commentContent;
@@ -33,6 +43,22 @@ public class Comment extends ModelTemplet{
      * 状态 1有用，0无用
      */
     private Integer status;
+
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
+
+    public Integer getCommentValue() {
+        return commentValue;
+    }
+
+    public void setCommentValue(Integer commentValue) {
+        this.commentValue = commentValue;
+    }
 
     public Integer getTeacherId() {
         return teacherId;

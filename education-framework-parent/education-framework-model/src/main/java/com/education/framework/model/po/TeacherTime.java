@@ -15,14 +15,15 @@ public class TeacherTime extends ModelTemplet{
     private Integer teacherId;
 
     /**
-     * 年级code
+     * 预约状态：0可预约，1已预约
      */
-    private String gradeCode;
+    private Integer timeStatus;
 
     /**
-     * 科目code
+     * 时间段，1上午8：00-12：00，2下午13：00-21：00
      */
-    private String subjectCode;
+    private Integer period;
+
 
     /**
      * 开始授课时间'
@@ -34,7 +35,6 @@ public class TeacherTime extends ModelTemplet{
      */
     private Date endTime;
 
-
     public Integer getTeacherId() {
         return teacherId;
     }
@@ -43,20 +43,20 @@ public class TeacherTime extends ModelTemplet{
         this.teacherId = teacherId;
     }
 
-    public String getGradeCode() {
-        return gradeCode;
+    public Integer getTimeStatus() {
+        return timeStatus;
     }
 
-    public void setGradeCode(String gradeCode) {
-        this.gradeCode = gradeCode;
+    public void setTimeStatus(Integer timeStatus) {
+        this.timeStatus = timeStatus;
     }
 
-    public String getSubjectCode() {
-        return subjectCode;
+    public Integer getPeriod() {
+        return period;
     }
 
-    public void setSubjectCode(String subjectCode) {
-        this.subjectCode = subjectCode;
+    public void setPeriod(Integer period) {
+        this.period = period;
     }
 
     public Date getBeginTime() {
@@ -77,18 +77,18 @@ public class TeacherTime extends ModelTemplet{
 
     @Override
     public String toString() {
-        return "TeachTime{" +
-                "teacherId=" + teacherId +
-                ", id=" + id +
+        return "TeacherTime{" +
+                "id=" + id +
+                ", teacherId=" + teacherId +
                 ", creatorId=" + creatorId +
-                ", gradeCode='" + gradeCode + '\'' +
+                ", timeStatus=" + timeStatus +
                 ", createTime=" + createTime +
-                ", subjectCode='" + subjectCode + '\'' +
-                ", beginTime=" + beginTime +
+                ", period=" + period +
                 ", updaterId=" + updaterId +
-                ", endTime=" + endTime +
+                ", beginTime=" + beginTime +
                 ", updateTime=" + updateTime +
+                ", endTime=" + endTime +
                 ", deleted=" + deleted +
-                '}';
+                "} " + super.toString();
     }
 }

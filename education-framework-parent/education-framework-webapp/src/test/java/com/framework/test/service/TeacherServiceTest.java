@@ -55,7 +55,6 @@ public class TeacherServiceTest extends BaseTest{
     public void saveTeacherTime(){
         TeacherTimeBo teacherTimeBo = new TeacherTimeBo();
         teacherTimeBo.setTeacherId(1);
-        teacherTimeBo.setSubjectCode("qq");
         ApiResponse<Integer> apiResponse = teacherTimeApi.save(teacherTimeBo);
         System.out.println();
     }
