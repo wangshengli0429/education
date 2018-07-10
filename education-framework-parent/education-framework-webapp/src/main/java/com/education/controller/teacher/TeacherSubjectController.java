@@ -1,8 +1,14 @@
 package com.education.controller.teacher;
 
+import com.education.framework.common.response.ApiResponse;
 import com.education.framework.common.response.ResultData;
+import com.education.framework.common.response.constants.ApiRetCode;
 import com.education.framework.model.bo.TeacherSubjectBo;
+import com.education.framework.model.po.TeacherSubject;
+import com.education.framework.service.TeacherSubjectApi;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,30 +27,60 @@ import java.util.List;
 @RequestMapping("/teacherSubject")
 public class TeacherSubjectController {
 
-    @RequestMapping(value = "/byTeacherId",method = RequestMethod.GET)
-    public ResultData getByTeacherId(@RequestParam Integer teacherId){
-        List<TeacherSubjectBo> list = new ArrayList<TeacherSubjectBo>();
-        TeacherSubjectBo teacherSubjectBo = new TeacherSubjectBo();
-        teacherSubjectBo.setId(1);
-        teacherSubjectBo.setTeacherId(1);
-        teacherSubjectBo.setGradeCode("a");
-        teacherSubjectBo.setSubjectCode("b");
-        teacherSubjectBo.setDepartmentCode("c");
-        teacherSubjectBo.setPrice(100d);
-        list.add(teacherSubjectBo);
-        return ResultData.successed(list);
+    @Autowired
+    private TeacherSubjectApi teacherSubjectApi;
+
+    @RequestMapping(value = "/save",method = RequestMethod.POST)
+    public ResultData save(@RequestBody TeacherSubjectBo teacherSubjectBo){
+        if (null==teacherSubjectBo){return ResultData.failed("teacherSubjectBo不能为空!");}
+        ApiResponse<Integer> apiResponse = teacherSubjectApi.save(teacherSubjectBo);
+        if (ApiRetCode.SUCCESS_CODE != apiResponse.getRetCode()){
+            return ResultData.failed(apiResponse.getMessage());
+        }
+        return ResultData.successed(apiResponse.getBody());
     }
 
     @RequestMapping(value = "/getById",method = RequestMethod.GET)
     public ResultData getById(@RequestParam Integer id){
-        TeacherSubjectBo teacherSubjectBo = new TeacherSubjectBo();
-        teacherSubjectBo.setId(1);
-        teacherSubjectBo.setTeacherId(1);
-        teacherSubjectBo.setGradeCode("a");
-        teacherSubjectBo.setSubjectCode("b");
-        teacherSubjectBo.setDepartmentCode("c");
-        teacherSubjectBo.setPrice(100d);
-        return ResultData.successed(teacherSubjectBo);
+        if (null==id){return ResultData.failed("id不能为空!");}
+        ApiResponse<TeacherSubjectBo> apiResponse = teacherSubjectApi.getById(id);
+        if (ApiRetCode.SUCCESS_CODE != apiResponse.getRetCode()){
+            return ResultData.failed(apiResponse.getMessage());
+        }
+        return ResultData.successed(apiResponse.getBody());
+    }
+
+    @RequestMapping(value = "/update",method = RequestMethod.PUT)
+    public ResultData updateById(@RequestBody TeacherSubjectBo teacherSubjectBo){
+        if (null==teacherSubjectBo){return ResultData.failed("teacherSubjectBo不能为空!");}
+        ApiResponse<Integer> apiResponse = teacherSubjectApi.updateById(teacherSubjectBo);
+        if (ApiRetCode.SUCCESS_CODE != apiResponse.getRetCode()){
+            return ResultData.failed(apiResponse.getMessage());
+        }
+        return ResultData.successed(apiResponse.getBody());
+    }
+
+    @RequestMapping(value = "/delete",method = RequestMethod.DELETE)
+    public ResultData deleteById(@RequestParam Integer id){
+        if (null==id){return ResultData.failed("id不能为空!");}
+        ApiResponse<Integer> apiResponse = teacherSubjectApi.deleteById(id,-1);
+        if (ApiRetCode.SUCCESS_CODE != apiResponse.getRetCode()){
+            return ResultData.failed(apiResponse.getMessage());
+        }
+        return ResultData.successed(apiResponse.getBody());
+    }
+
+
+    @RequestMapping(value = "/teacherId",method = RequestMethod.GET)
+    public ResultData getByTeacherId(@RequestParam Integer teacherId){
+        if (null==teacherId){return ResultData.failed("teacherId不能为空!");}
+        TeacherSubject teacherSubject = new TeacherSubject();
+        teacherSubject.setTeacherId(teacherId);
+        ApiResponse<List<TeacherSubjectBo>> apiResponse = teacherSubjectApi.getListByCondition(teacherSubject);
+        if (ApiRetCode.SUCCESS_CODE != apiResponse.getRetCode()){
+            return ResultData.failed(apiResponse.getMessage());
+        }
+        return ResultData.successed(apiResponse.getBody());
     }
 
 

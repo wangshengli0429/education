@@ -7,6 +7,7 @@ import com.education.framework.model.bo.TeacherBo;
 import com.education.framework.model.co.TeacherCo;
 import com.education.framework.model.vo.TeacherVo;
 import com.education.framework.service.TeacherApi;
+import com.education.framework.service.UserApi;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,11 +28,15 @@ public class TeacherController {
 	private static Logger logger = Logger.getLogger(TeacherController.class);
 	
 	@Autowired
-	TeacherApi teacherApi;
+	private TeacherApi teacherApi;
+
+	@Autowired
+	private UserApi userApi;
 
 	@RequestMapping(value = "/save",method = RequestMethod.POST)
 	public ResultData save(@RequestBody TeacherBo teacherBo){
 		if (null==teacherBo){return ResultData.failed("teacherBo不能为空!");}
+		if (null==teacherBo.getUserId()){return ResultData.failed("userId不能为空!");}
 		ApiResponse<Integer> apiResponse = teacherApi.save(teacherBo);
 		return ApiRetCode.SUCCESS_CODE == apiResponse.getRetCode()?ResultData.successed(apiResponse.getMessage(),apiResponse.getBody()):ResultData.failed(apiResponse.getMessage());
 	}
@@ -39,27 +44,22 @@ public class TeacherController {
 	@RequestMapping(value = "/getById",method = RequestMethod.GET)
 	public ResultData getById(@RequestParam Integer id){
 		if (null==id){return ResultData.failed("id不能为空!");}
-		TeacherBo teacherBo = new TeacherBo();
-		teacherBo.setId(1);
-		teacherBo.setSurname("熊");
-		teacherBo.setName("凡");
-		teacherBo.setSex(1);
-		teacherBo.setBirthday(new Date());
-		teacherBo.setNativePlace("湖北");
-		teacherBo.setProvince("北京");
-		teacherBo.setCity("北京市");
-		teacherBo.setDictrict("海淀区");
-		teacherBo.setAddress("鑫磊沙公寓305");
-		teacherBo.setEducaion("本科");
-		teacherBo.setMajor("计算机科学与技术");
-		teacherBo.setSelfDescr("本人武汉大学毕业，多年从事教育工作...");
-		teacherBo.setPhoto("http：//a/s.jpg");
-		teacherBo.setAuthentication(1);
-		teacherBo.setCreateTime(new Date());
-		teacherBo.setCreatorId(1);
-		teacherBo.setUpdateTime(new Date());
-		teacherBo.setUpdaterId(1);
-		return ResultData.successed(teacherBo);
+		ApiResponse<TeacherBo> apiResponse = teacherApi.getById(id);
+		if (ApiRetCode.SUCCESS_CODE != apiResponse.getRetCode()){
+			return ResultData.failed(apiResponse.getMessage());
+		}
+		return ResultData.successed(apiResponse.getBody());
+	}
+
+	@RequestMapping(value = "/update",method = RequestMethod.PUT)
+	public ResultData updateById(@RequestBody TeacherBo teacherBo){
+		if (null==teacherBo){return ResultData.failed("teacherBo不能为空!");}
+		if (null==teacherBo.getId()){return ResultData.failed("id不能为空!");}
+		ApiResponse<Integer> apiResponse = teacherApi.updateById(teacherBo);
+		if (ApiRetCode.SUCCESS_CODE != apiResponse.getRetCode()){
+			return ResultData.failed(apiResponse.getMessage());
+		}
+		return ResultData.successed(apiResponse.getBody());
 	}
 
 	@RequestMapping(value = "/list",method = RequestMethod.GET)

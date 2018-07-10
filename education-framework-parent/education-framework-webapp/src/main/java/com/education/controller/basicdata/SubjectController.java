@@ -8,6 +8,8 @@ import com.education.framework.model.bo.BasicDataBo;
 import com.education.framework.model.bo.DictionaryBo;
 import com.education.framework.model.bo.GradeBo;
 import com.education.framework.model.bo.SubjectBo;
+import com.education.framework.model.constant.DictionaryEnum;
+import com.education.framework.model.constant.SubjectEnum;
 import com.education.framework.model.po.Dictionary;
 import com.education.framework.model.po.Subject;
 import com.education.framework.service.DictionaryApi;
@@ -70,21 +72,21 @@ public class SubjectController{
     public ResultData getBasicData(){
         BasicDataBo basicDataBo = new BasicDataBo();
         Dictionary dictionary = new Dictionary();
-        dictionary.setStatus(1);
-        dictionary.setType("department");
+        dictionary.setStatus(DictionaryEnum.status.ENABLE.getValue());
+        dictionary.setType(SubjectEnum.DEPARTMENT_TYPE);
         ApiResponse<List<DictionaryBo>> apiResponse = dictionaryApi.getListByCondition(dictionary);
         if (ApiRetCode.SUCCESS_CODE == apiResponse.getRetCode()){
             basicDataBo.setDepartmentBos(apiResponse.getBody());
         }
-        ApiResponse<List<SubjectBo>> subApiResponse = subjectApi.listByDepartmentCode("1");
+        String departmentCode = SubjectEnum.departmentCode.xiaoxue.getValue();
+        ApiResponse<List<SubjectBo>> subApiResponse = subjectApi.listByDepartmentCode(departmentCode);
         if (ApiRetCode.SUCCESS_CODE == subApiResponse.getRetCode()){
             basicDataBo.setSubjectBos(subApiResponse.getBody());
         }
-        ApiResponse<List<GradeBo>> gradApiResponse = gradeApi.listByDepartmentCode("1");
+        ApiResponse<List<GradeBo>> gradApiResponse = gradeApi.listByDepartmentCode(departmentCode);
         if (ApiRetCode.SUCCESS_CODE == gradApiResponse.getRetCode()){
             basicDataBo.setGradeBos(gradApiResponse.getBody());
         }
-        basicDataBo.setDepartmentCode("1");
         return ResultData.successed(basicDataBo);
     }
 

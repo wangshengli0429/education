@@ -35,7 +35,7 @@ public class TeacherCertificate extends ModelTemplet{
     private Date regDate;
 
     /**
-     * 反馈描述
+     * 审核不通过反馈描述
      */
     private String descr;
 

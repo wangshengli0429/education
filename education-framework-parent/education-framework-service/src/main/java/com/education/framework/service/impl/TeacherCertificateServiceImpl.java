@@ -6,6 +6,7 @@ import com.education.framework.model.base.Page;
 import com.education.framework.model.base.PageParam;
 import com.education.framework.model.bo.TeacherCertificateBo;
 import com.education.framework.model.co.TeacherCertificateCo;
+import com.education.framework.model.constant.TeacherCertificateEnum;
 import com.education.framework.model.po.TeacherCertificate;
 import com.education.framework.repo.TeacherCertificateRepo;
 import com.education.framework.service.TeacherCertificateApi;
@@ -41,7 +42,14 @@ public class TeacherCertificateServiceImpl implements TeacherCertificateApi{
     @Override
     public ApiResponse<Integer> updateById(TeacherCertificateBo teacherCertificateBo) {
         if (null==teacherCertificateBo){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherCertificateBo不能为空!");}
-        if (null==teacherCertificateBo.getId()){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherCertificateBo.getId()不能为空!");}
+        if (null==teacherCertificateBo.getId()){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"id不能为空!");}
+        TeacherCertificateBo certificateBo = teacherCertificateRepo.getById(teacherCertificateBo.getId());
+        if (null==certificateBo){
+            return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"数据不存在");
+        }
+        if (certificateBo.getStatus().equals(TeacherCertificateEnum.status.check_pass.getValue())){
+            return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"审核已通过，不允许修改");
+        }
         int result = teacherCertificateRepo.updateById(teacherCertificateBo);
         return ApiResponse.success(result,"修改成功");
     }
