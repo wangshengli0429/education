@@ -7,6 +7,7 @@ import com.education.framework.model.base.PageParam;
 import com.education.framework.model.bo.TeacherBo;
 import com.education.framework.model.co.TeacherCo;
 import com.education.framework.model.po.Teacher;
+import com.education.framework.model.vo.TeacherVo;
 import com.education.framework.repo.TeacherRepo;
 import com.education.framework.service.TeacherApi;
 import org.springframework.stereotype.Service;
@@ -86,7 +87,29 @@ public class TeacherServiceImpl implements TeacherApi{
     @Override
     public ApiResponse<Page<TeacherBo>> getPageByCondition(TeacherCo condition, PageParam pageParam) {
         if (null==condition){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"condition不能为空!");}
+        if (null==pageParam){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"pageParam不能为空!");}
         Page<TeacherBo> result = teacherRepo.getPageByCondition(condition,pageParam);
         return ApiResponse.success(result,"查询成功");
+    }
+
+    @Override
+    public ApiResponse<Page<TeacherVo>> getPageByTeacher(TeacherCo condition) {
+        if (null==condition){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"condition不能为空!");}
+        Page<TeacherVo> resultData = new Page<TeacherVo>();
+        List<TeacherVo> list = teacherRepo.listByTeacher(condition);
+        resultData.setList(list);
+        if (null!=condition.getPageNum() && null!=condition.getPageSize()) {
+            int count = teacherRepo.countByTeacher(condition);
+            resultData.setPageSize(condition.getPageSize()); //每页数据量
+            int pageCount = (count + condition.getPageSize() - 1) / condition.getPageSize(); // 总页数
+            resultData.setPageTotal(pageCount); //总页数
+            int pageNum = condition.getPageNum(); // 页码
+            if (pageNum > pageCount) {
+                pageNum = condition.getPageNum() - 1; // 页码
+            }
+            resultData.setItemTotal(count); //总记录数
+            resultData.setPageNum(pageNum); //页码
+        }
+        return ApiResponse.success(resultData, "查询成功");
     }
 }

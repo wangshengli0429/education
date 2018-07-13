@@ -3,11 +3,17 @@ package com.education.controller.teacher;
 import com.education.framework.common.response.ApiResponse;
 import com.education.framework.common.response.ResultData;
 import com.education.framework.common.response.constants.ApiRetCode;
+import com.education.framework.common.util.AgeUtils;
+import com.education.framework.common.util.BaseMapper;
+import com.education.framework.model.base.Page;
+import com.education.framework.model.base.PageParam;
 import com.education.framework.model.bo.TeacherBo;
 import com.education.framework.model.co.TeacherCo;
+import com.education.framework.model.constant.TeacherEnum;
 import com.education.framework.model.vo.TeacherVo;
 import com.education.framework.service.TeacherApi;
 import com.education.framework.service.UserApi;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,8 +36,9 @@ public class TeacherController {
 	@Autowired
 	private TeacherApi teacherApi;
 
+
 	@Autowired
-	private UserApi userApi;
+	private BaseMapper baseMapper;
 
 	@RequestMapping(value = "/save",method = RequestMethod.POST)
 	public ResultData save(@RequestBody TeacherBo teacherBo){
@@ -62,21 +69,68 @@ public class TeacherController {
 		return ResultData.successed(apiResponse.getBody());
 	}
 
+//	@RequestMapping(value = "/list",method = RequestMethod.GET)
+//	public ResultData list(TeacherCo teacherCo){
+//		PageParam pageParam = new PageParam();
+//		if (null != teacherCo.getSortOrder() && teacherCo.getSortOrder().equals(TeacherCo.ZONGHE)){
+//			pageParam.setOrderBy(" update_time desc ");
+//		}
+//		if (null != teacherCo.getSortOrder() && teacherCo.getSortOrder().equals(TeacherCo.COMMENT_DESC)){
+//			pageParam.setOrderBy(" comment_count desc ");
+//		}
+//		if (null != teacherCo.getSortOrder() && teacherCo.getSortOrder().equals(TeacherCo.ORDER_DESC)){
+//			pageParam.setOrderBy(" order_count desc ");
+//		}
+//		pageParam.setPageSize(null==teacherCo.getPageSize()? 20:teacherCo.getPageSize());
+//		pageParam.setPageNum(null==teacherCo.getPageNum()? 1:teacherCo.getPageNum());
+//		teacherCo.setAuthentication(TeacherEnum.authentication.pass.getValue());
+//		ApiResponse<Page<TeacherBo>> apiResponse = teacherApi.getPageByCondition(teacherCo,pageParam);
+//		if (ApiRetCode.SUCCESS_CODE != apiResponse.getRetCode()){
+//			return ResultData.failed(apiResponse.getMessage());
+//		}
+//		Page<TeacherVo> teacherVoPage = this.boToVo(apiResponse.getBody());
+//
+//		return ResultData.successed();
+//	}
+
+	/**
+	 * app 教师列表页
+	 * @param teacherCo
+	 * @return
+	 */
 	@RequestMapping(value = "/list",method = RequestMethod.GET)
 	public ResultData list(TeacherCo teacherCo){
-		TeacherVo teacherVo = new TeacherVo();
-		teacherVo.setId(1);
-		teacherVo.setUserId(1);
-		teacherVo.setArea("北京市");
-		teacherVo.setGender("男");
-		teacherVo.setName("周老师");
-		teacherVo.setSubjects("小学语文、小学数学");
-		teacherVo.setAttentionCount(10);
-		teacherVo.setCommentCount(10);
-		teacherVo.setOrderCount(10);
-		List<TeacherVo> list = new ArrayList<TeacherVo>();
-		list.add(teacherVo);
-		return ResultData.successed(list);
+		if (null==teacherCo){return ResultData.failed("teacherCo不能为空!");}
+		ApiResponse<Page<TeacherVo>> apiResponse = null;
+		try {
+			apiResponse = teacherApi.getPageByTeacher(teacherCo);
+			if (ApiRetCode.SUCCESS_CODE != apiResponse.getRetCode()){
+				return ResultData.failed(apiResponse.getMessage());
+			}
+			this.teacherHandle(apiResponse.getBody());
+			return ResultData.successed(apiResponse.getBody());
+		}catch (Exception e){
+
+		}
+		return ResultData.successed(apiResponse.getBody());
 	}
+
+	private void teacherHandle(Page<TeacherVo> teacherVoPage) throws Exception{
+		if (CollectionUtils.isNotEmpty(teacherVoPage.getList())){
+			for (TeacherVo teacher:teacherVoPage.getList()){
+				teacher.setName(teacher.getName()+"老师");
+				String gender = "男";
+				if (teacher.getSex().equals(TeacherEnum.SEX_GIRL)){
+					teacher.setGender("男");
+				}else {
+					teacher.setGender("女");
+				}
+				// 计算年龄
+				teacher.setAge(AgeUtils.getAge(teacher.getBirthday()));
+				teacher.setSubjects(teacher.getSubjects()+"...");
+			}
+		}
+	}
+
 	
 }

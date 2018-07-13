@@ -1,6 +1,7 @@
 package com.framework.test.controller;
 
 import com.education.framework.model.bo.TeacherBo;
+import com.education.framework.model.vo.TeacherVo;
 import com.framework.test.base.BaseTest;
 import org.junit.Test;
 import org.springframework.http.MediaType;
@@ -18,7 +19,12 @@ public class TeacherControllerTest extends BaseTest{
 
     @Test
     public void testList() throws Exception{
-        mockMvc.perform(MockMvcRequestBuilders.get("/teacher/list"));
+        TeacherVo bvo = new TeacherVo();
+        mockMvc.perform(MockMvcRequestBuilders.
+        get("/teacher/list").contentType(MediaType.APPLICATION_JSON_UTF8)
+        .param("pageNum","1")
+        .param("pageSize","10"));
+
     }
 
     @Test

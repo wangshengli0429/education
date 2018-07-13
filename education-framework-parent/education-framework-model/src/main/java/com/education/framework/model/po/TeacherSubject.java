@@ -28,9 +28,36 @@ public class TeacherSubject extends ModelTemplet{
     private String departmentCode;
 
     /**
+     * 科目名称
+     */
+    private String subjectName;
+
+    /**
+     * 年级名称
+     */
+    private String gradeName;
+
+    /**
      * 价格
      */
     private Double price;
+
+
+    public String getSubjectName() {
+        return subjectName;
+    }
+
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
+    }
+
+    public String getGradeName() {
+        return gradeName;
+    }
+
+    public void setGradeName(String gradeName) {
+        this.gradeName = gradeName;
+    }
 
     public Double getPrice() {
         return price;

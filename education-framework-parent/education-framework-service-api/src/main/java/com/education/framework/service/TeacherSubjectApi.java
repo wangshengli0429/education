@@ -21,12 +21,6 @@ public interface TeacherSubjectApi {
      */
     ApiResponse<Integer> save(TeacherSubjectBo teacherSubjectBo);
 
-    /**
-     * 批量保存
-     * @param list
-     * @return
-     */
-    ApiResponse<int[]> batchSave(List<TeacherSubject> list);
 
     /**
      * 根据id修改

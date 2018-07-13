@@ -3,6 +3,7 @@ package com.framework.test.service;
 import com.education.framework.common.response.ApiResponse;
 import com.education.framework.model.bo.DictionaryBo;
 import com.education.framework.service.DictionaryApi;
+import com.education.framework.service.DistrictApi;
 import com.framework.test.base.BaseTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +21,14 @@ import java.util.List;
 public class DictionaryServiceTest extends BaseTest {
 
     @Resource
+    private DistrictApi districtApi;
+
+    @Resource
     private DictionaryApi dictionaryApi;
+
+
+
+
 
     @Test
     public void testListByCodes(){

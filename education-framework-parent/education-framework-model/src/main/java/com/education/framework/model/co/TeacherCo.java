@@ -10,6 +10,22 @@ import java.util.Set;
  */
 public class TeacherCo extends Teacher {
 
+    /**
+     * 综合排序
+     */
+    public static final Integer ZONGHE = 1;
+
+    /**
+     * 评论数降序
+     */
+    public static final Integer COMMENT_DESC = 2;
+
+    /**
+     * 订单数降序
+     */
+    public static final Integer ORDER_DESC = 3;
+
+
 
     /**
      * 每页条数
@@ -32,6 +48,16 @@ public class TeacherCo extends Teacher {
     private String departmentCode;
 
     /**
+     * 科目code
+     */
+    private String subjectCode;
+
+    /**
+     * 年级code
+     */
+    private String gradeCode;
+
+    /**
      * 年级集合
      */
     private Set<String> gradeCodeBos;
@@ -40,6 +66,23 @@ public class TeacherCo extends Teacher {
      * 学部集合
      */
     private Set<String> subjectCodeBos;
+
+
+    public String getSubjectCode() {
+        return subjectCode;
+    }
+
+    public void setSubjectCode(String subjectCode) {
+        this.subjectCode = subjectCode;
+    }
+
+    public String getGradeCode() {
+        return gradeCode;
+    }
+
+    public void setGradeCode(String gradeCode) {
+        this.gradeCode = gradeCode;
+    }
 
     public String getDepartmentCode() {
         return departmentCode;

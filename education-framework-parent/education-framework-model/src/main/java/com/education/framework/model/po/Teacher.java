@@ -95,6 +95,58 @@ public class Teacher extends ModelTemplet {
      */
     private String university;
 
+    /**
+     * 审核失败反馈
+     */
+    private String failureReason;
+
+    /**
+     * 关注数
+     */
+    private Integer attentionCount;
+
+    /**
+     * 订单数
+     */
+    private Integer orderCount;
+
+    /**
+     * 评论数
+     */
+    private Integer commentCount;
+
+    public String getFailureReason() {
+        return failureReason;
+    }
+
+    public void setFailureReason(String failureReason) {
+        this.failureReason = failureReason;
+    }
+
+    public Integer getAttentionCount() {
+        return attentionCount;
+    }
+
+    public void setAttentionCount(Integer attentionCount) {
+        this.attentionCount = attentionCount;
+    }
+
+    public Integer getOrderCount() {
+        return orderCount;
+    }
+
+    public void setOrderCount(Integer orderCount) {
+        this.orderCount = orderCount;
+    }
+
+    public Integer getCommentCount() {
+        return commentCount;
+    }
+
+    public void setCommentCount(Integer commentCount) {
+        this.commentCount = commentCount;
+    }
+
     public String getUniversity() {
         return university;
     }

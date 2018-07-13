@@ -6,7 +6,10 @@ import com.education.framework.model.base.Page;
 import com.education.framework.model.base.PageParam;
 import com.education.framework.model.bo.TeacherSubjectBo;
 import com.education.framework.model.co.TeacherSubjectCo;
+import com.education.framework.model.po.Grade;
 import com.education.framework.model.po.TeacherSubject;
+import com.education.framework.repo.GradeRepo;
+import com.education.framework.repo.SubjectRepo;
 import com.education.framework.repo.TeacherSubjectRepo;
 import com.education.framework.service.TeacherSubjectApi;
 import org.springframework.stereotype.Service;
@@ -23,25 +26,42 @@ public class TeacherSubjectServiceImpl implements TeacherSubjectApi{
     @Resource
     private TeacherSubjectRepo teacherSubjectRepo;
 
+    @Resource
+    private SubjectRepo subjectRepo;
+
+    @Resource
+    private GradeRepo gradeRepo;
+
     @Override
     public ApiResponse<Integer> save(TeacherSubjectBo teacherSubjectBo) {
         if (null==teacherSubjectBo){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherSubjectBo不能为空!");}
+        if (null==teacherSubjectBo.getDepartmentCode()){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"departmentCode不能为空!");}
+        if (null==teacherSubjectBo.getSubjectCode()){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"subjectCode不能为空!");}
+        String subjectName = subjectRepo.getByKeyValue("code",teacherSubjectBo.getSubjectCode()).getName();
+        String gradeName = "";
+        if (teacherSubjectBo.getGradeCode() != null){
+            gradeName = gradeRepo.getByKeyValue("code",teacherSubjectBo.getGradeCode()).getName();
+            subjectName = gradeName+subjectName;
+        }
+        teacherSubjectBo.setSubjectName(subjectName);
+        teacherSubjectBo.setGradeName(gradeName);
         int result = teacherSubjectRepo.save(teacherSubjectBo);
         return ApiResponse.success(result,"保存成功");
     }
 
-    @Override
-    public ApiResponse<int[]> batchSave(List<TeacherSubject> list) {
-        if (null==list){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"list不能为空!");}
-        if (list.size()<=0){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"list.size()不能<=0!");}
-        int[] result = teacherSubjectRepo.batchSave(list);
-        return ApiResponse.success(result,"保存成功");
-    }
 
+    /**
+     * 修改，只允许修改价格
+     * @param teacherSubjectBo
+     * @return
+     */
     @Override
     public ApiResponse<Integer> updateById(TeacherSubjectBo teacherSubjectBo) {
         if (null==teacherSubjectBo){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherSubjectBo不能为空!");}
         if (null==teacherSubjectBo.getId()){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherSubjectBo.getId()不能为空!");}
+        if (null!=teacherSubjectBo.getGradeCode()){teacherSubjectBo.setGradeCode(null);}
+        if (null!=teacherSubjectBo.getDepartmentCode()){teacherSubjectBo.setDepartmentCode(null);}
+        if (null!=teacherSubjectBo.getGradeCode()){teacherSubjectBo.setGradeCode(null);}
         int result = teacherSubjectRepo.updateById(teacherSubjectBo);
         return ApiResponse.success(result,"修改成功");
     }

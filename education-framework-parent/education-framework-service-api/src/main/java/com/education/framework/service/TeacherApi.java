@@ -6,6 +6,7 @@ import com.education.framework.model.base.PageParam;
 import com.education.framework.model.bo.TeacherBo;
 import com.education.framework.model.co.TeacherCo;
 import com.education.framework.model.po.Teacher;
+import com.education.framework.model.vo.TeacherVo;
 
 import java.util.List;
 
@@ -78,5 +79,13 @@ public interface TeacherApi {
      * @return
      */
     ApiResponse<Page<TeacherBo>> getPageByCondition(TeacherCo condition,PageParam pageParam);
+
+    /**
+     * 分页查询列表
+     * @param condition
+     * @return
+     */
+    ApiResponse<Page<TeacherVo>> getPageByTeacher(TeacherCo condition);
+
 
 }
