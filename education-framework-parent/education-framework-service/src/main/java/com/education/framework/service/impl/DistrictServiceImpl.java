@@ -40,6 +40,11 @@ public class DistrictServiceImpl implements DistrictApi{
         return ApiResponse.success(row);
     }
 
+    @Override
+    public ApiResponse<District> getByCode(String code){
+        District district = districtRepo.getByKeyValue("area_code",code);
+        return ApiResponse.success(district);
+    }
 
 
 }

@@ -36,6 +36,13 @@ public interface TeacherTimeApi {
     ApiResponse<Integer> updateById(TeacherTimeBo teacherTimeBo);
 
     /**
+     * 批量保存
+     * @param list
+     * @return
+     */
+    ApiResponse<Integer> batchUpdateById(List<TeacherTime> list);
+
+    /**
      * 逻辑删除
      * @param id
      * @param operatorId 操作人

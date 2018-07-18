@@ -55,6 +55,14 @@ public class OrderAppointmentServiceImpl implements OrderAppointmentApi{
     }
 
     @Override
+    public ApiResponse<Integer> batchDeleteById(List<Integer> ids,Integer operatorId) {
+        if (null==ids){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"ids不能为空!");}
+        if (null==operatorId){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"operatorId不能为空!");}
+        int result = orderAppointmentRepo.batchDeleteById(ids,operatorId);
+        return ApiResponse.success(result,"删除成功");
+    }
+
+    @Override
     public ApiResponse<OrderAppointmentBo> getById(Integer id) {
         if (null==id){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"id不能为空!");}
         OrderAppointmentBo orderAppointmentBo = orderAppointmentRepo.getById(id);

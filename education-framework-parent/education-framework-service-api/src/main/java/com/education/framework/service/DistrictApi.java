@@ -35,6 +35,13 @@ public interface DistrictApi {
      */
     ApiResponse<Integer> updateById(District district);
 
+    /**
+     * 根据id修改
+     * @param code
+     * @return
+     */
+    ApiResponse<District> getByCode(String code);
+
 
 
 }

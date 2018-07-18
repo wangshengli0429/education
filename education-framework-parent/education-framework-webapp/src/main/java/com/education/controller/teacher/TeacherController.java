@@ -8,11 +8,15 @@ import com.education.framework.common.util.BaseMapper;
 import com.education.framework.model.base.Page;
 import com.education.framework.model.base.PageParam;
 import com.education.framework.model.bo.TeacherBo;
+import com.education.framework.model.co.TeacherCertificateCo;
 import com.education.framework.model.co.TeacherCo;
+import com.education.framework.model.co.TeacherSubjectCo;
+import com.education.framework.model.constant.TeacherCertificateEnum;
 import com.education.framework.model.constant.TeacherEnum;
+import com.education.framework.model.po.District;
+import com.education.framework.model.po.TeacherSubject;
 import com.education.framework.model.vo.TeacherVo;
-import com.education.framework.service.TeacherApi;
-import com.education.framework.service.UserApi;
+import com.education.framework.service.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +42,13 @@ public class TeacherController {
 
 
 	@Autowired
-	private BaseMapper baseMapper;
+	private TeacherCertificateApi teacherCertificateApi;
+
+	@Autowired
+	private TeacherSubjectApi teacherSubjectApi;
+
+	@Autowired
+	private DistrictApi districtApi;
 
 	@RequestMapping(value = "/save",method = RequestMethod.POST)
 	public ResultData save(@RequestBody TeacherBo teacherBo){
@@ -48,6 +58,11 @@ public class TeacherController {
 		return ApiRetCode.SUCCESS_CODE == apiResponse.getRetCode()?ResultData.successed(apiResponse.getMessage(),apiResponse.getBody()):ResultData.failed(apiResponse.getMessage());
 	}
 
+	/**
+	 * 个人中心
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping(value = "/getById",method = RequestMethod.GET)
 	public ResultData getById(@RequestParam Integer id){
 		if (null==id){return ResultData.failed("id不能为空!");}
@@ -57,6 +72,44 @@ public class TeacherController {
 		}
 		return ResultData.successed(apiResponse.getBody());
 	}
+
+	/**
+	 * 教师详情
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/information",method = RequestMethod.GET)
+	public ResultData information(@RequestParam Integer id){
+		if (null==id){return ResultData.failed("id不能为空!");}
+		TeacherBo teacherBo = null;
+		try {
+			ApiResponse<TeacherBo> apiResponse = teacherApi.getById(id);
+			if (ApiRetCode.SUCCESS_CODE != apiResponse.getRetCode()){
+				return ResultData.failed(apiResponse.getMessage());
+			}
+			teacherBo = apiResponse.getBody();
+			teacherBo.setSurname(teacherBo.getSurname()+"老师");
+			teacherBo.setAge(AgeUtils.getAge(teacherBo.getBirthday()));
+			TeacherCertificateCo teacherCertificateCo = new TeacherCertificateCo();
+			teacherCertificateCo.setTeacherId(id);
+			teacherCertificateCo.setStatus(TeacherCertificateEnum.status.check_pass.getValue());
+			// 教师证书
+			teacherBo.setTeacherCertificateBos(teacherCertificateApi.getListByCondition(teacherCertificateCo).getBody());
+			// 科目
+			TeacherSubjectCo teacherSubjectCo = new TeacherSubjectCo();
+			teacherSubjectCo.setTeacherId(id);
+			teacherBo.setTeacherSubjectBos(teacherSubjectApi.getListByCondition(teacherSubjectCo).getBody());
+			// 授课地点
+			District district = districtApi.getByCode(teacherBo.getDictrict()).getBody();
+			if (null!=district){
+				teacherBo.setAreas(district.getArea());
+			}
+		}catch (Exception e){
+
+		}
+		return ResultData.successed(teacherBo);
+	}
+
 
 	@RequestMapping(value = "/update",method = RequestMethod.PUT)
 	public ResultData updateById(@RequestBody TeacherBo teacherBo){

@@ -26,7 +26,7 @@ public class OrderServiceImpl implements OrderApi{
     @Override
     public ApiResponse<Integer> save(OrderBo orderBo) {
         if (null==orderBo){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"orderBo不能为空!");}
-        int result = orderRepo.save(orderBo);
+        int result = orderRepo.saveSelective(orderBo);
         return ApiResponse.success(result,"保存成功");
     }
 

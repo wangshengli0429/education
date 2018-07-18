@@ -44,6 +44,14 @@ public interface OrderAppointmentApi {
     ApiResponse<Integer> deleteById(Integer id,Integer operatorId);
 
     /**
+     * 批量删除
+     * @param ids
+     * @param operatorId
+     * @return
+     */
+    ApiResponse<Integer> batchDeleteById(List<Integer> ids,Integer operatorId);
+
+    /**
      * 根据id查询
      * @param id
      * @return

@@ -47,6 +47,13 @@ public class TeacherTimeServiceImpl implements TeacherTimeApi{
     }
 
     @Override
+    public ApiResponse<Integer> batchUpdateById(List<TeacherTime> teacherTimeBos) {
+        if (null==teacherTimeBos){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherTimeBos不能为空!");}
+        int result = teacherTimeRepo.batchUpdateById(teacherTimeBos);
+        return ApiResponse.success(result,"修改成功");
+    }
+
+    @Override
     public ApiResponse<Integer> deleteById(Integer id,Integer operatorId) {
         if (null==id){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"id不能为空!");}
         if (null==operatorId){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"operatorId不能为空!");}

@@ -14,15 +14,7 @@ public class OrderAppointment extends ModelTemplet{
      */
     private Integer orderId;
 
-    /**
-     * 预约开始时间
-     */
-    private Date beginTime;
-
-    /**
-     * 预约截止时间
-     */
-    private Date endTime;
+    private Integer teacherTimeId;
 
     public Integer getOrderId() {
         return orderId;
@@ -32,34 +24,24 @@ public class OrderAppointment extends ModelTemplet{
         this.orderId = orderId;
     }
 
-    public Date getBeginTime() {
-        return beginTime;
+    public Integer getTeacherTimeId() {
+        return teacherTimeId;
     }
 
-    public void setBeginTime(Date beginTime) {
-        this.beginTime = beginTime;
+    public void setTeacherTimeId(Integer teacherTimeId) {
+        this.teacherTimeId = teacherTimeId;
     }
 
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
-    }
 
     @Override
     public String toString() {
         return "OrderAppointment{" +
                 "id=" + id +
-                ", orderId=" + orderId +
                 ", creatorId=" + creatorId +
-                ", beginTime=" + beginTime +
                 ", createTime=" + createTime +
-                ", endTime=" + endTime +
                 ", updaterId=" + updaterId +
                 ", updateTime=" + updateTime +
                 ", deleted=" + deleted +
-                '}';
+                "} " + super.toString();
     }
 }
