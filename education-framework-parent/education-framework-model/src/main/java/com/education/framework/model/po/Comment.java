@@ -35,11 +35,6 @@ public class Comment extends ModelTemplet{
     private Integer studentId;
 
     /**
-     * 评论时间
-     */
-    private Date commentTime;
-
-    /**
      * 状态 1有用，0无用
      */
     private Integer status;
@@ -84,14 +79,6 @@ public class Comment extends ModelTemplet{
         this.studentId = studentId;
     }
 
-    public Date getCommentTime() {
-        return commentTime;
-    }
-
-    public void setCommentTime(Date commentTime) {
-        this.commentTime = commentTime;
-    }
-
     public Integer getStatus() {
         return status;
     }
@@ -110,7 +97,6 @@ public class Comment extends ModelTemplet{
                 ", createTime=" + createTime +
                 ", studentId=" + studentId +
                 ", updaterId=" + updaterId +
-                ", commentTime=" + commentTime +
                 ", updateTime=" + updateTime +
                 ", status=" + status +
                 ", deleted=" + deleted +

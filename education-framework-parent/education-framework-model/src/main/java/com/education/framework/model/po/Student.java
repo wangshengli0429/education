@@ -15,6 +15,11 @@ public class Student extends ModelTemplet {
     private Integer userId;
 
     /**
+     * 手机号
+     */
+    private String telephone;
+
+    /**
      * 名
      */
     private String name;
@@ -75,6 +80,13 @@ public class Student extends ModelTemplet {
      */
     private String remark;
 
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
 
     public Integer getUserId() {
         return userId;

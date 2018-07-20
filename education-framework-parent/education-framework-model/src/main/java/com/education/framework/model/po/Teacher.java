@@ -20,6 +20,11 @@ public class Teacher extends ModelTemplet {
     private String surname;
 
     /**
+     * 手机号
+     */
+    private String telephone;
+
+    /**
      * 名
      */
     private String name;
@@ -114,6 +119,14 @@ public class Teacher extends ModelTemplet {
      * 评论数
      */
     private Integer commentCount;
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
 
     public String getFailureReason() {
         return failureReason;

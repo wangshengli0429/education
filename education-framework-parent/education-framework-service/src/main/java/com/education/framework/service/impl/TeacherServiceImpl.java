@@ -7,8 +7,10 @@ import com.education.framework.model.base.PageParam;
 import com.education.framework.model.bo.TeacherBo;
 import com.education.framework.model.co.TeacherCo;
 import com.education.framework.model.po.Teacher;
+import com.education.framework.model.po.User;
 import com.education.framework.model.vo.TeacherVo;
 import com.education.framework.repo.TeacherRepo;
+import com.education.framework.repo.UserRepo;
 import com.education.framework.service.TeacherApi;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +26,14 @@ public class TeacherServiceImpl implements TeacherApi{
     @Resource
     private TeacherRepo teacherRepo;
 
+    @Resource
+    private UserRepo userRepo;
+
     @Override
     public ApiResponse<Integer> save(TeacherBo teacherBo) {
         if (null==teacherBo){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacher不能为空!");}
+        User user = userRepo.getById(teacherBo.getUserId());
+        teacherBo.setTelephone(user.getUserName());
         int result = teacherRepo.save(teacherBo);
         return ApiResponse.success(result,"保存成功");
     }
