@@ -12,7 +12,7 @@ public class CommentEnum {
     public static enum status{
 
         /**
-         * 游泳
+         * 有用
          */
         status_true(1),
 

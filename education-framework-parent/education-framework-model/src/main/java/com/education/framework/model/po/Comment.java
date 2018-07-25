@@ -22,7 +22,7 @@ public class Comment extends ModelTemplet{
     /**
      * 评星
      */
-    private Integer commentValue;
+    private Double commentValue;
 
     /**
      * 评论内容
@@ -47,11 +47,11 @@ public class Comment extends ModelTemplet{
         this.orderId = orderId;
     }
 
-    public Integer getCommentValue() {
+    public Double getCommentValue() {
         return commentValue;
     }
 
-    public void setCommentValue(Integer commentValue) {
+    public void setCommentValue(Double commentValue) {
         this.commentValue = commentValue;
     }
 

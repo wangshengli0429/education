@@ -3,15 +3,18 @@ package com.education.controller.order;
 import com.education.framework.common.response.ApiResponse;
 import com.education.framework.common.response.ResultData;
 import com.education.framework.common.response.constants.ApiRetCode;
+import com.education.framework.common.util.BaseMapper;
 import com.education.framework.model.bo.*;
 import com.education.framework.model.constant.CommentEnum;
 import com.education.framework.model.constant.OrderEnum;
 import com.education.framework.model.po.Comment;
 import com.education.framework.model.po.OrderAppointment;
+import com.education.framework.model.vo.OrderVo;
 import com.education.framework.service.*;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -50,6 +53,9 @@ public class OrderController {
     @Autowired
     private CommentApi commentApi;
 
+    @Autowired
+    private BaseMapper baseMapper;
+
 
 
     @RequestMapping(value = "/save",method = RequestMethod.POST)
@@ -57,6 +63,31 @@ public class OrderController {
         if (null==orderBo){return ResultData.failed("orderBo不能为空!");}
         if (CollectionUtils.isEmpty(orderBo.getTeacherTimeIds())){return ResultData.failed("授课时间不能为空!");}
         ApiResponse<Integer> apiResponse = orderApi.save(orderBo);
+        if (ApiRetCode.SUCCESS_CODE != apiResponse.getRetCode()){
+            return ResultData.failed(apiResponse.getMessage());
+        }
+        return ResultData.successed(apiResponse.getBody());
+    }
+
+    @RequestMapping(value = "/update",method = RequestMethod.PUT)
+    public ResultData updateById(@RequestBody OrderVo orderVo){
+        if (null==orderVo){return ResultData.failed("orderVo不能为空!");}
+        if (null==orderVo.getId()){return ResultData.failed("id不能为空!");}
+        OrderBo orderBo = baseMapper.map(orderVo,OrderBo.class);
+        // 修改订单状态
+        ApiResponse<Integer> apiResponse = orderApi.updateById(orderBo);
+        // 添加评论
+        if (orderVo.getOrderStatus().equals(OrderEnum.orderStatus.pay_evaluate.getValue()) && null != orderVo.getCommentValue()){
+            OrderBo obo = orderApi.getById(orderVo.getId()).getBody();
+            CommentBo commentBo = new CommentBo();
+            commentBo.setCommentValue(orderVo.getCommentValue());
+            commentBo.setCommentContent(orderVo.getCommentContent());
+            commentBo.setOrderId(orderVo.getId());
+            commentBo.setStudentId(obo.getStudentId());
+            commentBo.setTeacherId(obo.getTeacherId());
+            commentBo.setStatus(CommentEnum.status.status_true.getValue());
+            commentApi.save(commentBo);
+        }
         if (ApiRetCode.SUCCESS_CODE != apiResponse.getRetCode()){
             return ResultData.failed(apiResponse.getMessage());
         }
