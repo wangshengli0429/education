@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -40,6 +41,7 @@ public class DistrictController {
      * 查询 城市 默认到（市）
      * @return
      */
+    @ResponseBody
     @RequestMapping(value = "/cityTree",method = RequestMethod.GET)
     public ResultData getCityTree(){
         District condition = new District();
@@ -67,6 +69,7 @@ public class DistrictController {
 
 
 
+    @ResponseBody
     @RequestMapping(value = "/getById",method = RequestMethod.GET)
     public ResultData getById(Integer id){
         if (null==id){return ResultData.failed("id不能为空!");}
@@ -74,6 +77,7 @@ public class DistrictController {
         return ResultData.successed(district);
     }
 
+    @ResponseBody
     @RequestMapping(value = "/getByParentId",method = RequestMethod.GET)
     public ResultData getByParentId(Integer parentId){
         if (null==parentId){return ResultData.failed("parentId不能为空!");}

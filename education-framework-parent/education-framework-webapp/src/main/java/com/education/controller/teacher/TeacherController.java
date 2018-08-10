@@ -21,10 +21,7 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -63,6 +60,7 @@ public class TeacherController {
 	 * @param id
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/getById",method = RequestMethod.GET)
 	public ResultData getById(@RequestParam Integer id){
 		if (null==id){return ResultData.failed("id不能为空!");}
@@ -78,6 +76,7 @@ public class TeacherController {
 	 * @param id
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/information",method = RequestMethod.GET)
 	public ResultData information(@RequestParam Integer id){
 		if (null==id){return ResultData.failed("id不能为空!");}
@@ -151,6 +150,7 @@ public class TeacherController {
 	 * @param teacherCo
 	 * @return
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/list",method = RequestMethod.GET)
 	public ResultData list(TeacherCo teacherCo){
 		if (null==teacherCo){return ResultData.failed("teacherCo不能为空!");}

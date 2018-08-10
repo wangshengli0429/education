@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -120,6 +121,7 @@ public class OrderController {
      * @param id
      * @return
      */
+    @ResponseBody
     @RequestMapping(value = "/details",method = RequestMethod.GET)
     public ResultData details(Integer id){
         if (null==id){return ResultData.failed("id不能为空!");}
@@ -162,6 +164,7 @@ public class OrderController {
 
 
 
+    @ResponseBody
     @RequestMapping(value = "/byTeacher",method = RequestMethod.GET)
     public ResultData getByTeacher(OrderBo orderBo){
         List<OrderBo> list = new ArrayList<OrderBo>();

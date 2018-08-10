@@ -7,10 +7,7 @@ import com.education.framework.model.bo.TeacherCertificateBo;
 import com.education.framework.model.po.TeacherCertificate;
 import com.education.framework.service.TeacherCertificateApi;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -42,6 +39,7 @@ public class TeacherCertificateController {
         return ResultData.successed(apiResponse.getBody());
     }
 
+    @ResponseBody
     @RequestMapping(value = "/getById",method = RequestMethod.GET)
     public ResultData getById(@RequestParam Integer id){
         if (null==id){return ResultData.failed("id不能为空!");}
@@ -73,6 +71,7 @@ public class TeacherCertificateController {
     }
 
 
+    @ResponseBody
     @RequestMapping(value = "/teacherId",method = RequestMethod.GET)
     public ResultData getByTeacherId(@RequestParam Integer teacherId){
         if (null==teacherId){return ResultData.failed("teacherId不能为空!");}

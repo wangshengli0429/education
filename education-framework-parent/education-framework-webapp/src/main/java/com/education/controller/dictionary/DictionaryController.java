@@ -26,6 +26,7 @@ public class DictionaryController {
         return ApiRetCode.SUCCESS_CODE == apiResponse.getRetCode()?ResultData.successed(apiResponse.getMessage(),apiResponse.getBody()):ResultData.failed(apiResponse.getMessage());
     }
 
+    @ResponseBody
     @RequestMapping(value = "/getById",method = RequestMethod.GET)
     public ResultData getById(@RequestParam Integer id){
         if (null==id){return ResultData.failed("id不能为空!");}

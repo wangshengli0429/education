@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,7 @@ public class SubjectController{
      * @param departmentCode
      * @return
      */
+    @ResponseBody
     @RequestMapping(value = "/getByDepartmentCode",method = RequestMethod.GET)
     public ResultData getByDepartmentCode(@RequestParam String departmentCode){
         BasicDataBo basicDataBo = new BasicDataBo();
@@ -68,6 +70,7 @@ public class SubjectController{
      * 默认查询全学部，以及小学学部下的年级和科目
      * @return
      */
+    @ResponseBody
     @RequestMapping(value = "/basicData",method = RequestMethod.GET)
     public ResultData getBasicData(){
         BasicDataBo basicDataBo = new BasicDataBo();

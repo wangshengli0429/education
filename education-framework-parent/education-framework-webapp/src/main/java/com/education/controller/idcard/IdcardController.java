@@ -33,6 +33,7 @@ public class IdcardController {
         return ResultData.successed(apiResponse.getBody());
     }
 
+    @ResponseBody
     @RequestMapping(value = "/getById",method = RequestMethod.GET)
     public ResultData getById(@RequestParam Integer id){
         if (null==id){return ResultData.failed("id不能为空!");}
@@ -43,6 +44,7 @@ public class IdcardController {
         return ResultData.successed(apiResponse.getBody());
     }
 
+    @ResponseBody
     @RequestMapping(value = "/getByUserId",method = RequestMethod.GET)
     public ResultData getByUserId(@RequestParam Integer userId){
         if (null==userId){return ResultData.failed("userId不能为空!");}

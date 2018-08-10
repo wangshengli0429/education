@@ -8,10 +8,7 @@ import com.education.framework.model.po.TeacherSubject;
 import com.education.framework.service.TeacherSubjectApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +37,7 @@ public class TeacherSubjectController {
         return ResultData.successed(apiResponse.getBody());
     }
 
+    @ResponseBody
     @RequestMapping(value = "/getById",method = RequestMethod.GET)
     public ResultData getById(@RequestParam Integer id){
         if (null==id){return ResultData.failed("id不能为空!");}
@@ -71,6 +69,7 @@ public class TeacherSubjectController {
     }
 
 
+    @ResponseBody
     @RequestMapping(value = "/teacherId",method = RequestMethod.GET)
     public ResultData getByTeacherId(@RequestParam Integer teacherId){
         if (null==teacherId){return ResultData.failed("teacherId不能为空!");}
