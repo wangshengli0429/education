@@ -22,6 +22,19 @@ public class TeacherTimeCo extends TeacherTime {
      */
     private Integer sortOrder;
 
+    /**
+     * 日期字符串
+     */
+    private String dateStr;
+
+    public String getDateStr() {
+        return dateStr;
+    }
+
+    public void setDateStr(String dateStr) {
+        this.dateStr = dateStr;
+    }
+
     public Integer getPageSize() {
         return pageSize;
     }

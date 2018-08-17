@@ -1,7 +1,7 @@
 package com.education.framework.dao.order;
 
 import com.education.framework.model.bo.OrderBo;
-import com.education.framework.model.po.Order;
+import com.education.framework.model.po.Orders;
 
 import java.util.List;
 import java.util.Map;
@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public interface OrderDao {
 	/** 添加订单 */
-	int insertOrder(Order order);
+	int insertOrder(Orders order);
 	/** 获取所有订单 */
 	List<OrderBo> getAllOrders(Map<String, Object> map);
 	/** 查询订单总数 */

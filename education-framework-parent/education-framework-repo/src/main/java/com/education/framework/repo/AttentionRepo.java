@@ -5,6 +5,7 @@ import com.education.framework.model.co.AttentionCo;
 import com.education.framework.model.po.Attention;
 import com.education.framework.repo.base.BaseDao;
 import com.education.framework.repo.base.CommonMysqlClient;
+import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 
@@ -15,6 +16,7 @@ import javax.annotation.Resource;
  * @lastUpdateTime 2018/7/9.
  * @note
  */
+@Repository
 public class AttentionRepo extends BaseDao<Attention,AttentionCo,AttentionBo> {
 
     @Resource

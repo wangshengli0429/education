@@ -35,6 +35,19 @@ public class TeacherTime extends ModelTemplet{
      */
     private Date endTime;
 
+    /**
+     * 订单id
+     */
+    private Integer orderId;
+
+    public Integer getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
+
     public Integer getTeacherId() {
         return teacherId;
     }

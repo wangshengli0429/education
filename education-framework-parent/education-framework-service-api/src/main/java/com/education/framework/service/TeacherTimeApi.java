@@ -86,4 +86,13 @@ public interface TeacherTimeApi {
      */
     ApiResponse<Page<TeacherTimeBo>> getPageByCondition(TeacherTimeCo condition, PageParam pageParam);
 
+
+    /**
+     *  根据教师id 和日期查询
+     * @param teacherId 教师id
+     * @param dateStr 日期
+     * @return
+     */
+    ApiResponse<List<TeacherTimeBo>> listByTeacherAndDate(Integer teacherId,String dateStr);
+
 }

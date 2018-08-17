@@ -5,7 +5,7 @@ import com.education.framework.model.base.Page;
 import com.education.framework.model.base.PageParam;
 import com.education.framework.model.bo.OrderBo;
 import com.education.framework.model.co.OrderCo;
-import com.education.framework.model.po.Order;
+import com.education.framework.model.po.Orders;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public interface OrderApi {
      * @param list
      * @return
      */
-    ApiResponse<int[]> batchSave(List<Order> list);
+    ApiResponse<int[]> batchSave(List<Orders> list);
 
     /**
      * 根据id修改
@@ -62,14 +62,14 @@ public interface OrderApi {
      * @param order
      * @return
      */
-    ApiResponse<Integer> countByCondition(Order order);
+    ApiResponse<Integer> countByCondition(Orders order);
 
     /**
      * 根据条件查询
      * @param order
      * @return
      */
-    public ApiResponse<List<OrderBo>> getListByCondition(Order order);
+    public ApiResponse<List<OrderBo>> getListByCondition(Orders order);
 
     /**
      * 分页查询

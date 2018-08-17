@@ -1,11 +1,11 @@
 package com.education.framework.model.co;
 
-import com.education.framework.model.po.Order;
+import com.education.framework.model.po.Orders;
 
 /**
  * Created by zhoulin on 2018/4/2.
  */
-public class OrderCo extends Order {
+public class OrderCo extends Orders {
 
 
     /**

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.education.framework.model.bo.OrderBo;
-import com.education.framework.model.po.Order;
+import com.education.framework.model.po.Orders;
 import org.mybatis.spring.support.SqlSessionDaoSupport;
 import org.springframework.stereotype.Repository;
 
@@ -22,7 +22,7 @@ import com.education.framework.dao.order.OrderDao;
 public class OrderDaoImpl extends SqlSessionDaoSupport implements OrderDao {
 
 	@Override
-	public int insertOrder(Order order) {
+	public int insertOrder(Orders order) {
 		return this.getSqlSession().insert("order.insertOrder", order);
 	}
 

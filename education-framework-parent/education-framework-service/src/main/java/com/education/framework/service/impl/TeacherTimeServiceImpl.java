@@ -97,4 +97,11 @@ public class TeacherTimeServiceImpl implements TeacherTimeApi{
         return ApiResponse.success(result,"查询成功");
     }
 
+    @Override
+    public ApiResponse<List<TeacherTimeBo>> listByTeacherAndDate(Integer teacherId, String dateStr) {
+        if (null==teacherId){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"teacherId不能为空!");}
+        List<TeacherTimeBo> list = teacherTimeRepo.listByTeacherAndDate(teacherId,dateStr);
+        return ApiResponse.success(list,"查询成功");
+    }
+
 }

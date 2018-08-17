@@ -3,12 +3,17 @@ package com.education.controller.order;
 import com.education.framework.common.response.ApiResponse;
 import com.education.framework.common.response.ResultData;
 import com.education.framework.common.response.constants.ApiRetCode;
+import com.education.framework.common.util.AgeUtils;
 import com.education.framework.common.util.BaseMapper;
+import com.education.framework.model.base.Page;
+import com.education.framework.model.base.PageParam;
 import com.education.framework.model.bo.*;
+import com.education.framework.model.co.OrderCo;
 import com.education.framework.model.constant.CommentEnum;
 import com.education.framework.model.constant.OrderEnum;
+import com.education.framework.model.constant.TeacherEnum;
 import com.education.framework.model.po.Comment;
-import com.education.framework.model.po.OrderAppointment;
+import com.education.framework.model.po.TeacherTime;
 import com.education.framework.model.vo.OrderVo;
 import com.education.framework.service.*;
 import org.apache.commons.collections.CollectionUtils;
@@ -47,10 +52,6 @@ public class OrderController {
 
     @Autowired
     private TeacherTimeApi teacherTimeApi;
-
-    @Autowired
-    private OrderAppointmentApi orderAppointmentApi;
-
     @Autowired
     private CommentApi commentApi;
 
@@ -62,6 +63,8 @@ public class OrderController {
     @RequestMapping(value = "/save",method = RequestMethod.POST)
     public ResultData save(OrderBo orderBo){
         if (null==orderBo){return ResultData.failed("orderBo不能为空!");}
+        if (null==orderBo.getTeacherId()){return ResultData.failed("teacherId不能为空!");}
+        if (null==orderBo.getStudentId()){return ResultData.failed("studentId不能为空!");}
         if (CollectionUtils.isEmpty(orderBo.getTeacherTimeIds())){return ResultData.failed("授课时间不能为空!");}
         ApiResponse<Integer> apiResponse = orderApi.save(orderBo);
         if (ApiRetCode.SUCCESS_CODE != apiResponse.getRetCode()){
@@ -126,26 +129,20 @@ public class OrderController {
     public ResultData details(Integer id){
         if (null==id){return ResultData.failed("id不能为空!");}
         OrderBo orderBo = orderApi.getById(id).getBody();
-        OrderAppointment orderAppointment = new OrderAppointment();
-        orderAppointment.setOrderId(orderBo.getId());
-        // 查询教订单-授课时间-中间表
-        List<OrderAppointmentBo> appointmentList = orderAppointmentApi.getListByCondition(orderAppointment).getBody();
-        List<Integer> teacherTimeIds = new ArrayList<Integer>();
-        if (CollectionUtils.isNotEmpty(appointmentList)){
-            for (OrderAppointment orderAppoint : appointmentList){
-                teacherTimeIds.add(orderAppoint.getTeacherTimeId());
-            }
-        }
         // 查询授课时间
-        List<TeacherTimeBo> timeBos = teacherTimeApi.getListByIds(teacherTimeIds).getBody();
+        TeacherTime teacherTime = new TeacherTime();
+        teacherTime.setOrderId(orderBo.getId());
+        List<TeacherTimeBo> timeBos = teacherTimeApi.getListByCondition(teacherTime).getBody();
         // 查询授课科目
         TeacherSubjectBo subjectBo = teacherSubjectApi.getById(orderBo.getTeacherSubjectId()).getBody();
         orderBo.setTeacherSubjectBo(subjectBo);
         orderBo.setTeacherTimeBos(timeBos);
+        TeacherBo teacherBo = teacherApi.getById(orderBo.getTeacherId()).getBody();
+        StudentBo studentBo = studentApi.getById(orderBo.getStudentId()).getBody();
+        setTeacherDo(orderBo,teacherBo);
+        setStudentDo(orderBo,studentBo);
         if (orderBo.getOrderStatus().equals(OrderEnum.orderStatus.pay_do.getValue())){
             // 已支付,查询，学生，老师的联系方式
-            TeacherBo teacherBo = teacherApi.getById(orderBo.getTeacherId()).getBody();
-            StudentBo studentBo = studentApi.getById(orderBo.getStudentId()).getBody();
             orderBo.setTeacherName(teacherBo.getSurname()+teacherBo.getName());
             orderBo.setStudentName(studentBo.getSurname()+studentBo.getName());
             orderBo.setTeacherTelephone(teacherBo.getTelephone());
@@ -165,19 +162,58 @@ public class OrderController {
 
 
     @ResponseBody
-    @RequestMapping(value = "/byTeacher",method = RequestMethod.GET)
-    public ResultData getByTeacher(OrderBo orderBo){
-        List<OrderBo> list = new ArrayList<OrderBo>();
-        OrderBo order = new OrderBo();
-        order.setId(1);
-        order.setOrderNumber("123456");
-        order.setPayMode(1);
-        order.setPayMoney(100d);
-        order.setOrderStatus(1);
-        order.setOrderDescr("订单描述");
+    @RequestMapping(value = "/order",method = RequestMethod.GET)
+    public ResultData getOrder(OrderCo orderCo){
+        if (null==orderCo){return ResultData.failed("orderCo不能为空!");}
+        PageParam pageParam = new PageParam();
+        pageParam.setPageNum(orderCo.getPageNum());
+        pageParam.setPageSize(orderCo.getPageSize());
+        pageParam.setOrderBy(" update_time desc,id asc ");
+        Page<OrderBo> page = orderApi.getPageByCondition(orderCo,pageParam).getBody();
+        if (null!=page && CollectionUtils.isNotEmpty(page.getList())){
+            for (OrderBo orderBo:page.getList()){
+                TeacherBo teacherBo = teacherApi.getById(orderBo.getTeacherId()).getBody();
+                setTeacherDo(orderBo,teacherBo);
 
-        return ResultData.successed(1);
+                StudentBo studentBo = studentApi.getById(orderBo.getStudentId()).getBody();
+                setStudentDo(orderBo,studentBo);
+
+                TeacherSubjectBo teacherSubjectBo = teacherSubjectApi.getById(orderBo.getTeacherSubjectId()).getBody();
+                orderBo.setTeacherSubjectBo(teacherSubjectBo);
+            }
+        }
+        return ResultData.successed(page);
     }
 
+
+    public void setTeacherDo(OrderBo orderBo,TeacherBo teacherBo){
+        try {
+            orderBo.setTeacherName(teacherBo.getSurname()+"老师");
+            if (teacherBo.getSex().equals(TeacherEnum.SEX_GIRL)){
+                orderBo.setTeacherGender("女");
+            }else {
+                orderBo.setTeacherGender("男");
+            }
+            // 计算年龄
+            orderBo.setTeacherAge(AgeUtils.getAge(teacherBo.getBirthday()));
+        }catch (Exception e){
+
+        }
+    }
+
+    public void setStudentDo(OrderBo orderBo,StudentBo studentBo){
+        try {
+            orderBo.setStudentName(studentBo.getSurname()+"同学");
+            if (studentBo.getSex().equals(TeacherEnum.SEX_GIRL)){
+                orderBo.setStudentGender("女");
+            }else {
+                orderBo.setStudentGender("男");
+            }
+            // 计算年龄
+            orderBo.setStudentAge(AgeUtils.getAge(studentBo.getBirthday()));
+        }catch (Exception e){
+
+        }
+    }
 
 }

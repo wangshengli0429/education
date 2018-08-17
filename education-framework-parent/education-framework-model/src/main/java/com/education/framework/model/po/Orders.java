@@ -2,10 +2,7 @@ package com.education.framework.model.po;
 
 import com.education.framework.model.base.ModelTemplet;
 
-/**
- * Created by zhoulin on 2018/4/2.
- */
-public class Order extends ModelTemplet{
+public class Orders extends ModelTemplet {
 
     /**
      * 订单号
@@ -139,24 +136,13 @@ public class Order extends ModelTemplet{
 
     @Override
     public String toString() {
-        return "Order{" +
-                "orderNumber='" + orderNumber + '\'' +
-                ", id=" + id +
-                ", payMode=" + payMode +
+        return "Orders{" +
+                "id=" + id +
                 ", creatorId=" + creatorId +
-                ", payMoney=" + payMoney +
                 ", createTime=" + createTime +
-                ", orderStatus=" + orderStatus +
                 ", updaterId=" + updaterId +
-                ", orderDescr='" + orderDescr + '\'' +
                 ", updateTime=" + updateTime +
-                ", address='" + address + '\'' +
                 ", deleted=" + deleted +
-                ", orderTime=" + orderTime +
-                ", studentId=" + studentId +
-                ", teacherId=" + teacherId +
-                ", teacherSubjectId=" + teacherSubjectId +
                 '}';
     }
-
 }

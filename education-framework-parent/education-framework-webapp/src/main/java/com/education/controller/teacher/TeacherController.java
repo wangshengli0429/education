@@ -7,7 +7,9 @@ import com.education.framework.common.util.AgeUtils;
 import com.education.framework.common.util.BaseMapper;
 import com.education.framework.model.base.Page;
 import com.education.framework.model.base.PageParam;
+import com.education.framework.model.bo.AttentionBo;
 import com.education.framework.model.bo.TeacherBo;
+import com.education.framework.model.co.AttentionCo;
 import com.education.framework.model.co.TeacherCertificateCo;
 import com.education.framework.model.co.TeacherCo;
 import com.education.framework.model.co.TeacherSubjectCo;
@@ -23,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +49,9 @@ public class TeacherController {
 
 	@Autowired
 	private DistrictApi districtApi;
+
+	@Resource
+	private AttentionApi attentionsApi;
 
 	@RequestMapping(value = "/save",method = RequestMethod.POST)
 	public ResultData save(@RequestBody TeacherBo teacherBo){
@@ -73,13 +79,17 @@ public class TeacherController {
 
 	/**
 	 * 教师详情
-	 * @param id
+	 * @param
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/information",method = RequestMethod.GET)
-	public ResultData information(@RequestParam Integer id){
-		if (null==id){return ResultData.failed("id不能为空!");}
+	public ResultData information(TeacherBo teacher){
+		if (null==teacher){return ResultData.failed("teacherBo不能为空!");}
+		if (null==teacher.getId()){return ResultData.failed("id不能为空!");}
+		Integer id = teacher.getId();
+		// 当前登录的学生id
+		Integer studentId = teacher.getStudentId();
 		TeacherBo teacherBo = null;
 		try {
 			ApiResponse<TeacherBo> apiResponse = teacherApi.getById(id);
@@ -103,6 +113,19 @@ public class TeacherController {
 			if (null!=district){
 				teacherBo.setAreas(district.getArea());
 			}
+			if (null!=studentId){
+				AttentionCo attentionCo = new AttentionCo();
+				attentionCo.setStudentId(studentId);
+				attentionCo.setTeacherId(id);
+				// 当前登录学生是否盖教师
+				List<AttentionBo> attentionBoList = attentionsApi.findByCondition(attentionCo).getBody();
+				if (CollectionUtils.isNotEmpty(attentionBoList)){
+					teacherBo.setAttentionStatus(1);
+				}else {
+					teacherBo.setAttentionStatus(0);
+				}
+			}
+
 		}catch (Exception e){
 
 		}
@@ -172,11 +195,10 @@ public class TeacherController {
 		if (CollectionUtils.isNotEmpty(teacherVoPage.getList())){
 			for (TeacherVo teacher:teacherVoPage.getList()){
 				teacher.setName(teacher.getName()+"老师");
-				String gender = "男";
 				if (teacher.getSex().equals(TeacherEnum.SEX_GIRL)){
-					teacher.setGender("男");
-				}else {
 					teacher.setGender("女");
+				}else {
+					teacher.setGender("男");
 				}
 				// 计算年龄
 				teacher.setAge(AgeUtils.getAge(teacher.getBirthday()));

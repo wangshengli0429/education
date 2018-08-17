@@ -4,18 +4,16 @@ import com.education.framework.common.response.ApiResponse;
 import com.education.framework.common.response.constants.ApiRetCode;
 import com.education.framework.model.base.Page;
 import com.education.framework.model.base.PageParam;
-import com.education.framework.model.bo.OrderAppointmentBo;
 import com.education.framework.model.bo.OrderBo;
 import com.education.framework.model.bo.TeacherBo;
 import com.education.framework.model.bo.TeacherTimeBo;
 import com.education.framework.model.co.OrderCo;
 import com.education.framework.model.constant.TeacherTimeEnum;
-import com.education.framework.model.po.Order;
-import com.education.framework.model.po.OrderAppointment;
+import com.education.framework.model.po.Orders;
 import com.education.framework.model.po.Teacher;
 import com.education.framework.model.po.TeacherTime;
-import com.education.framework.repo.OrderAppointmentRepo;
 import com.education.framework.repo.OrderRepo;
+import com.education.framework.repo.StudentRepo;
 import com.education.framework.repo.TeacherRepo;
 import com.education.framework.repo.TeacherTimeRepo;
 import com.education.framework.service.OrderApi;
@@ -37,14 +35,17 @@ public class OrderServiceImpl implements OrderApi{
     @Resource
     private OrderRepo orderRepo;
 
-    @Resource
-    private OrderAppointmentRepo orderAppointmentRepo;
+//    @Resource
+//    private OrderAppointmentRepo orderAppointmentRepo;
 
     @Resource
     private TeacherTimeRepo teacherTimeRepo;
 
     @Resource
     private TeacherRepo teacherRepo;
+
+    @Resource
+    private StudentRepo studentRepo;
 
     @Override
     public ApiResponse<Integer> save(OrderBo orderBo) {
@@ -60,6 +61,7 @@ public class OrderServiceImpl implements OrderApi{
             }
             TeacherTime teacherTime = new TeacherTime();
             teacherTime.setId(teacherTimeBo.getId());
+            teacherTime.setOrderId(orderBo.getId());
             teacherTime.setTimeStatus(TeacherTimeEnum.timeStatus.no.getValue());
             teacherTimes.add(teacherTime);
         }
@@ -67,27 +69,19 @@ public class OrderServiceImpl implements OrderApi{
         int id = orderRepo.saveSelective(orderBo);
         // 设置更新时间已被预约
         teacherTimeRepo.batchUpdateById(teacherTimes);
-        List<OrderAppointment> orderAppointments = new ArrayList<>();
-        for (Integer timeId:orderBo.getTeacherTimeIds()){
-            OrderAppointment orderAppointment = new OrderAppointment();
-            orderAppointment.setTeacherTimeId(timeId);
-            orderAppointment.setOrderId(id);
-            orderAppointments.add(orderAppointment);
-        }
-        // 设置订单-授课时间关系
-        orderAppointmentRepo.batchSave(orderAppointments);
+
         // 教师表订单数+1
         addOrderCount(orderBo.getTeacherId());
         return ApiResponse.success(id,"保存成功");
-
     }
 
     @Override
-    public ApiResponse<int[]> batchSave(List<Order> list) {
-        if (null==list){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"list不能为空!");}
-        if (list.size()<=0){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"list.size()不能<=0!");}
-        int[] result = orderRepo.batchSave(list);
-        return ApiResponse.success(result,"保存成功");
+    public ApiResponse<int[]> batchSave(List<Orders> list) {
+//        if (null==list){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"list不能为空!");}
+//        if (list.size()<=0){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"list.size()不能<=0!");}
+//        int[] result = orderRepo.batchSave(list);
+//        return ApiResponse.success(result,"保存成功");
+        return null;
     }
 
     @Override
@@ -103,22 +97,16 @@ public class OrderServiceImpl implements OrderApi{
         if (null==id){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"id不能为空!");}
         if (null==operatorId){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"operatorId不能为空!");}
         OrderBo orderBo = orderRepo.getById(id);
-        OrderAppointment orderAppointment = new OrderAppointment();
-        orderAppointment.setOrderId(id);
-        List<OrderAppointmentBo> OrderAppointmentBos = orderAppointmentRepo.getListByCondition(orderAppointment);
-        List<TeacherTime> teacherTimes = new ArrayList<TeacherTime>();
-        List<Integer> orderAppointmentIds = Lists.newArrayList();
-        for (OrderAppointmentBo appointmentBo:OrderAppointmentBos) {
-            orderAppointmentIds.add(appointmentBo.getId());
-            TeacherTime teacherTime = new TeacherTime();
-            teacherTime.setId(appointmentBo.getTeacherTimeId());
-            teacherTime.setTimeStatus(TeacherTimeEnum.timeStatus.yes.getValue());
-            teacherTimes.add(teacherTime);
-        }
         // 设置教师时间可用
-        teacherTimeRepo.batchUpdateById(teacherTimes);
-        // 删除教师授课时间、订单关系
-        orderAppointmentRepo.batchDeleteById(orderAppointmentIds,-1);
+        List<TeacherTimeBo> teacherTimeBos = teacherTimeRepo.getListByKeyValue("order_id",id);
+        List<TeacherTime> teacherTimes = Lists.newArrayList();
+        if (CollectionUtils.isNotEmpty(teacherTimeBos)){
+            for (TeacherTimeBo teacherTime:teacherTimeBos){
+                teacherTime.setTimeStatus(TeacherTimeEnum.timeStatus.yes.getValue());
+                teacherTime.setOrderId(-1);
+            }
+        }
+        teacherTimeRepo.batchUpdateById(teacherTimeBos);
         // 删除订单
         Integer result = orderRepo.deleteById(id, -1);
         // 教师表订单数-1
@@ -138,10 +126,12 @@ public class OrderServiceImpl implements OrderApi{
     public void subOrderCount(Integer teacherId){
         TeacherBo teacherBo = teacherRepo.getById(teacherId);
         int orderCount = teacherBo.getOrderCount();
-        Teacher teacher = new Teacher();
-        teacher.setId(teacherId);
-        teacher.setOrderCount(orderCount-1);
-        teacherRepo.updateById(teacher);
+        if (orderCount>0) {
+            Teacher teacher = new Teacher();
+            teacher.setId(teacherId);
+            teacher.setOrderCount(orderCount - 1);
+            teacherRepo.updateById(teacher);
+        }
     }
 
     @Override
@@ -159,14 +149,14 @@ public class OrderServiceImpl implements OrderApi{
     }
 
     @Override
-    public ApiResponse<Integer> countByCondition(Order order) {
+    public ApiResponse<Integer> countByCondition(Orders order) {
         if (null==order){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"order不能为空!");}
         int count = orderRepo.countByCondition(order);
         return ApiResponse.success(count,"查询成功");
     }
 
     @Override
-    public ApiResponse<List<OrderBo>> getListByCondition(Order order) {
+    public ApiResponse<List<OrderBo>> getListByCondition(Orders order) {
         if (null==order){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"order不能为空!");}
         List<OrderBo> result = orderRepo.getListByCondition(order);
         return ApiResponse.success(result,"查询成功");

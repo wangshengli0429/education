@@ -1,13 +1,13 @@
 package com.education.framework.model.bo;
 
-import com.education.framework.model.po.Order;
+import com.education.framework.model.po.Orders;
 
 import java.util.List;
 
 /**
  * Created by zhoulin on 2018/4/2.
  */
-public class OrderBo extends Order {
+public class OrderBo extends Orders {
 
     private TeacherBo teacherBo;
 
@@ -21,11 +21,30 @@ public class OrderBo extends Order {
     private String teacherName;
 
     /**
+     * 性别：男女
+     */
+    private String teacherGender;
+
+    /**
+     * 年龄
+     */
+    private Integer teacherAge;
+
+    /**
      * 学生号码
      */
     private String studentTelephone;
 
     private String studentName;
+    /**
+     * 性别：男女
+     */
+    private String studentGender;
+
+    /**
+     * 年龄
+     */
+    private Integer studentAge;
 
     private List<Integer> teacherTimeIds;
 
@@ -40,6 +59,38 @@ public class OrderBo extends Order {
     private List<TeacherTimeBo> teacherTimeBos;
 
     private List<CommentBo> commentBos;
+
+    public String getTeacherGender() {
+        return teacherGender;
+    }
+
+    public void setTeacherGender(String teacherGender) {
+        this.teacherGender = teacherGender;
+    }
+
+    public Integer getTeacherAge() {
+        return teacherAge;
+    }
+
+    public void setTeacherAge(Integer teacherAge) {
+        this.teacherAge = teacherAge;
+    }
+
+    public String getStudentGender() {
+        return studentGender;
+    }
+
+    public void setStudentGender(String studentGender) {
+        this.studentGender = studentGender;
+    }
+
+    public Integer getStudentAge() {
+        return studentAge;
+    }
+
+    public void setStudentAge(Integer studentAge) {
+        this.studentAge = studentAge;
+    }
 
     public List<CommentBo> getCommentBos() {
         return commentBos;

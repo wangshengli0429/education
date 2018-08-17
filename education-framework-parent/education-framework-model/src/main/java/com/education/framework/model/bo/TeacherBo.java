@@ -29,6 +29,30 @@ public class TeacherBo extends Teacher {
      */
     private String areas;
 
+    /**
+     *  关注状态，1关注，0未关注
+     */
+    private Integer attentionStatus;
+
+
+    private Integer studentId;
+
+    public Integer getAttentionStatus() {
+        return attentionStatus;
+    }
+
+    public void setAttentionStatus(Integer attentionStatus) {
+        this.attentionStatus = attentionStatus;
+    }
+
+    public Integer getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(Integer studentId) {
+        this.studentId = studentId;
+    }
+
     public String getAreas() {
         return areas;
     }
