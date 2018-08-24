@@ -2,6 +2,8 @@ package com.education.framework.service.impl;
 
 import com.education.framework.common.response.ApiResponse;
 import com.education.framework.common.response.constants.ApiRetCode;
+import com.education.framework.model.base.Page;
+import com.education.framework.model.base.PageParam;
 import com.education.framework.model.bo.AttentionBo;
 import com.education.framework.model.bo.TeacherBo;
 import com.education.framework.model.co.AttentionCo;
@@ -76,7 +78,7 @@ public class AttentionServiceImpl implements AttentionApi {
                 attentionRepo.deleteById(attentionBo1.getId(),-1);
             }
         }
-        subddAttentionCount(attention.getTeacherId());
+        subAttentionCount(attention.getTeacherId());
         return ApiResponse.success(1);
     }
 
@@ -89,6 +91,15 @@ public class AttentionServiceImpl implements AttentionApi {
         return ApiResponse.success(list);
     }
 
+    @Override
+    public ApiResponse<Page<AttentionBo>> getPageByCondition(AttentionCo attentionCo, PageParam pageParam) {
+        if (null == attentionCo) {
+            return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR, "attentionCo不能为空!");
+        }
+        Page<AttentionBo> pageByCondition = attentionRepo.getPageByCondition(attentionCo, pageParam);
+        return ApiResponse.success(pageByCondition);
+    }
+
     /**
      * 删除关注
      * @param id
@@ -99,7 +110,7 @@ public class AttentionServiceImpl implements AttentionApi {
     public ApiResponse<Integer> deleteById(Integer id, Integer operatorId) {
         if (null==id){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"id不能为空!");}
         AttentionBo attention = attentionRepo.getById(id);
-        subddAttentionCount(attention.getTeacherId());
+        subAttentionCount(attention.getTeacherId());
         int row = attentionRepo.deleteById(id,-1);
         return ApiResponse.success(row);
     }
@@ -113,7 +124,7 @@ public class AttentionServiceImpl implements AttentionApi {
         teacherRepo.updateById(teacher);
     }
 
-    public void subddAttentionCount(Integer teacherId){
+    public void subAttentionCount(Integer teacherId){
         TeacherBo teacherBo = teacherRepo.getById(teacherId);
         int addAttentionCount = teacherBo.getAttentionCount();
         if (addAttentionCount>0) {

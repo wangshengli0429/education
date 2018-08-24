@@ -1,6 +1,8 @@
 package com.education.framework.service;
 
 import com.education.framework.common.response.ApiResponse;
+import com.education.framework.model.base.Page;
+import com.education.framework.model.base.PageParam;
 import com.education.framework.model.bo.AttentionBo;
 import com.education.framework.model.co.AttentionCo;
 
@@ -42,5 +44,8 @@ public interface AttentionApi {
      * @return
      */
     ApiResponse<List<AttentionBo>> findByCondition(AttentionCo attentionCo);
+
+
+    ApiResponse<Page<AttentionBo>> getPageByCondition(AttentionCo attentionCo, PageParam pageParam);
 
 }

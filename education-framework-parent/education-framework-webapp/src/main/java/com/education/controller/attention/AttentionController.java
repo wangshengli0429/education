@@ -4,6 +4,8 @@ import com.education.framework.common.response.ApiResponse;
 import com.education.framework.common.response.ResultData;
 import com.education.framework.common.response.constants.ApiRetCode;
 import com.education.framework.common.util.AgeUtils;
+import com.education.framework.model.base.Page;
+import com.education.framework.model.base.PageParam;
 import com.education.framework.model.bo.AttentionBo;
 import com.education.framework.model.bo.TeacherBo;
 import com.education.framework.model.co.AttentionCo;
@@ -11,6 +13,7 @@ import com.education.framework.model.constant.AttentionEnum;
 import com.education.framework.model.constant.TeacherEnum;
 import com.education.framework.service.AttentionApi;
 import com.education.framework.service.TeacherApi;
+import com.google.common.collect.Lists;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,27 +59,34 @@ public class AttentionController {
         return ResultData.successed(apiResponse.getBody());
     }
 
-    @RequestMapping(value = "/studentId",method = RequestMethod.GET)
-    public ResultData findByStudentId(AttentionBo attentionBo){
-        if (null==attentionBo){return ResultData.failed("attentionBo不能为空!");}
-        if (null==attentionBo.getStudentId()){return ResultData.failed("studentId!");}
-        AttentionCo attentionCo = new AttentionCo();
-        attentionCo.setStudentId(attentionBo.getStudentId());
+    @RequestMapping(value = "/student",method = RequestMethod.GET)
+    public ResultData findByStudentId(AttentionCo attentionCo){
+        if (null==attentionCo){return ResultData.failed("attentionCo不能为空!");}
+        if (null==attentionCo.getStudentId()){return ResultData.failed("studentId!");}
         attentionCo.setStatus(AttentionEnum.status.status_true.getValue());
-        attentionCo
-                // 排序有问题，最新的排最前面
-        // 排序有问题，最新的排最前面
-        // 排序有问题，最新的排最前面
-        // 排序有问题，最新的排最前面
-        // 排序有问题，最新的排最前面
-        // 排序有问题，最新的排最前面
-        ApiResponse<List<AttentionBo>> apiResponse = attentionsApi.findByCondition(attentionCo);
+        PageParam pageParam = new PageParam();
+        pageParam.setPageSize(attentionCo.getPageSize());
+        pageParam.setPageNum(attentionCo.getPageNum());
+        pageParam.setOrderBy(" update_time desc,id desc ");
+        ApiResponse<Page<AttentionBo>> apiResponse = attentionsApi.getPageByCondition(attentionCo,pageParam);
         if (ApiRetCode.SUCCESS_CODE != apiResponse.getRetCode()){
             return ResultData.failed(apiResponse.getMessage());
         }
-        if (CollectionUtils.isNotEmpty(apiResponse.getBody())){
-            for (AttentionBo attentionBo1 : apiResponse.getBody()){
-                teacherApi.getById()
+        if ( null!=apiResponse.getBody() && CollectionUtils.isNotEmpty(apiResponse.getBody().getList())){
+            List<Integer> ids = Lists.newArrayList();
+            for (AttentionBo attentionBo1 : apiResponse.getBody().getList()){
+                ids.add(attentionBo1.getTeacherId());
+            }
+            List<TeacherBo> teacherBos = teacherApi.getListByIds(ids).getBody();
+            for (AttentionBo attentionBo1 : apiResponse.getBody().getList()){
+                if (CollectionUtils.isNotEmpty(teacherBos)){
+                   for (TeacherBo teacherBo : teacherBos){
+                       if (teacherBo.getId().equals(attentionBo1.getTeacherId())){
+                           this.setTeacherDo(attentionBo1,teacherBo);
+                           break;
+                       }
+                   }
+                }
             }
         }
         return ResultData.successed(apiResponse.getBody());
