@@ -127,7 +127,7 @@ public class TeacherController {
 			}
 
 		}catch (Exception e){
-
+			ResultData.failed(e.getMessage());
 		}
 		return ResultData.successed(teacherBo);
 	}

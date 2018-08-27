@@ -18,6 +18,11 @@ public class TeacherControllerTest extends BaseTest{
     }
 
     @Test
+    public void testGetinformation() throws Exception{
+        mockMvc.perform(MockMvcRequestBuilders.get("/teacher/information?id=1"));
+    }
+
+    @Test
     public void testList() throws Exception{
         TeacherVo bvo = new TeacherVo();
         mockMvc.perform(MockMvcRequestBuilders.

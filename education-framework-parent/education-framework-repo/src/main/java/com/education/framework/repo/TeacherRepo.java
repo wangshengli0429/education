@@ -123,13 +123,13 @@ public class TeacherRepo extends BaseDao<Teacher,TeacherCo,TeacherBo> {
     private void handleSort(StringBuilder sql, TeacherCo teacherCo) {
 
         if (null ==teacherCo.getSortOrder()){
-            sql.append(" ORDER BY t.update_time desc ");
+            sql.append(" ORDER BY t.update_time desc,t.id desc ");
         }else if (teacherCo.getSortOrder().equals(TeacherCo.ZONGHE)){
-            sql.append(" ORDER BY t.update_time desc ");
+            sql.append(" ORDER BY t.update_time desc,t.id desc ");
         }else if (teacherCo.getSortOrder().equals(TeacherCo.COMMENT_DESC)){
-            sql.append(" ORDER BY t.comment_count desc ");
+            sql.append(" ORDER BY t.comment_count desc,t.id desc ");
         }else if (teacherCo.getSortOrder().equals(TeacherCo.ORDER_DESC)){
-            sql.append(" ORDER BY t.order_count desc ");
+            sql.append(" ORDER BY t.order_count desc,t.id desc ");
         }
 
     }

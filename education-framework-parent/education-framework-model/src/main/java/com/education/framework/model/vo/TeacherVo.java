@@ -97,6 +97,18 @@ public class TeacherVo implements Serializable,Cloneable{
      */
     private Integer commentCount;
 
+    /**
+     * 评论数
+     */
+    private Double commentValue;
+
+    public Double getCommentValue() {
+        return commentValue;
+    }
+
+    public void setCommentValue(Double commentValue) {
+        this.commentValue = commentValue;
+    }
 
     public Integer getId() {
         return id;

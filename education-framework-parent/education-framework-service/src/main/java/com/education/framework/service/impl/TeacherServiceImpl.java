@@ -4,17 +4,21 @@ import com.education.framework.common.response.ApiResponse;
 import com.education.framework.common.response.constants.ApiRetCode;
 import com.education.framework.model.base.Page;
 import com.education.framework.model.base.PageParam;
+import com.education.framework.model.bo.CommentBo;
 import com.education.framework.model.bo.TeacherBo;
 import com.education.framework.model.co.TeacherCo;
 import com.education.framework.model.po.Teacher;
 import com.education.framework.model.po.User;
 import com.education.framework.model.vo.TeacherVo;
+import com.education.framework.repo.CommentRepo;
 import com.education.framework.repo.TeacherRepo;
 import com.education.framework.repo.UserRepo;
 import com.education.framework.service.TeacherApi;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,6 +32,9 @@ public class TeacherServiceImpl implements TeacherApi{
 
     @Resource
     private UserRepo userRepo;
+
+    @Resource
+    private CommentRepo commentRepo;
 
     @Override
     public ApiResponse<Integer> save(TeacherBo teacherBo) {
@@ -104,6 +111,7 @@ public class TeacherServiceImpl implements TeacherApi{
         if (null==condition){return ApiResponse.fail(ApiRetCode.PARAMETER_ERROR,"condition不能为空!");}
         Page<TeacherVo> resultData = new Page<TeacherVo>();
         List<TeacherVo> list = teacherRepo.listByTeacher(condition);
+        teacherCommentValue(list);
         resultData.setList(list);
         if (null!=condition.getPageNum() && null!=condition.getPageSize()) {
             int count = teacherRepo.countByTeacher(condition);
@@ -119,4 +127,26 @@ public class TeacherServiceImpl implements TeacherApi{
         }
         return ApiResponse.success(resultData, "查询成功");
     }
+
+    private void teacherCommentValue(List<TeacherVo> list){
+        if (CollectionUtils.isNotEmpty(list)){
+            List<Integer> teacherIds = new ArrayList<Integer>();
+            for (TeacherVo teacherVo : list){
+                teacherIds.add(teacherVo.getId());
+            }
+            List<CommentBo> commentBos = commentRepo.listByTeacherIds(teacherIds);
+            if (CollectionUtils.isNotEmpty(commentBos)){
+                for (TeacherVo teacherVo : list){
+                    for (CommentBo commentBo:commentBos){
+                        if (teacherVo.getId().equals(commentBo.getTeacherId())){
+                            teacherVo.setCommentValue(commentBo.getCommentValue());
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
 }

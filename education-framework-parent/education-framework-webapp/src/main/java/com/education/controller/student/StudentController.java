@@ -6,9 +6,13 @@ import java.util.Map;
 import com.education.framework.common.response.ApiResponse;
 import com.education.framework.common.response.ResultData;
 import com.education.framework.common.response.constants.ApiRetCode;
+import com.education.framework.common.util.AgeUtils;
+import com.education.framework.model.base.Page;
 import com.education.framework.model.bo.StudentBo;
+import com.education.framework.model.constant.TeacherEnum;
 import com.education.framework.model.po.Student;
 import com.education.framework.service.StudentApi;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,7 +50,17 @@ public class StudentController {
         if (ApiRetCode.SUCCESS_CODE != apiResponse.getRetCode()){
             return ResultData.failed(apiResponse.getMessage());
         }
+        studentHandle(apiResponse.getBody());
         return ResultData.successed(apiResponse.getBody());
+    }
+
+    private void studentHandle(StudentBo studentBo) {
+        try {
+            // 计算年龄
+            studentBo.setAge(AgeUtils.getAge(studentBo.getBirthday()));
+        }catch (Exception e){
+
+        }
     }
 
 
