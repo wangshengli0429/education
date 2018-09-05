@@ -19,7 +19,8 @@ public class AttentionControllerTest extends BaseTest {
     public void testList() throws Exception{
         TeacherVo bvo = new TeacherVo();
         mockMvc.perform(MockMvcRequestBuilders.
-                get("/attention/studentId").contentType(MediaType.APPLICATION_JSON_UTF8)
+                get("/attention/student").contentType(MediaType.APPLICATION_JSON_UTF8)
+                .param("studentId","1")
                 .param("pageNum","1")
                 .param("pageSize","10"));
 
