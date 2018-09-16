@@ -1,4 +1,4 @@
-package com.education.controller.teacher;
+package com.education.app.controller.teacher;
 
 import java.util.List;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.education.controller.idcard;
+package com.education.app.controller.idcard;
 
 import com.education.framework.common.response.ApiResponse;
 import com.education.framework.common.response.ResultData;

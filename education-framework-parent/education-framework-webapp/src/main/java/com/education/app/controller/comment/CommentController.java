@@ -1,4 +1,4 @@
-package com.education.controller.comment;
+package com.education.app.controller.comment;
 
 import java.util.List;
 import java.util.Map;

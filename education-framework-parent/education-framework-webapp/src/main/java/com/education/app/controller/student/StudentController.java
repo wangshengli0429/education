@@ -1,4 +1,4 @@
-package com.education.controller.student;
+package com.education.app.controller.student;
 
 import java.util.HashMap;
 import java.util.Map;

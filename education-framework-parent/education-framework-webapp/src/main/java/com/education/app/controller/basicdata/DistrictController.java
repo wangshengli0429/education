@@ -1,4 +1,4 @@
-package com.education.controller.basicdata;
+package com.education.app.controller.basicdata;
 
 import com.education.framework.common.response.ApiResponse;
 import com.education.framework.common.response.ResultData;

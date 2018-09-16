@@ -1,4 +1,4 @@
-package com.education.controller.attention;
+package com.education.app.controller.attention;
 
 import com.education.framework.common.response.ApiResponse;
 import com.education.framework.common.response.ResultData;

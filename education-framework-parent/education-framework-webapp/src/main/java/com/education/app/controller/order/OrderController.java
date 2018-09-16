@@ -1,4 +1,4 @@
-package com.education.controller.order;
+package com.education.app.controller.order;
 
 import com.education.framework.common.response.ApiResponse;
 import com.education.framework.common.response.ResultData;

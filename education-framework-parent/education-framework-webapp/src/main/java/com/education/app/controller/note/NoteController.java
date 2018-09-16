@@ -1,4 +1,4 @@
-package com.education.controller.note;
+package com.education.app.controller.note;
 
 import java.util.Map;
 

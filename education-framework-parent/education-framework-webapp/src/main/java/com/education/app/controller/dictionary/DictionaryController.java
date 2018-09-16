@@ -1,4 +1,4 @@
-package com.education.controller.dictionary;
+package com.education.app.controller.dictionary;
 
 import com.education.framework.common.response.ApiResponse;
 import com.education.framework.common.response.ResultData;

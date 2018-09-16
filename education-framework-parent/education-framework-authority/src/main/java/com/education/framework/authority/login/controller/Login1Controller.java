@@ -23,11 +23,11 @@ import com.education.framework.common.service.LogFormatService;
 import com.education.framework.common.util.Const;
 
 @Controller
-@RequestMapping("/login")
-public class LoginController extends BaseController {
+@RequestMapping("/login1")
+public class Login1Controller extends BaseController {
 
     /** 日志 */
-    private static Logger LOGGER = Logger.getLogger(LoginController.class);
+    private static Logger LOGGER = Logger.getLogger(Login1Controller.class);
     @Autowired
     private LoginService loginService;
     /** startTime */
@@ -115,10 +115,10 @@ public class LoginController extends BaseController {
                 model.addAttribute(VarKeys.MSG, "系统繁忙，请稍候再试");
                 model.addAttribute("userName", loginUser.getManageCode());
                 LOGGER.error(LogFormatService.logFormat("登录end,登录异常", startTime,
-                        LoginController.class.toString() + ":login"), e);
+                        Login1Controller.class.toString() + ":login"), e);
             }
         }
-        LOGGER.info(LogFormatService.logFormat("登录end", startTime, LoginController.class.toString() + ":login"));
+        LOGGER.info(LogFormatService.logFormat("登录end", startTime, Login1Controller.class.toString() + ":login"));
        
         return url;
     }
@@ -143,9 +143,9 @@ public class LoginController extends BaseController {
             session.removeAttribute("user");
             valueMap.clear();
             this.jsonResponse("{\"success\":true,\"msg\":\"退出成功\"}", response);
-            LOGGER.info(LogFormatService.logFormat("退出成功:", startTime, LoginController.class.toString() + ":logout"));
+            LOGGER.info(LogFormatService.logFormat("退出成功:", startTime, Login1Controller.class.toString() + ":logout"));
         } catch (Exception e) {
-            LOGGER.error(LogFormatService.logFormat("退出失败", startTime, LoginController.class.toString() + ":logout"), e);
+            LOGGER.error(LogFormatService.logFormat("退出失败", startTime, Login1Controller.class.toString() + ":logout"), e);
         }
         return null;
     }

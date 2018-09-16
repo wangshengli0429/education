@@ -1,12 +1,10 @@
-package com.education.controller.teacher;
+package com.education.app.controller.teacher;
 
 import com.education.framework.common.response.ApiResponse;
 import com.education.framework.common.response.ResultData;
 import com.education.framework.common.response.constants.ApiRetCode;
 import com.education.framework.common.util.AgeUtils;
-import com.education.framework.common.util.BaseMapper;
 import com.education.framework.model.base.Page;
-import com.education.framework.model.base.PageParam;
 import com.education.framework.model.bo.AttentionBo;
 import com.education.framework.model.bo.TeacherBo;
 import com.education.framework.model.co.AttentionCo;
@@ -16,7 +14,6 @@ import com.education.framework.model.co.TeacherSubjectCo;
 import com.education.framework.model.constant.TeacherCertificateEnum;
 import com.education.framework.model.constant.TeacherEnum;
 import com.education.framework.model.po.District;
-import com.education.framework.model.po.TeacherSubject;
 import com.education.framework.model.vo.TeacherVo;
 import com.education.framework.service.*;
 import org.apache.commons.collections.CollectionUtils;
@@ -26,8 +23,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
