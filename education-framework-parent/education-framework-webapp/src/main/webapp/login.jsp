@@ -30,7 +30,7 @@
 	    <span>管理员登录</span>
 	  </div>
 	  <div class='login_fields'>
-	  		<form id="loginForm" method="post" action="<%=path %>/login/doLogin">
+	  		<form id="loginForm" method="post" >
 			    <div class='login_fields__user'>
 			      <div class='icon'>
 			        <img alt="" src='<%=path %>/static/layui_login/img/user_icon_copy.png'>
@@ -59,7 +59,7 @@
 <!-- 			      </div> -->
 <!-- 			    </div> -->
 			    <div class='login_fields__submit'>
-			        <input type='submit'  lay-submit lay-filter="formDemo" value='登录'/>
+			        <input type='button' id="submitInput"  lay-submit lay-filter="formDemo" value='登录'/>
 			    </div>
 			</form>    
 	  </div>
@@ -99,6 +99,15 @@
 		var truepwd = "123456";
 		
 		var CodeVal = 0;
+		$(function() {
+			$("#submitInput").click(function() {
+				// 验证提交参数
+				$("#loginForm").attr("action" , "<%=path %>/login-web/doLogin");
+				$("#loginForm").submit();
+			})
+        })
+
+
 		
 		/************* 验证码 ****************/
 // 	    Code();
@@ -158,6 +167,7 @@
 	    });
 	    var open = 0;
 	    layui.use('layer', function () {
+
 			var msgalert = '默认账号:' + truelogin + '<br/> 默认密码:' + truepwd;
 //     		var index = layer.alert(msgalert, { icon: 6, time: 4000, offset: 't', closeBtn: 0, title: '友情提示', btn: [], anim: 2, shade: 0 });  
 // 			layer.style(index, {
@@ -198,7 +208,8 @@
 	                //登录验证...
 	                var LoginUser = { manageCode: manageCode, managePwd: managePwd};
 					//此处做为ajax内部判断
-					var url = "<%=path %>/login/doLogin";
+					var url = "<%=path %>/web-login/doLogin";
+					alert(url);
 // 					if(LoginUser.manageCode == truelogin && LoginUser.managePwd == truepwd && LoginUser.code.toUpperCase() == CodeVal.toUpperCase()){
 // 					if(LoginUser.code.toUpperCase() == CodeVal.toUpperCase()){
 <%-- 						url = "<%=path %>/login/doLogin"; --%>

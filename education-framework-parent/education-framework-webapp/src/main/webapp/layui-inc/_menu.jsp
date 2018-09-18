@@ -4,7 +4,7 @@
       <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class="layui-nav layui-nav-tree"  lay-filter="test">
         <li class="layui-nav-item layui-nav-itemed">
-          <a href="${path}/to/query/teacher">教师管理</a>
+          <a href="${path}/teacher-web/toTeacherPageList">教师管理</a>
          <!--  <dl class="layui-nav-child">
             <dd><a href="javascript:;">列表一</a></dd>
             <dd><a href="javascript:;">列表二</a></dd>

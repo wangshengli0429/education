@@ -115,13 +115,13 @@ layui.use(['layer', 'table','laypage', 'element'], function(){
 	    elem: '#dataTable_'+cerStatus,
     	where:{"cerStatus":cerStatus,keyword:$("input[name='keyword']").val()},
 	    height: 450,
-	    url: '${path}/query/teacher',    //数据接口
+	    url: '${path}/teacher-web/getTeacherPageList',    //数据接口
 	    skin: 'row', //表格风格
 	    even: true,
 	    page: true , //是否显示分页
 	    cols: [[ //表头
-	      {field: 'teacherName', title: '教师姓名', align:'center',width:140}
-	      ,{field: 'phone', title: '电话', align:'center',width:120}
+	      {field: 'name', title: '教师姓名', align:'center',width:140}
+	      ,{field: 'telephone', title: '电话', align:'center',width:120}
 	      ,{field: 'age', title: '年龄', align:'center',width:50}
 	      ,{field: 'nativePlace', title: '籍贯', align:'center',width:140}
 	      ,{field: 'province', title: '所在省份', align:'center',width:140}

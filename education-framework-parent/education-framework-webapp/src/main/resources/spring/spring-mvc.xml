@@ -19,7 +19,7 @@
     <mvc:default-servlet-handler />
    
     <!-- 自动扫描Controller -->
-    <context:component-scan base-package="com.education.controller,com.education.framework.authority" />
+    <context:component-scan base-package="com.education.app.controller,com.education.web.controller,com.education.framework.authority" />
           
    
     

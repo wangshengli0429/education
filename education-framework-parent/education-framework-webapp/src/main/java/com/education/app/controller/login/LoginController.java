@@ -1,5 +1,6 @@
 package com.education.app.controller.login;
 
+import com.education.framework.common.service.LogFormatService;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ public class LoginController {
 
     @RequestMapping("doLogin")
     public String login(Model model, String manageCode, String managePwd,HttpSession session) {
+        logger.info(LogFormatService.logogram("登录start..."));
 
 
 
